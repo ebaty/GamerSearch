@@ -1,0 +1,78 @@
+PODS:
+  - BlocksKit (2.2.5):
+    - BlocksKit/All
+  - BlocksKit/All (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.5)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/MessageUI (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - Bolts (1.1.2)
+  - Canvas (0.1.2)
+  - CocoaLumberjack (2.0.0-beta):
+    - CocoaLumberjack/CLI
+    - CocoaLumberjack/Core
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/CLI (2.0.0-beta):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Core (2.0.0-beta)
+  - CocoaLumberjack/Extensions (2.0.0-beta):
+    - CocoaLumberjack/Core
+  - Facebook-iOS-SDK (3.17.0):
+    - Bolts
+  - FontAwesomeKit (2.1.8):
+    - FontAwesomeKit/Core
+    - FontAwesomeKit/FontAwesome
+    - FontAwesomeKit/FoundationIcons
+    - FontAwesomeKit/IonIcons
+    - FontAwesomeKit/Zocial
+  - FontAwesomeKit/Core (2.1.8)
+  - FontAwesomeKit/FontAwesome (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.1.8):
+    - FontAwesomeKit/Core
+  - Google-Maps-iOS-SDK (1.8.1)
+  - LumberjackConsole (2.2.0):
+    - CocoaLumberjack (>= 2.0.0-beta)
+    - NBUCore (>= 2.0.3)
+  - NBUCore (2.0.3)
+  - Parse-iOS-SDK (1.2.21):
+    - Bolts
+    - Facebook-iOS-SDK (~> 3.7)
+  - SVProgressHUD (1.0)
+
+DEPENDENCIES:
+  - BlocksKit
+  - Canvas
+  - CocoaLumberjack
+  - FontAwesomeKit
+  - Google-Maps-iOS-SDK
+  - LumberjackConsole
+  - Parse-iOS-SDK
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  BlocksKit: 4439e7f30a9f90743462ca63545a15c1f4304cef
+  Bolts: 2635e8698a630774689441047f3465d78c48d485
+  Canvas: ae2faca05a15c4d6659fb3ae5e2a14817df4449a
+  CocoaLumberjack: aadc76d7bd6c839ca84b38ed50cbf89d7cf8c693
+  Facebook-iOS-SDK: f20274d809f112ba540842e2b6cbe50128d51b7b
+  FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
+  Google-Maps-iOS-SDK: 4fe35d952dbd1e4dacfcfa178e9cce2f06d67ecc
+  LumberjackConsole: a0288d9da48481deae27351a54d9e908cf0743c5
+  NBUCore: 397184612d5f05d7730aaad98d6bc0a75b7984ef
+  Parse-iOS-SDK: 3781eeb56fa6b30d4feee97ee0d22595c07d6c70
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+
+COCOAPODS: 0.33.1
