@@ -13,4 +13,18 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    #import <BlocksKit+UIKit.h>
+    #import <SVProgressHUD.h>
+    #import <CocoaLumberjack.h>
+
+#define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
+#endif
+
+#ifdef DEBUG
+    // デバッグ時は全レベルのログを表示する
+    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+    // リリース時はログを表示しない
+    static const int ddLogLevel = LOG_LEVEL_OFF;
 #endif
