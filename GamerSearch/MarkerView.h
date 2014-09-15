@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class MarkerView;
+@protocol MarkerViewDelegate <NSObject>
+
+- (void)didPushedMarkerViewButton;
+
+@end
+
 @interface MarkerView : UIView
 
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSString *snipet;
+
+@property (nonatomic) id<MarkerViewDelegate> delegate;
 
 @end

@@ -86,14 +86,23 @@
         @"H:|-8-[_fightLabel]-[_fightGameUserLabel]-8-|",
         @"H:|-8-[_musicLabel]-[_musicGameUserLabel]-8-|",
         @"H:|-8-[_actionLabel]-[_actionGameUserLabel]-8-|",
-        @"V:|[_userLabel]-[_fightLabel]-[_musicLabel]-[_actionLabel]|",
-        @"V:|[_gameUserLabel]-[_fightGameUserLabel]-[_musicGameUserLabel]-[_actionGameUserLabel]|"
+        @"V:|-5-[_userLabel]-[_fightLabel]-[_musicLabel]-[_actionLabel]-5-|",
+        @"V:|-5-[_gameUserLabel]-[_fightGameUserLabel]-[_musicGameUserLabel]-[_actionGameUserLabel]-5-|"
     };
     
-    for ( int i = 0; i < 6; ++i ) {
+    NSUInteger options[] = {
+        NSLayoutFormatAlignAllCenterY,
+        NSLayoutFormatAlignAllCenterY,
+        NSLayoutFormatAlignAllCenterY,
+        NSLayoutFormatAlignAllCenterY,
+        0,
+        0
+    };
+    for ( int i = 0; i < 6
+         ; ++i ) {
         NSArray *constraints =
             [NSLayoutConstraint constraintsWithVisualFormat:formats[i]
-                                                    options:0
+                                                    options:options[i]
                                                     metrics:nil
                                                       views:viewsDictionary];
         [self addConstraints:constraints];

@@ -14,7 +14,7 @@
 
 #define kGameCenterArraykey  @"GameCenterArray"
 
-@interface MapViewController () <GMSMapViewDelegate, UIAlertViewDelegate>
+@interface MapViewController () <GMSMapViewDelegate, UIAlertViewDelegate, MarkerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -127,6 +127,7 @@
     _markerWindow = [MarkerView new];
     _markerWindow.title = marker.title;
     _markerWindow.snipet = marker.snippet;
+    _markerWindow.delegate = self;
     
     [_bottomView addSubview:_markerWindow];
     
@@ -145,6 +146,11 @@
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
     return [UIView new];
+}
+
+#pragma mark - MarkerView delegate methods.
+- (void)didPushedMarkerViewButton {
+    [self performSegueWithIdentifier:@"userListSegue" sender:nil];
 }
 
 @end

@@ -196,10 +196,7 @@
 			children = (
 				F4FFEC7F19C5D3BD00A48BDE /* MapViewController.h */,
 				F4FFEC8019C5D3BD00A48BDE /* MapViewController.m */,
-				F4FFEC8F19C6C33900A48BDE /* MarkerView.h */,
-				F4FFEC9019C6C33900A48BDE /* MarkerView.m */,
-				F4FFEC9219C6C4FD00A48BDE /* MarkerDetailView.h */,
-				F4FFEC9319C6C4FD00A48BDE /* MarkerDetailView.m */,
+				F4FFECA219C7561E00A48BDE /* MarkerView */,
 			);
 			name = MapViewController;
 			sourceTree = "<group>";
@@ -220,6 +217,17 @@
 				F4FFEC9B19C6CD8700A48BDE /* UIView+Indicator.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		F4FFECA219C7561E00A48BDE /* MarkerView */ = {
+			isa = PBXGroup;
+			children = (
+				F4FFEC8F19C6C33900A48BDE /* MarkerView.h */,
+				F4FFEC9019C6C33900A48BDE /* MarkerView.m */,
+				F4FFEC9219C6C4FD00A48BDE /* MarkerDetailView.h */,
+				F4FFEC9319C6C4FD00A48BDE /* MarkerDetailView.m */,
+			);
+			name = MarkerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
