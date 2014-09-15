@@ -17,9 +17,11 @@
 @interface MapViewController () <GMSMapViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
-@property (nonatomic) UIView *markerWindow;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomSpace;
 
+@property (nonatomic) MarkerView *markerWindow;
 @end
 
 @implementation MapViewController
@@ -112,4 +114,37 @@
     [alert performSelector:@selector(show) withObject:nil afterDelay:0.25f];
 }
 
+-(BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    _bottomSpace.constant = 160.0f;
+    [self.view setNeedsLayout];
+    
+    [UIView animateWithDuration:0.16 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
+    [_markerWindow removeFromSuperview];
+    
+    _markerWindow = [MarkerView new];
+    _markerWindow.title = marker.title;
+    _markerWindow.snipet = marker.snippet;
+    
+    [_bottomView addSubview:_markerWindow];
+    
+    return NO;
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+    _bottomSpace.constant = 0;
+    
+    [self.view setNeedsLayout];
+    
+    [UIView animateWithDuration:0.16 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+}
 @end

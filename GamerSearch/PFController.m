@@ -22,7 +22,7 @@
         if ( !error ) {
             block(objects);
         }else {
-            DDLogError(@"queryGameCenter:%@", error);
+            DDLogError(@"%@", error);
         }
         
     }];
@@ -33,7 +33,11 @@
     
     [query whereKey:@"gameCenterName" equalTo:gameCenterName];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        block(objects);
+        if ( !error ) {
+            block(objects);
+        }else {
+            DDLogError(@"%@", error);
+        }
     }];
 }
 

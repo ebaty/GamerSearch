@@ -120,9 +120,9 @@
         int actionUser = 0;
         
         for ( PFObject *user in users ) {
-            if ( user[@"fightUser"]  ) ++fightUser;
-            if ( user[@"musicUser"]  ) ++musicUser;
-            if ( user[@"actionUser"] ) ++actionUser;
+            if ( [user[@"fightUser"] isEqual:@YES]  ) ++fightUser;
+            if ( [user[@"musicUser"] isEqual:@YES]  ) ++musicUser;
+            if ( [user[@"actionUser"] isEqual:@YES] ) ++actionUser;
         }
         
         UILabel *labels[] = {_gameUserLabel, _fightGameUserLabel, _musicGameUserLabel, _actionGameUserLabel};

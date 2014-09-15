@@ -24,7 +24,6 @@
 - (id)init {
     self = [super init];
     if ( self ) {
-        self.layer.cornerRadius = 5;
         self.layer.borderWidth = 1;
         self.layer.borderColor = UIColor.lightGrayColor.CGColor;
         self.clipsToBounds = YES;
@@ -32,6 +31,8 @@
         
         [self initUI];
         [self layout];
+        self.title = @"ピンクパンサーつくば店";
+        
     }
     return self;
 }
@@ -40,8 +41,8 @@
     _titleLabel = [UILabel new];
     _snipetLabel = [UILabel new];
     
-    _titleLabel.font = [UIFont systemFontOfSize:13];
-    _snipetLabel.font = [UIFont systemFontOfSize:8];
+    _titleLabel.font = [UIFont systemFontOfSize:15];
+    _snipetLabel.font = [UIFont systemFontOfSize:12];
 
     _snipetLabel.textColor = UIColor.lightGrayColor;
     
@@ -59,10 +60,10 @@
         NSDictionaryOfVariableBindings(_titleLabel, _snipetLabel, _detailView);
     
     NSString *formats[] = {
-        @"H:|[_titleLabel(>=100,<=200)]|",
-        @"H:|[_snipetLabel(>=100,<=200)]|",
-        @"H:|[_detailView(>=100,<=200)]|",
-        @"V:|[_titleLabel]-[_snipetLabel]-[_detailView]|"
+        @"H:|-8-[_titleLabel]-8-|",
+        @"H:|-8-[_snipetLabel]-8-|",
+        @"H:|[_detailView]|",
+        @"V:|-4-[_titleLabel(==21)][_snipetLabel(==21)]-[_detailView(==110)]|"
     };
     
     for ( int i = 0; i < 4; ++i ) {

@@ -58,17 +58,28 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYl-3i-FOo">
+                                <rect key="frame" x="0.0" y="519" width="320" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aYl-3i-FOo" firstAttribute="leading" secondItem="Zvq-zB-CCz" secondAttribute="leading" id="5aS-EB-BVn"/>
+                            <constraint firstAttribute="trailing" secondItem="aYl-3i-FOo" secondAttribute="trailing" id="VzO-iX-vbE"/>
                             <constraint firstAttribute="trailing" secondItem="t5a-Vg-pPg" secondAttribute="trailing" id="bSx-Kk-bYc"/>
                             <constraint firstItem="t5a-Vg-pPg" firstAttribute="top" secondItem="gjO-M8-0t9" secondAttribute="bottom" id="bnG-ia-2Q9"/>
+                            <constraint firstItem="Uky-4n-hBz" firstAttribute="top" secondItem="aYl-3i-FOo" secondAttribute="bottom" id="lKX-ly-Wwz"/>
+                            <constraint firstItem="aYl-3i-FOo" firstAttribute="top" secondItem="t5a-Vg-pPg" secondAttribute="bottom" id="tqL-mO-0kH"/>
                             <constraint firstItem="Uky-4n-hBz" firstAttribute="top" secondItem="t5a-Vg-pPg" secondAttribute="bottom" id="vCJ-Zc-Gxh"/>
                             <constraint firstItem="t5a-Vg-pPg" firstAttribute="leading" secondItem="Zvq-zB-CCz" secondAttribute="leading" id="yax-sx-IF1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="マップ" id="0JI-Jy-mkT"/>
                     <connections>
+                        <outlet property="bottomSpace" destination="vCJ-Zc-Gxh" id="KLW-pi-kdL"/>
+                        <outlet property="bottomView" destination="aYl-3i-FOo" id="Uza-OV-V2k"/>
                         <outlet property="mapView" destination="t5a-Vg-pPg" id="JmH-S4-adN"/>
                     </connections>
                 </viewController>
