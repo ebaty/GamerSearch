@@ -1,5 +1,5 @@
 //
-//  GameCenterDetailView.h
+//  UIView+Indicator.h
 //  GamerSearch
 //
 //  Created by Masaki EBATA on 2014/09/15.
@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameCenterDetailView : UIView
+@interface UIView (Indicator)
 
-@property (nonatomic) NSString *gameCetnerName;
+- (void)showIndicator;
+- (void)dismissIndicator;
 
 @end

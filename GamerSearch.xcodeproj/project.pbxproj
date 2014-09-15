@@ -27,8 +27,9 @@
 		F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */; };
 		F4FFEC8D19C5D3BD00A48BDE /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */; };
 		F4FFEC9119C6C33900A48BDE /* MarkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC9019C6C33900A48BDE /* MarkerView.m */; };
-		F4FFEC9419C6C4FD00A48BDE /* GameCenterDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC9319C6C4FD00A48BDE /* GameCenterDetailView.m */; };
+		F4FFEC9419C6C4FD00A48BDE /* MarkerDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC9319C6C4FD00A48BDE /* MarkerDetailView.m */; };
 		F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC9619C6C6CC00A48BDE /* PFController.m */; };
+		F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC9B19C6CD8700A48BDE /* UIView+Indicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,10 +74,12 @@
 		F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		F4FFEC8F19C6C33900A48BDE /* MarkerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerView.h; sourceTree = "<group>"; };
 		F4FFEC9019C6C33900A48BDE /* MarkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerView.m; sourceTree = "<group>"; };
-		F4FFEC9219C6C4FD00A48BDE /* GameCenterDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterDetailView.h; sourceTree = "<group>"; };
-		F4FFEC9319C6C4FD00A48BDE /* GameCenterDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterDetailView.m; sourceTree = "<group>"; };
+		F4FFEC9219C6C4FD00A48BDE /* MarkerDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerDetailView.h; sourceTree = "<group>"; };
+		F4FFEC9319C6C4FD00A48BDE /* MarkerDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerDetailView.m; sourceTree = "<group>"; };
 		F4FFEC9519C6C6CC00A48BDE /* PFController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFController.h; sourceTree = "<group>"; };
 		F4FFEC9619C6C6CC00A48BDE /* PFController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFController.m; sourceTree = "<group>"; };
+		F4FFEC9A19C6CD8700A48BDE /* UIView+Indicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Indicator.h"; sourceTree = "<group>"; };
+		F4FFEC9B19C6CD8700A48BDE /* UIView+Indicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Indicator.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +156,7 @@
 				F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */,
 				F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */,
 				F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */,
+				F4FFEC9919C6CD7000A48BDE /* Category */,
 				F4FFEC2919C5CCB000A48BDE /* Supporting Files */,
 			);
 			path = GamerSearch;
@@ -194,8 +198,8 @@
 				F4FFEC8019C5D3BD00A48BDE /* MapViewController.m */,
 				F4FFEC8F19C6C33900A48BDE /* MarkerView.h */,
 				F4FFEC9019C6C33900A48BDE /* MarkerView.m */,
-				F4FFEC9219C6C4FD00A48BDE /* GameCenterDetailView.h */,
-				F4FFEC9319C6C4FD00A48BDE /* GameCenterDetailView.m */,
+				F4FFEC9219C6C4FD00A48BDE /* MarkerDetailView.h */,
+				F4FFEC9319C6C4FD00A48BDE /* MarkerDetailView.m */,
 			);
 			name = MapViewController;
 			sourceTree = "<group>";
@@ -207,6 +211,15 @@
 				F4FFEC9619C6C6CC00A48BDE /* PFController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		F4FFEC9919C6CD7000A48BDE /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				F4FFEC9A19C6CD8700A48BDE /* UIView+Indicator.h */,
+				F4FFEC9B19C6CD8700A48BDE /* UIView+Indicator.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,7 +355,7 @@
 			files = (
 				F4FFEC8819C5D3BD00A48BDE /* FollowListTableViewController.m in Sources */,
 				F4FFEC3319C5CCB000A48BDE /* AppDelegate.m in Sources */,
-				F4FFEC9419C6C4FD00A48BDE /* GameCenterDetailView.m in Sources */,
+				F4FFEC9419C6C4FD00A48BDE /* MarkerDetailView.m in Sources */,
 				F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */,
 				F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */,
 				F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */,
@@ -350,6 +363,7 @@
 				F4FFEC8D19C5D3BD00A48BDE /* TabBarViewController.m in Sources */,
 				F4FFEC8B19C5D3BD00A48BDE /* ProfileTableViewController.m in Sources */,
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
+				F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

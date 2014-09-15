@@ -20,6 +20,7 @@
     #import <CocoaLumberjack.h>
 
     #import "PFController.h"
+    #import "UIView+Indicator"
 #endif
 
 #ifdef DEBUG
