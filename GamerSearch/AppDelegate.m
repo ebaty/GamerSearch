@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import <Parse.h>
 #import <GoogleMaps.h>
 #import <LumberjackConsole/PTEDashboard.h>
 

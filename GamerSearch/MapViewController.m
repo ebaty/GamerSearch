@@ -8,11 +8,9 @@
 
 #import "MapViewController.h"
 
-#import <Parse.h>
 #import <FontAwesomeKit.h>
 #import <GoogleMaps.h>
 
-#define kGameCenterClassName @"GameCenter"
 #define kGameCenterArraykey  @"GameCenterArray"
 
 @interface MapViewController () <GMSMapViewDelegate, UIAlertViewDelegate>
@@ -32,7 +30,27 @@
     _mapView.settings.myLocationButton = YES;
     
     [self setGameCenterMarker];
-    [self queryGameCenter];
+    
+    [PFController queryGameCenter:^(NSArray *gameCenters) {
+        NSMutableArray *gameCenterArray = [NSMutableArray new];
+        
+        for ( PFObject *gameCenter in gameCenters ) {
+            NSMutableDictionary *gameCenterDictionary = [NSMutableDictionary new];
+            
+            gameCenterDictionary[@"name"] = gameCenter[@"name"];
+            
+            PFGeoPoint *geoPoint = gameCenter[@"geoPoint"];
+            gameCenterDictionary[@"latitude"]  = @(geoPoint.latitude);
+            gameCenterDictionary[@"longitude"] = @(geoPoint.longitude);
+            
+            [gameCenterArray addObject:gameCenterDictionary];
+        }
+        
+        [USER_DEFAULTS setObject:gameCenterArray forKey:kGameCenterArraykey];
+        [USER_DEFAULTS synchronize];
+        
+        [self setGameCenterMarker];
+    }];
 }
 
 - (void)setGameCenterMarker {
@@ -44,56 +62,18 @@
             CLLocationCoordinate2DMake([gameCenter[@"latitude"] floatValue], [gameCenter[@"longitude"] floatValue]);
         
         GMSMarker *marker = [GMSMarker markerWithPosition:coordinate];
+        
+        [[GMSGeocoder geocoder] reverseGeocodeCoordinate:coordinate
+                                       completionHandler:
+         ^(GMSReverseGeocodeResponse *response, NSError *error) {
+             GMSAddress *res = [response firstResult];
+             marker.snippet = [NSString stringWithFormat:@"%@%@%@", res.locality, res.subLocality, res.thoroughfare];
+         }];
+        
         marker.title = gameCenter[@"name"];
-
         marker.appearAnimation = YES;
         marker.map = _mapView;
     }
-}
-
-#pragma mark - Parse methods.
-- (void)queryGameCenter {
-    PFQuery *query = [PFQuery queryWithClassName:kGameCenterClassName];
-    
-    [query whereKey:@"show" equalTo:@YES];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ( !error ) {
-            NSMutableArray *gameCenterArray = [NSMutableArray new];
-            
-            for ( PFObject *object in objects ) {
-                NSMutableDictionary *gameCenterDictionary = [NSMutableDictionary new];
-                
-                gameCenterDictionary[@"name"] = object[@"name"];
-                
-                PFGeoPoint *geoPoint = object[@"geoPoint"];
-                gameCenterDictionary[@"latitude"]  = @(geoPoint.latitude);
-                gameCenterDictionary[@"longitude"] = @(geoPoint.longitude);
-                
-                [gameCenterArray addObject:gameCenterDictionary];
-            }
-            
-            [USER_DEFAULTS setObject:gameCenterArray forKey:kGameCenterArraykey];
-            [USER_DEFAULTS synchronize];
-            
-            [self setGameCenterMarker];
-        }
-
-    }];
-}
-
-- (void)postGameCenter:(NSString *)gameCenterName coordinate:(CLLocationCoordinate2D)coordinate{
-    PFObject *gameCenterObject = [PFObject objectWithClassName:kGameCenterClassName];
-    gameCenterObject[@"name"] = gameCenterName;
-    gameCenterObject[@"geoPoint"] = [PFGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-    gameCenterObject[@"show"] = @NO;
-    
-    [SVProgressHUD showWithStatus:@"リクエストを送信中です..." maskType:SVProgressHUDMaskTypeBlack];
-    [gameCenterObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if ( succeeded )
-            [SVProgressHUD showSuccessWithStatus:@"リクエストの送信を完了しました"];
-        else
-            [SVProgressHUD showErrorWithStatus:@"リクエストの送信に失敗しました"];
-    }];
 }
 
 #pragma mark - GMSMapView delegate methods.
@@ -122,11 +102,22 @@
         
         if ( gameCenterName.length > 0 ) {
             // GameCenterのPFObejctをPOST
-            [self postGameCenter:gameCenterName coordinate:coordinate];
+            [PFController postGameCenter:gameCenterName coordinate:coordinate];
         }
     }];
     
     [alert performSelector:@selector(show) withObject:nil afterDelay:0.25f];
 }
 
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
+    DDLogVerbose(@"%@", marker.title);
+}
+
+- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
+    UIView *view = [UIView new];
+    view.frame = CGRectMake(0, 0, 20, 20);
+    view.backgroundColor = UIColor.blackColor;
+    
+    return view;
+}
 @end
