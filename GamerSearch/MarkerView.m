@@ -68,7 +68,7 @@
         @"H:|-8-[_titleLabel]-[_catalogButton(<=100)]-8-|",
         @"H:|-8-[_snipetLabel]-[_catalogButton(<=100)]-8-|",
         @"H:|[_detailView]|",
-        @"V:|-(<=4)-[_titleLabel(<=21)][_snipetLabel(<=21)]-[_detailView(==110)]|",
+        @"V:|-(<=4)-[_titleLabel(<=21)][_snipetLabel(<=21)]-(<=4)-[_detailView(==115)]|",
         @"V:|-(>=10)-[_catalogButton]-(>=10)-[_detailView]"
     };
     
