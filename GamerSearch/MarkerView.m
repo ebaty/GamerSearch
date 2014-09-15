@@ -30,9 +30,7 @@
         self.backgroundColor = UIColor.whiteColor;
         
         [self initUI];
-        [self layout];
-        self.title = @"ピンクパンサーつくば店";
-        
+        [self layout];        
     }
     return self;
 }
@@ -44,7 +42,7 @@
     _titleLabel.font = [UIFont systemFontOfSize:15];
     _snipetLabel.font = [UIFont systemFontOfSize:12];
 
-    _snipetLabel.textColor = UIColor.lightGrayColor;
+    _snipetLabel.textColor = UIColor.grayColor;
     
     _detailView = [MarkerDetailView new];
 }
@@ -63,7 +61,7 @@
         @"H:|-8-[_titleLabel]-8-|",
         @"H:|-8-[_snipetLabel]-8-|",
         @"H:|[_detailView]|",
-        @"V:|-4-[_titleLabel(==21)][_snipetLabel(==21)]-[_detailView(==110)]|"
+        @"V:|-(<=4)-[_titleLabel(<=21)][_snipetLabel(<=21)]-[_detailView(>=110)]|"
     };
     
     for ( int i = 0; i < 4; ++i ) {
@@ -76,15 +74,6 @@
     }
     
 
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
-    DDLogVerbose(@"%@", self);
-    DDLogVerbose(@"%@", _titleLabel);
-    DDLogVerbose(@"%@", _snipetLabel);
-    DDLogVerbose(@"%@", _detailView);
 }
 
 - (void)didMoveToSuperview {

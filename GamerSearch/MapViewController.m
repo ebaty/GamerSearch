@@ -134,7 +134,6 @@
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
-    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
     _bottomSpace.constant = 0;
     
     [self.view setNeedsLayout];
@@ -144,7 +143,8 @@
     }];
 }
 
-- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
-    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
+    return [UIView new];
 }
+
 @end

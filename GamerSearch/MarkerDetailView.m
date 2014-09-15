@@ -43,6 +43,8 @@
     _musicLabel  = [UILabel new];
     _actionLabel = [UILabel new];
     
+    [[UILabel appearanceWhenContainedIn:[self class], nil] setFont:[UIFont systemFontOfSize:15.0f]];
+    
     UILabel *labels[] = {_userLabel, _fightLabel, _musicLabel, _actionLabel};
     NSString *titles[] = {@"総人数", @"格闘ゲーム", @"音楽ゲーム", @"アクションゲーム"};
     for ( int i = 0; i < 4; ++i ) {
@@ -99,12 +101,6 @@
     
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
-    DDLogVerbose(@"%@", self);
-}
-
 - (void)didMoveToSuperview {
     self.frame = self.superview.bounds;
 }
@@ -113,6 +109,7 @@
 - (void)setGameCetnerName:(NSString *)gameCetnerName {
     _gameCetnerName = gameCetnerName;
     
+    DDLogVerbose(@"gameCetnerName:%@", gameCetnerName);
     [PFController queryGameCenterUser:gameCetnerName handler:^(NSArray *users) {
         // 各PFObjectをから各ジャンルの人数を取得・ラベルに設定
         int fightUser = 0;
