@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+#import "MarkerView.h"
 
 #import <FontAwesomeKit.h>
 #import <GoogleMaps.h>
@@ -16,6 +17,8 @@
 @interface MapViewController () <GMSMapViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
+
+@property (nonatomic) UIView *markerWindow;
 
 @end
 
@@ -109,15 +112,4 @@
     [alert performSelector:@selector(show) withObject:nil afterDelay:0.25f];
 }
 
-- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
-    DDLogVerbose(@"%@", marker.title);
-}
-
-- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
-    UIView *view = [UIView new];
-    view.frame = CGRectMake(0, 0, 20, 20);
-    view.backgroundColor = UIColor.blackColor;
-    
-    return view;
-}
 @end

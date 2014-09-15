@@ -17,12 +17,13 @@
 
     indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:indicatorView];
+    [indicatorView startAnimating];
     
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(indicatorView);
     
     NSString *format[] = {
-        @"H:|[_indicatorView]|",
-        @"V:|[_indicatorView]|"
+        @"H:|[indicatorView]|",
+        @"V:|[indicatorView]|"
     };
     
     for ( int i = 0; i < 2; ++i ) {

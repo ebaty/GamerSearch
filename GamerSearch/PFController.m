@@ -8,6 +8,9 @@
 
 #import "PFController.h"
 
+#define kGameCenterClassName    @"GameCenter"
+#define kPlayerProfileClassName @"PlayerProfile"
+
 @implementation PFController
 
 #pragma mark - Query methods.
@@ -17,8 +20,6 @@
     [query whereKey:@"show" equalTo:@YES];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
-            DDLogVerbose(@"queryGameCenter:%@", objects);
-            
             block(objects);
         }else {
             DDLogError(@"queryGameCenter:%@", error);

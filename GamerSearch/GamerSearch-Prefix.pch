@@ -20,7 +20,7 @@
     #import <CocoaLumberjack.h>
 
     #import "PFController.h"
-    #import "UIView+Indicator"
+    #import "UIView+Indicator.h"
 #endif
 
 #ifdef DEBUG
@@ -32,5 +32,3 @@
 #endif
 
 #define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
-#define kGameCenterClassName @"GameCenter"
-#define kPlayerProfileClassName @"PlayerProfile"
