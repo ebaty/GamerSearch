@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D4D3BE7F9ED8420BBADF46E6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD574D59C87F4285AC0005B0 /* libPods.a */; };
+		F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005F9B19C9DE9E00DA7702 /* UserTableViewCell.m */; };
+		F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */; };
 		F4FFEC2319C5CCB000A48BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2219C5CCB000A48BDE /* Foundation.framework */; };
 		F4FFEC2519C5CCB000A48BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */; };
 		F4FFEC2719C5CCB000A48BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2619C5CCB000A48BDE /* UIKit.framework */; };
@@ -45,6 +47,9 @@
 /* Begin PBXFileReference section */
 		AA5DC569D94649E2B8618BA0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AD574D59C87F4285AC0005B0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4005F9A19C9DE9E00DA7702 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
+		F4005F9B19C9DE9E00DA7702 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
+		F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		F4FFEC1F19C5CCB000A48BDE /* GamerSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamerSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FFEC2219C5CCB000A48BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -107,6 +112,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4005F9619C9DE7600DA7702 /* UserCell */ = {
+			isa = PBXGroup;
+			children = (
+				F4005F9A19C9DE9E00DA7702 /* UserTableViewCell.h */,
+				F4005F9B19C9DE9E00DA7702 /* UserTableViewCell.m */,
+				F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */,
+			);
+			name = UserCell;
+			sourceTree = "<group>";
+		};
 		F4FFEC1619C5CCB000A48BDE = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +163,7 @@
 				F4FFEC7C19C5D3BD00A48BDE /* FollowListTableViewController.h */,
 				F4FFEC7D19C5D3BD00A48BDE /* FollowListTableViewController.m */,
 				F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */,
+				F4005F9619C9DE7600DA7702 /* UserCell */,
 				F4FFEC9819C6C6D000A48BDE /* Controller */,
 				F4FFEC8E19C6C31200A48BDE /* MapViewController */,
 				F4FFEC8119C5D3BD00A48BDE /* ProfileTableViewController.h */,
@@ -307,6 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */,
 				F4FFEC8919C5D3BD00A48BDE /* Main.storyboard in Resources */,
 				F4FFEC2D19C5CCB000A48BDE /* InfoPlist.strings in Resources */,
 				F4FFEC3519C5CCB000A48BDE /* Images.xcassets in Resources */,
@@ -369,6 +386,7 @@
 				F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */,
 				F4FFEC9119C6C33900A48BDE /* MarkerView.m in Sources */,
 				F4FFEC8D19C5D3BD00A48BDE /* TabBarViewController.m in Sources */,
+				F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */,
 				F4FFEC8B19C5D3BD00A48BDE /* ProfileTableViewController.m in Sources */,
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
 				F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */,
