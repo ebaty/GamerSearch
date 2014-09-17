@@ -10,6 +10,7 @@
 		D4D3BE7F9ED8420BBADF46E6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD574D59C87F4285AC0005B0 /* libPods.a */; };
 		F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005F9B19C9DE9E00DA7702 /* UserTableViewCell.m */; };
 		F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */; };
+		F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005FA019C9E72F00DA7702 /* UserListViewController.m */; };
 		F4FFEC2319C5CCB000A48BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2219C5CCB000A48BDE /* Foundation.framework */; };
 		F4FFEC2519C5CCB000A48BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */; };
 		F4FFEC2719C5CCB000A48BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2619C5CCB000A48BDE /* UIKit.framework */; };
@@ -25,7 +26,6 @@
 		F4FFEC8819C5D3BD00A48BDE /* FollowListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC7D19C5D3BD00A48BDE /* FollowListTableViewController.m */; };
 		F4FFEC8919C5D3BD00A48BDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */; };
 		F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8019C5D3BD00A48BDE /* MapViewController.m */; };
-		F4FFEC8B19C5D3BD00A48BDE /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8219C5D3BD00A48BDE /* ProfileTableViewController.m */; };
 		F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */; };
 		F4FFEC8D19C5D3BD00A48BDE /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */; };
 		F4FFEC9119C6C33900A48BDE /* MarkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC9019C6C33900A48BDE /* MarkerView.m */; };
@@ -50,6 +50,8 @@
 		F4005F9A19C9DE9E00DA7702 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
 		F4005F9B19C9DE9E00DA7702 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
 		F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
+		F4005F9F19C9E72F00DA7702 /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
+		F4005FA019C9E72F00DA7702 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		F4FFEC1F19C5CCB000A48BDE /* GamerSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamerSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FFEC2219C5CCB000A48BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -71,8 +73,6 @@
 		F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F4FFEC7F19C5D3BD00A48BDE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		F4FFEC8019C5D3BD00A48BDE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		F4FFEC8119C5D3BD00A48BDE /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
-		F4FFEC8219C5D3BD00A48BDE /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		F4FFEC8319C5D3BD00A48BDE /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
 		F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
 		F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
@@ -122,6 +122,15 @@
 			name = UserCell;
 			sourceTree = "<group>";
 		};
+		F4005FA219C9E8AA00DA7702 /* UserListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F4005F9F19C9E72F00DA7702 /* UserListViewController.h */,
+				F4005FA019C9E72F00DA7702 /* UserListViewController.m */,
+			);
+			name = UserListViewController;
+			sourceTree = "<group>";
+		};
 		F4FFEC1619C5CCB000A48BDE = {
 			isa = PBXGroup;
 			children = (
@@ -163,11 +172,9 @@
 				F4FFEC7C19C5D3BD00A48BDE /* FollowListTableViewController.h */,
 				F4FFEC7D19C5D3BD00A48BDE /* FollowListTableViewController.m */,
 				F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */,
-				F4005F9619C9DE7600DA7702 /* UserCell */,
 				F4FFEC9819C6C6D000A48BDE /* Controller */,
+				F4005F9619C9DE7600DA7702 /* UserCell */,
 				F4FFEC8E19C6C31200A48BDE /* MapViewController */,
-				F4FFEC8119C5D3BD00A48BDE /* ProfileTableViewController.h */,
-				F4FFEC8219C5D3BD00A48BDE /* ProfileTableViewController.m */,
 				F4FFEC8319C5D3BD00A48BDE /* SettingTableViewController.h */,
 				F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */,
 				F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */,
@@ -212,6 +219,7 @@
 			children = (
 				F4FFEC7F19C5D3BD00A48BDE /* MapViewController.h */,
 				F4FFEC8019C5D3BD00A48BDE /* MapViewController.m */,
+				F4005FA219C9E8AA00DA7702 /* UserListViewController */,
 				F4FFECA219C7561E00A48BDE /* MarkerView */,
 			);
 			name = MapViewController;
@@ -383,11 +391,11 @@
 				F4FFEC9419C6C4FD00A48BDE /* MarkerDetailView.m in Sources */,
 				F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */,
 				F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */,
+				F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */,
 				F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */,
 				F4FFEC9119C6C33900A48BDE /* MarkerView.m in Sources */,
 				F4FFEC8D19C5D3BD00A48BDE /* TabBarViewController.m in Sources */,
 				F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */,
-				F4FFEC8B19C5D3BD00A48BDE /* ProfileTableViewController.m in Sources */,
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
 				F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */,
 			);

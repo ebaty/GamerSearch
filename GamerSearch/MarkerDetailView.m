@@ -52,9 +52,9 @@
         labels[i].textAlignment = NSTextAlignmentLeft;
     }
     
-    _gameUserLabel = [UILabel new];
-    _fightGameUserLabel = [UILabel new];
-    _musicGameUserLabel = [UILabel new];
+    _gameUserLabel       = [UILabel new];
+    _fightGameUserLabel  = [UILabel new];
+    _musicGameUserLabel  = [UILabel new];
     _actionGameUserLabel = [UILabel new];
 }
 
@@ -126,9 +126,9 @@
         int actionUser = 0;
         
         for ( PFObject *user in users ) {
-            if ( [user[@"fightUser"] isEqual:@YES]  ) ++fightUser;
-            if ( [user[@"musicUser"] isEqual:@YES]  ) ++musicUser;
-            if ( [user[@"actionUser"] isEqual:@YES] ) ++actionUser;
+            if ( [user[kFightGamerBoolKey]  boolValue] ) ++fightUser;
+            if ( [user[kMusicGamerBoolKey]  boolValue] ) ++musicUser;
+            if ( [user[kActionGamerBoolKey] boolValue] ) ++actionUser;
         }
         
         UILabel *labels[] = {_gameUserLabel, _fightGameUserLabel, _musicGameUserLabel, _actionGameUserLabel};

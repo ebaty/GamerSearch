@@ -81,41 +81,65 @@
                         <outlet property="bottomSpace" destination="vCJ-Zc-Gxh" id="KLW-pi-kdL"/>
                         <outlet property="bottomView" destination="aYl-3i-FOo" id="Uza-OV-V2k"/>
                         <outlet property="mapView" destination="t5a-Vg-pPg" id="JmH-S4-adN"/>
-                        <segue destination="1jc-Xe-bbQ" kind="push" identifier="userListSegue" id="qwo-mI-bpu"/>
+                        <segue destination="WL6-PX-U6g" kind="push" identifier="userListSegue" id="XIr-Bm-LkZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uir-8r-4dW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1117" y="-460"/>
         </scene>
-        <!--Table View Controller - ユーザーリスト-->
-        <scene sceneID="8UB-nX-m5H">
+        <!--User List View Controller - ゲームセンター名-->
+        <scene sceneID="JpH-DD-PDg">
             <objects>
-                <tableViewController id="1jc-Xe-bbQ" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="a7X-Iy-A4Q">
+                <viewController id="WL6-PX-U6g" customClass="UserListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v74-CB-4Iv"/>
+                        <viewControllerLayoutGuide type="bottom" id="nK1-FI-6vc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9gF-nx-AU9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="oUN-rp-fOj">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oUN-rp-fOj" id="aRY-bW-hMj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="1jc-Xe-bbQ" id="0ps-Rq-ef5"/>
-                            <outlet property="delegate" destination="1jc-Xe-bbQ" id="tPc-Ks-AJv"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="ユーザーリスト" id="f4C-OG-OZx"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pAM-j9-14h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EnW-xZ-32d">
+                                <rect key="frame" x="8" y="72" width="304" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="全ユーザー"/>
+                                    <segment title="格闘"/>
+                                    <segment title="音楽"/>
+                                    <segment title="アクション"/>
+                                </segments>
+                                <connections>
+                                    <action selector="pushedSegmentedControl:" destination="WL6-PX-U6g" eventType="valueChanged" id="e6r-mc-JGp"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="QYg-jZ-9wn">
+                                <rect key="frame" x="0.0" y="108" width="320" height="411"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EnW-xZ-32d" firstAttribute="top" secondItem="v74-CB-4Iv" secondAttribute="bottom" constant="8" id="JVA-0b-zpK"/>
+                            <constraint firstAttribute="trailing" secondItem="EnW-xZ-32d" secondAttribute="trailing" constant="8" id="Lym-he-cG9"/>
+                            <constraint firstItem="EnW-xZ-32d" firstAttribute="leading" secondItem="9gF-nx-AU9" secondAttribute="leading" constant="8" id="PuT-Ec-237"/>
+                            <constraint firstItem="QYg-jZ-9wn" firstAttribute="top" secondItem="v74-CB-4Iv" secondAttribute="bottom" constant="44" id="Vqz-yf-Fnz"/>
+                            <constraint firstAttribute="trailing" secondItem="QYg-jZ-9wn" secondAttribute="trailing" id="Wgv-hY-6J0"/>
+                            <constraint firstItem="QYg-jZ-9wn" firstAttribute="top" secondItem="EnW-xZ-32d" secondAttribute="bottom" constant="8" id="XrA-ws-X9f"/>
+                            <constraint firstItem="QYg-jZ-9wn" firstAttribute="leading" secondItem="9gF-nx-AU9" secondAttribute="leading" id="fPP-qX-Pje"/>
+                            <constraint firstItem="nK1-FI-6vc" firstAttribute="top" secondItem="QYg-jZ-9wn" secondAttribute="bottom" id="yYk-Zl-gsE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="ゲームセンター名" id="WhK-jS-plH"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="EnW-xZ-32d" id="Ljq-7X-0Ww"/>
+                        <outlet property="tableView" destination="QYg-jZ-9wn" id="Tf7-iw-6Fx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gTw-9h-xin" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1563" y="-460"/>
+            <point key="canvasLocation" x="1534" y="-460"/>
         </scene>
         <!--Navigation Controller - プロフィール-->
         <scene sceneID="FZy-0Y-uQx">

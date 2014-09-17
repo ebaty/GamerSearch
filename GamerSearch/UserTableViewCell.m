@@ -23,7 +23,13 @@
 
 @implementation UserTableViewCell
 
+- (void)awakeFromNib {
+    _userImageView.layer.borderColor = UIColor.lightGrayColor.CGColor;
+}
+
 - (void)setUserProfileObject:(PFObject *)userProfileObject {
+    _userProfileObject = userProfileObject;
+    
     PFFile *userImageFile = _userProfileObject[@"userImage"];
     [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
         if (!error) {
@@ -35,14 +41,19 @@
     
     _userNameLabel.text = _userProfileObject[@"userName"];
 
-    NSDate *checkInDate = _userProfileObject[@"checkInDate"];
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     dateFormatter.dateFormat = @"MM/dd HH:mm";
-    _checkInDateLabel.text = [dateFormatter stringFromDate:checkInDate];
     
-    if ( [_userProfileObject[@"fightGamer"]  boolValue]  ) _fightGamerLabel.hidden  = NO;
-    if ( [_userProfileObject[@"musicGamer"]  boolValue]  ) _musicGamerLabel.hidden  = NO;
-    if ( [_userProfileObject[@"actionGamer"] boolValue] ) _actionGamerLabel.hidden = NO;
+    _checkInDateLabel.text =
+        [NSString stringWithFormat:@"%@ に %@ に来ました",
+         [dateFormatter stringFromDate:_userProfileObject[@"checkInDate"]],
+         _userProfileObject[@"gameCenterName"]
+        ];
+    
+    
+    if ( [_userProfileObject[kFightGamerBoolKey]  boolValue] ) _fightGamerLabel.hidden  = NO;
+    if ( [_userProfileObject[kMusicGamerBoolKey]  boolValue] ) _musicGamerLabel.hidden  = NO;
+    if ( [_userProfileObject[kActionGamerBoolKey] boolValue] ) _actionGamerLabel.hidden = NO;    
 }
 
 @end

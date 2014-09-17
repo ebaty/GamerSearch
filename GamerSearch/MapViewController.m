@@ -8,6 +8,7 @@
 
 #import "MapViewController.h"
 #import "MarkerView.h"
+#import "UserListViewController.h"
 
 #import <FontAwesomeKit.h>
 #import <GoogleMaps.h>
@@ -34,7 +35,7 @@
     _mapView.myLocationEnabled = YES;
     _mapView.settings.myLocationButton = YES;
     
-    [self setGameCenterMarker];
+    [self setUpGameCenterMarker];
     
     [PFController queryGameCenter:^(NSArray *gameCenters) {
         NSMutableArray *gameCenterArray = [NSMutableArray new];
@@ -54,11 +55,11 @@
         [USER_DEFAULTS setObject:gameCenterArray forKey:kGameCenterArraykey];
         [USER_DEFAULTS synchronize];
         
-        [self setGameCenterMarker];
+        [self setUpGameCenterMarker];
     }];
 }
 
-- (void)setGameCenterMarker {
+- (void)setUpGameCenterMarker {
     [_mapView clear];
     
     NSArray *gameCenterArray = [USER_DEFAULTS arrayForKey:kGameCenterArraykey];
@@ -148,9 +149,18 @@
     return [UIView new];
 }
 
-#pragma mark - MarkerView delegate methods.
+#pragma mark - MarkerView delegate method.
 - (void)didPushedMarkerViewButton {
-    [self performSegueWithIdentifier:@"userListSegue" sender:nil];
+    [self performSegueWithIdentifier:@"userListSegue" sender:_markerWindow.title];
+}
+
+#pragma mark - Segue method.
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ( [[segue identifier] isEqualToString:@"userListSegue"] ) {
+        UserListViewController *nextViewController = [segue destinationViewController];
+        nextViewController.gameCenterName = sender;
+    }
 }
 
 @end

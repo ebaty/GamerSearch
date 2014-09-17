@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
+#define kFightGamerBoolKey  @"fightGamer"
+#define kMusicGamerBoolKey  @"musicGamer"
+#define kActionGamerBoolKey @"actionGamer"
+
 @interface PFController : NSObject
 
 + (void)queryGameCenter:(void (^)(NSArray *gameCenters))block;
