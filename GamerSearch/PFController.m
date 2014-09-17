@@ -28,12 +28,21 @@
     }];
 }
 
+static NSMutableDictionary *gameCenterUserCache = nil;
 + (void)queryGameCenterUser:(NSString *)gameCenterName handler:(void (^)(NSArray *users))block {
     PFQuery *query = [PFQuery queryWithClassName:kPlayerProfileClassName];
+    
+    if ( !gameCenterUserCache ) {
+        gameCenterUserCache = [NSMutableDictionary new];
+    }else {
+        NSArray *users = gameCenterUserCache[gameCenterName];
+        if ( users ) block(users);
+    }
     
     [query whereKey:@"gameCenterName" equalTo:gameCenterName];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
+            [gameCenterUserCache setObject:objects forKey:gameCenterName];
             block(objects);
         }else {
             DDLogError(@"%@", error);

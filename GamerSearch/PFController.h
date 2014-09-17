@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
+#import <Parse.h>
 
 #define kFightGamerBoolKey  @"fightGamer"
 #define kMusicGamerBoolKey  @"musicGamer"
