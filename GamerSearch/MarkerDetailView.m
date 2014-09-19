@@ -119,7 +119,7 @@
     _gameCetnerName = gameCetnerName;
     
     DDLogVerbose(@"gameCetnerName:%@", gameCetnerName);
-    [PFController queryGameCenterUser:gameCetnerName handler:^(NSArray *users) {
+    [PFController queryGameCenterUser:gameCetnerName useCache:NO handler:^(NSArray *users) {
         // 各PFObjectをから各ジャンルの人数を取得・ラベルに設定
         int fightUser = 0;
         int musicUser = 0;

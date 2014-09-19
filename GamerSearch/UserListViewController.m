@@ -42,10 +42,14 @@
     UIRefreshControl *refreshControl = [UIRefreshControl new];
     [refreshControl addTarget:self action:@selector(pulledRefreshControl:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
+    
+    // テーブルの初期化
+    self.title = _gameCenterName;
+    [self setUpUserArray:YES handler:nil];
 }
 
-- (void)setUpUserArray:(void (^)(void))block {
-    [PFController queryGameCenterUser:_gameCenterName handler:^(NSArray *users) {
+- (void)setUpUserArray:(BOOL)useCache handler:(void (^)(void))block {
+    [PFController queryGameCenterUser:_gameCenterName useCache:useCache handler:^(NSArray *users) {
         _userArray = users;
         [self setUpEachArrayFromUserArray];
         [self setUpCurrentArray:_segmentedControl.selectedSegmentIndex];
@@ -79,14 +83,6 @@
     [_tableView reloadData];
 }
 
-#pragma mark - Setter methods.
-- (void)setGameCenterName:(NSString *)gameCenterName {
-    _gameCenterName = gameCenterName;
-    
-    self.title = _gameCenterName;
-    [self setUpUserArray:nil];
-}
-
 #pragma mark - UIEvent methods.
 - (IBAction)pushedSegmentedControl:(UISegmentedControl *)sender {
     [self setUpCurrentArray:sender.selectedSegmentIndex];
@@ -95,7 +91,7 @@
 - (void)pulledRefreshControl:(UIRefreshControl *)refreshControl {
     [refreshControl beginRefreshing];
     
-    [self setUpUserArray:^{
+    [self setUpUserArray:NO handler:^{
         [refreshControl endRefreshing];
     }];
 }

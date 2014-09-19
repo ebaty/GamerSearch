@@ -16,8 +16,7 @@
 @interface PFController : NSObject
 
 + (void)queryGameCenter:(void (^)(NSArray *gameCenters))block;
-+ (void)queryGameCenterUser:(NSString *)gameCenterName handler:(void (^)(NSArray *users))block;
-
++ (void)queryGameCenterUser:(NSString *)gameCenterName useCache:(BOOL)useCache handler:(void (^)(NSArray *users))block;
 + (void)postGameCenter:(NSString *)gameCenterName coordinate:(CLLocationCoordinate2D)coordinate;
 
 @end
