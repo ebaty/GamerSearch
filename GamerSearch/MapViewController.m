@@ -31,9 +31,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // GMSMapViewの初期設定
     _mapView.delegate = self;
     _mapView.myLocationEnabled = YES;
     _mapView.settings.myLocationButton = YES;
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(36.204824, 138.252924);
+    _mapView.camera = [GMSCameraPosition cameraWithTarget:coordinate zoom:4.0f];
     
     [self setUpGameCenterMarker];
     
@@ -143,6 +147,7 @@
     [UIView animateWithDuration:0.16 animations:^{
         [self.view layoutIfNeeded];
     }];
+        
 }
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
