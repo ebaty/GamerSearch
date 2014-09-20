@@ -30,19 +30,41 @@
 
 static NSMutableDictionary *gameCenterUserCache = nil;
 + (void)queryGameCenterUser:(NSString *)gameCenterName useCache:(BOOL)useCache handler:(void (^)(NSArray *users))block {
-    PFQuery *query = [PFQuery queryWithClassName:kPlayerProfileClassName];
-    
     if ( !gameCenterUserCache ) {
         gameCenterUserCache = [NSMutableDictionary new];
     }else {
-        NSArray *users = gameCenterUserCache[gameCenterName];
-        if ( users && useCache ) block(users);
+        if ( useCache ) {
+            NSArray *users = gameCenterUserCache[gameCenterName];
+            if ( users ) block(users);
+        }
     }
+
+    PFQuery *query = [PFQuery queryWithClassName:kPlayerProfileClassName];
     
     [query whereKey:@"gameCenterName" equalTo:gameCenterName];
+    [query orderByDescending:@"updatedAt"];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
+            DDLogVerbose(@"%@", objects);
             [gameCenterUserCache setObject:objects forKey:gameCenterName];
+            block(objects);
+        }else {
+            DDLogError(@"%@", error);
+        }
+    }];
+}
+
++ (void)queryFollowUser:(void (^)(NSArray *followUser))block {
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    
+    PFQuery *query = [PFQuery queryWithClassName:kPlayerProfileClassName];
+
+    [query whereKey:@"objectId" containedIn:installation[@"channels"]];
+    [query orderByDescending:@"updatedAt"];
+
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( !error ) {
             block(objects);
         }else {
             DDLogError(@"%@", error);
@@ -65,4 +87,17 @@ static NSMutableDictionary *gameCenterUserCache = nil;
             [SVProgressHUD showErrorWithStatus:@"リクエストの送信に失敗しました"];
     }];
 }
+
++ (void)postUserProfile:(NSDictionary *)params handler:(void (^)(void))block {
+    PFUser *currentUser = [PFUser currentUser];
+    for ( NSString *key in params ) {
+        currentUser[key] = params[key];
+    }
+    
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        block();
+        DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+    }];
+}
+
 @end

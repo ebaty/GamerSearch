@@ -117,6 +117,10 @@
                                 <rect key="frame" x="0.0" y="108" width="320" height="411"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="WL6-PX-U6g" id="G76-z5-ABy"/>
+                                    <outlet property="delegate" destination="WL6-PX-U6g" id="bdc-1a-bsj"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -409,39 +413,49 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="gbD-YZ-jgN" kind="relationship" relationship="rootViewController" id="rgc-U6-67o"/>
+                        <segue destination="BWE-HZ-Rx5" kind="relationship" relationship="rootViewController" id="fwq-Bg-Jhf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="963-EA-7WZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="685" y="202"/>
         </scene>
-        <!--Follow List Table View Controller - フォローリスト-->
-        <scene sceneID="IgE-Bo-4T8">
+        <!--Follow List View Controller - フォローリスト-->
+        <scene sceneID="dDS-fB-YVm">
             <objects>
-                <tableViewController id="gbD-YZ-jgN" customClass="FollowListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oGs-ZI-lDR">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BWE-HZ-Rx5" customClass="FollowListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CsI-G9-2Bv"/>
+                        <viewControllerLayoutGuide type="bottom" id="VES-5F-EJk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="n5h-aE-jCu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="61S-5p-fs0">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="61S-5p-fs0" id="mvJ-TD-l7m">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="gbD-YZ-jgN" id="S7n-eR-FRq"/>
-                            <outlet property="delegate" destination="gbD-YZ-jgN" id="FCD-oD-gJp"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="フォローリスト" id="VyS-tS-dfH"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ngr-kt-CJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iqb-q7-9Rb">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BWE-HZ-Rx5" id="VNs-jR-UIF"/>
+                                    <outlet property="delegate" destination="BWE-HZ-Rx5" id="cfS-kM-SBb"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VES-5F-EJk" firstAttribute="top" secondItem="iqb-q7-9Rb" secondAttribute="bottom" id="KZi-0c-x3a"/>
+                            <constraint firstAttribute="trailing" secondItem="iqb-q7-9Rb" secondAttribute="trailing" id="Lt8-S2-hbh"/>
+                            <constraint firstItem="iqb-q7-9Rb" firstAttribute="leading" secondItem="n5h-aE-jCu" secondAttribute="leading" id="ORp-on-3gR"/>
+                            <constraint firstItem="iqb-q7-9Rb" firstAttribute="top" secondItem="CsI-G9-2Bv" secondAttribute="bottom" id="eCN-lR-JPV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="フォローリスト" id="4Wb-fD-pUK"/>
+                    <connections>
+                        <outlet property="tableView" destination="iqb-q7-9Rb" id="zhn-Vu-zBd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WqM-1h-HF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1117" y="202"/>
         </scene>

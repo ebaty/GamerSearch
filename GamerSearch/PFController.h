@@ -17,6 +17,9 @@
 
 + (void)queryGameCenter:(void (^)(NSArray *gameCenters))block;
 + (void)queryGameCenterUser:(NSString *)gameCenterName useCache:(BOOL)useCache handler:(void (^)(NSArray *users))block;
++ (void)queryFollowUser:(void (^)(NSArray *followUser))block;
+
 + (void)postGameCenter:(NSString *)gameCenterName coordinate:(CLLocationCoordinate2D)coordinate;
++ (void)postUserProfile:(NSDictionary *)params handler:(void (^)(void))block;
 
 @end

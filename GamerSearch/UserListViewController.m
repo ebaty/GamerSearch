@@ -36,9 +36,6 @@
     UINib *cellNib = [UINib nibWithNibName:@"UserTableViewCell" bundle:nil];
     [_tableView registerNib:cellNib forCellReuseIdentifier:@"UserCell"];
     
-    _tableView.delegate   = self;
-    _tableView.dataSource = self;
-    
     UIRefreshControl *refreshControl = [UIRefreshControl new];
     [refreshControl addTarget:self action:@selector(pulledRefreshControl:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
