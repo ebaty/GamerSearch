@@ -8,6 +8,7 @@
 
 #import "FollowListViewController.h"
 #import "UserTableViewCell.h"
+#import "UserDetailViewController.h"
 
 @interface FollowListViewController ()
 
@@ -73,4 +74,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 70;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"UserDetailSegue" sender:_followUserArray[indexPath.row]];
+}
+
+#pragma mark - Segue methods.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ( [segue.identifier isEqualToString:@"UserDetailSegue"] ) {
+        UserDetailViewController *nextViewController = [segue destinationViewController];
+        nextViewController.userObject = sender;
+    }
+}
+
 @end

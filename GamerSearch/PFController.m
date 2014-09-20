@@ -9,7 +9,6 @@
 #import "PFController.h"
 
 #define kGameCenterClassName    @"GameCenter"
-#define kPlayerProfileClassName @"PlayerProfile"
 
 @implementation PFController
 
@@ -39,14 +38,13 @@ static NSMutableDictionary *gameCenterUserCache = nil;
         }
     }
 
-    PFQuery *query = [PFQuery queryWithClassName:kPlayerProfileClassName];
+    PFQuery *query = [PFUser query];
     
-    [query whereKey:@"gameCenterName" equalTo:gameCenterName];
+    [query whereKey:@"gameCenter" equalTo:gameCenterName];
     [query orderByDescending:@"updatedAt"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
-            DDLogVerbose(@"%@", objects);
             [gameCenterUserCache setObject:objects forKey:gameCenterName];
             block(objects);
         }else {
@@ -58,7 +56,7 @@ static NSMutableDictionary *gameCenterUserCache = nil;
 + (void)queryFollowUser:(void (^)(NSArray *followUser))block {
     PFInstallation *installation = [PFInstallation currentInstallation];
     
-    PFQuery *query = [PFQuery queryWithClassName:kPlayerProfileClassName];
+    PFQuery *query = [PFUser query];
 
     [query whereKey:@"objectId" containedIn:installation[@"channels"]];
     [query orderByDescending:@"updatedAt"];
@@ -90,13 +88,18 @@ static NSMutableDictionary *gameCenterUserCache = nil;
 
 + (void)postUserProfile:(NSDictionary *)params handler:(void (^)(void))block {
     PFUser *currentUser = [PFUser currentUser];
-    for ( NSString *key in params ) {
+    for ( NSString *key in params.allKeys ) {
         currentUser[key] = params[key];
     }
-    
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        block();
-        DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+
+    [SVProgressHUD showWithStatus:@"ユーザー情報を設定しています" maskType:SVProgressHUDMaskTypeBlack];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if ( !error ) {
+            [SVProgressHUD showSuccessWithStatus:@"ユーザー情報を設定しました"];
+            if ( block ) block();
+        }else {
+            [SVProgressHUD showErrorWithStatus:@"ユーザー情報の設定に失敗しました"];
+        }
     }];
 }
 

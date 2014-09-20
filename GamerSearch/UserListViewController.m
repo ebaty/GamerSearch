@@ -8,6 +8,7 @@
 
 #import "UserListViewController.h"
 #import "UserTableViewCell.h"
+#import "UserDetailViewController.h"
 
 @interface UserListViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -49,7 +50,7 @@
     [PFController queryGameCenterUser:_gameCenterName useCache:useCache handler:^(NSArray *users) {
         _userArray = users;
         [self setUpEachArrayFromUserArray];
-        [self setUpCurrentArray:_segmentedControl.selectedSegmentIndex];
+        [self setUpCurrentArray:(int)_segmentedControl.selectedSegmentIndex];
         
         if ( block ) block();
     }];
@@ -82,7 +83,7 @@
 
 #pragma mark - UIEvent methods.
 - (IBAction)pushedSegmentedControl:(UISegmentedControl *)sender {
-    [self setUpCurrentArray:sender.selectedSegmentIndex];
+    [self setUpCurrentArray:(int)sender.selectedSegmentIndex];
 }
 
 - (void)pulledRefreshControl:(UIRefreshControl *)refreshControl {
@@ -101,7 +102,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell"];
     
-    cell.userProfileObject = _userArray[indexPath.row];
+    cell.userProfileObject = _currentUserArray[indexPath.row];
     
     return cell;
 }
@@ -110,4 +111,15 @@
     return 70;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"UserDetailSegue" sender:_currentUserArray[indexPath.row]];
+}
+
+#pragma mark - Segue methods.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ( [segue.identifier isEqualToString:@"UserDetailSegue"] ) {
+        UserDetailViewController *nextViewController = [segue destinationViewController];
+        nextViewController.userObject = sender;
+    }
+}
 @end

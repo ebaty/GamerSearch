@@ -12,6 +12,8 @@
 		F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */; };
 		F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005FA019C9E72F00DA7702 /* UserListViewController.m */; };
 		F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F458614F19CC9B93000D6027 /* FollowListViewController.m */; };
+		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
+		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
 		F4FFEC2319C5CCB000A48BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2219C5CCB000A48BDE /* Foundation.framework */; };
 		F4FFEC2519C5CCB000A48BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */; };
 		F4FFEC2719C5CCB000A48BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2619C5CCB000A48BDE /* UIKit.framework */; };
@@ -55,6 +57,10 @@
 		F4005FA019C9E72F00DA7702 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		F458614E19CC9B93000D6027 /* FollowListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowListViewController.h; sourceTree = "<group>"; };
 		F458614F19CC9B93000D6027 /* FollowListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowListViewController.m; sourceTree = "<group>"; };
+		F476D1B419CD635A00ABCFB4 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
+		F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
+		F48EFE0019CE0F390033ACFE /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
+		F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
 		F4FFEC1F19C5CCB000A48BDE /* GamerSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamerSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FFEC2219C5CCB000A48BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -143,6 +149,24 @@
 			name = FollowList;
 			sourceTree = "<group>";
 		};
+		F476D1B319CD634000ABCFB4 /* ProfileTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F476D1B419CD635A00ABCFB4 /* ProfileTableViewController.h */,
+				F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */,
+			);
+			name = ProfileTableViewController;
+			sourceTree = "<group>";
+		};
+		F48EFDFF19CE0ECB0033ACFE /* UserDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F48EFE0019CE0F390033ACFE /* UserDetailViewController.h */,
+				F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */,
+			);
+			name = UserDetailViewController;
+			sourceTree = "<group>";
+		};
 		F4FFEC1619C5CCB000A48BDE = {
 			isa = PBXGroup;
 			children = (
@@ -186,8 +210,10 @@
 				F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */,
 				F4FFEC9819C6C6D000A48BDE /* Controller */,
 				F4005F9619C9DE7600DA7702 /* UserCell */,
+				F48EFDFF19CE0ECB0033ACFE /* UserDetailViewController */,
 				F4FFEC8E19C6C31200A48BDE /* MapViewController */,
 				F458614D19CC9B16000D6027 /* FollowList */,
+				F476D1B319CD634000ABCFB4 /* ProfileTableViewController */,
 				F4FFEC8319C5D3BD00A48BDE /* SettingTableViewController.h */,
 				F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */,
 				F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */,
@@ -402,6 +428,7 @@
 				F4FFEC8819C5D3BD00A48BDE /* FollowListTableViewController.m in Sources */,
 				F4FFEC3319C5CCB000A48BDE /* AppDelegate.m in Sources */,
 				F4FFEC9419C6C4FD00A48BDE /* MarkerDetailView.m in Sources */,
+				F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */,
 				F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */,
 				F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */,
 				F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */,
@@ -411,6 +438,7 @@
 				F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */,
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
 				F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */,
+				F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */,
 				F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

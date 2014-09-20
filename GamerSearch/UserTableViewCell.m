@@ -39,15 +39,15 @@
         }
     }];
     
-    _userNameLabel.text = _userProfileObject[@"userName"];
+    _userNameLabel.text = _userProfileObject[@"username"];
 
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     dateFormatter.dateFormat = @"MM/dd HH:mm";
     
     _checkInDateLabel.text =
         [NSString stringWithFormat:@"%@ に %@ に来ました",
-         [dateFormatter stringFromDate:_userProfileObject[@"checkInDate"]],
-         _userProfileObject[@"gameCenterName"]
+         [dateFormatter stringFromDate:_userProfileObject[@"checkInAt"]],
+         _userProfileObject[@"gameCenter"]
         ];
     
     

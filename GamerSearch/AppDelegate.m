@@ -39,13 +39,18 @@
     // LumberjackConsoleの設定
     [[PTEDashboard sharedDashboard] show];
 
-    if ( ![[USER_DEFAULTS objectForKey:@"didFirstLaunch"] boolValue] ) {
+    if ( ![USER_DEFAULTS boolForKey:@"didFirstLaunch"] ) {
+        PFUser *currentUser = [PFUser currentUser];
+        currentUser[@"username"] = @"未設定";
+        
         [PFController postUserProfile:nil handler:^{
-            [USER_DEFAULTS setObject:@YES forKey:@"didFirstLaunch"];
+            [currentUser saveInBackground];
+
+            [USER_DEFAULTS setBool:YES forKey:@"didFirstLaunch"];
             [USER_DEFAULTS synchronize];
         }];
     }
-
+    
     return YES;
 }
 
