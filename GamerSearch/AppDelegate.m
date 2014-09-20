@@ -40,10 +40,9 @@
     [[PTEDashboard sharedDashboard] show];
 
     if ( ![USER_DEFAULTS boolForKey:@"didFirstLaunch"] ) {
-        PFUser *currentUser = [PFUser currentUser];
-        currentUser[@"username"] = @"未設定";
-        
         [PFController postUserProfile:nil handler:^{
+            PFUser *currentUser = [PFUser currentUser];
+            currentUser[@"username"] = @"未設定";
             [currentUser saveInBackground];
 
             [USER_DEFAULTS setBool:YES forKey:@"didFirstLaunch"];
