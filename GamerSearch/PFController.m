@@ -58,7 +58,7 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     
     PFQuery *query = [PFUser query];
 
-    [query whereKey:@"objectId" containedIn:installation[@"channels"]];
+    [query whereKey:@"channelsId" containedIn:installation[@"channels"]];
     [query orderByDescending:@"updatedAt"];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -91,6 +91,7 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     for ( NSString *key in params.allKeys ) {
         currentUser[key] = params[key];
     }
+    currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
 
     [SVProgressHUD showWithStatus:@"ユーザー情報を設定しています" maskType:SVProgressHUDMaskTypeBlack];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -98,7 +99,11 @@ static NSMutableDictionary *gameCenterUserCache = nil;
             [SVProgressHUD showSuccessWithStatus:@"ユーザー情報を設定しました"];
             if ( block ) block();
         }else {
-            [SVProgressHUD showErrorWithStatus:@"ユーザー情報の設定に失敗しました"];
+            if ( error.code == 202 ) {
+                [SVProgressHUD showErrorWithStatus:@"既に使用されているユーザー名です"];
+            }else {
+                [SVProgressHUD showErrorWithStatus:@"ユーザー情報の設定に失敗しました"];
+            }
         }
     }];
 }
