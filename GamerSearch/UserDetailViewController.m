@@ -95,7 +95,7 @@
         self.navigationItem.rightBarButtonItem = _followBarButton;
         
     }else if ( ![channelsId isEqualToString:[PFUser currentUser][@"channelsId"]] ){
-        
+    
         self.navigationItem.rightBarButtonItem = _rejectBarButton;
         
     }

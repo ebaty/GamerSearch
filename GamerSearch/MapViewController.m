@@ -69,7 +69,7 @@
             marker.appearAnimation = YES;
             marker.map = _mapView;
         }
-        [_regionControlelr startMonitoringGameCenter:gameCenters];
+        _regionControlelr.gameCenters = gameCenters;
     }];
 }
 

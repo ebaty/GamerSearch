@@ -11,6 +11,7 @@
 @interface RegionController () <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationManager *manager;
+@property (nonatomic) NSArray *monitoringGameCenters;
 
 @end
 
@@ -21,29 +22,77 @@
     if ( self ) {
         _manager = [[CLLocationManager alloc] init];
         _manager.delegate = self;
+        [_manager startUpdatingLocation];
     }
     return self;
 }
 
-- (void)startMonitoringGameCenter:(NSArray *)gameCenters {
-    if ( [CLLocationManager locationServicesEnabled] ) {
-        for ( CLRegion *region in _manager.monitoredRegions ) {
-            [_manager stopMonitoringForRegion:region];
-        }
+- (void)setGameCenters:(NSArray *)gameCenters location:(CLLocation *)myLocation {
+    NSMutableArray *sortedGameCenters = [NSMutableArray new];
+    
+    for ( NSDictionary *gameCenter in gameCenters ) {
+        CLLocation *gameCenterLocation =
+            [[CLLocation alloc] initWithLatitude:[gameCenter[@"latitude"]  doubleValue]
+                                       longitude:[gameCenter[@"longitude"] doubleValue]];
+        CLLocationDistance distance = [myLocation distanceFromLocation:gameCenterLocation];
         
-        for ( NSDictionary *gameCenter in gameCenters ) {
-            CLLocationCoordinate2D coordinate =
-                CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
-            
-            CLCircularRegion *region =
-                [[CLCircularRegion alloc] initWithCenter:coordinate radius:100.0f identifier:gameCenter[@"name"]];
-            
-            [_manager startMonitoringForRegion:region];
+        NSMutableDictionary *newParams = [gameCenter mutableCopy];
+        [newParams setObject:@(distance) forKey:@"distance"];
+        
+        [sortedGameCenters addObject:newParams];
+    }
+    
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"distance"  ascending:YES];
+    self.monitoringGameCenters = [sortedGameCenters sortedArrayUsingDescriptors:@[descriptor]];
+}
+
+- (void)setMonitoringGameCenters:(NSArray *)monitoringGameCenters {
+    _monitoringGameCenters = monitoringGameCenters;
+    int count = monitoringGameCenters.count;
+    if ( count > 20 ) count = 20;
+    
+    for ( int i = 0; i < count; ++i ) {
+        NSDictionary *gameCenter = monitoringGameCenters[i];
+        
+        CLLocationCoordinate2D coordinate =
+            CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
+        
+        CLCircularRegion *region =
+            [[CLCircularRegion alloc] initWithCenter:coordinate radius:100.0f identifier:gameCenter[@"name"]];
+        
+        [_manager startMonitoringForRegion:region];
+        [_manager requestStateForRegion:region];
+    }
+    
+}
+
+#pragma mark - CLLocationManager delegate methods.
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *nowLocation = locations.lastObject;
+    
+    if ( _gameCenters ) {
+        [self setGameCenters:_gameCenters location:nowLocation];
+    }
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    DDLogError(@"%@:%@", NSStringFromSelector(_cmd), error);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    NSArray *stateArray = @[@"CLRegionStateUnknown",
+                            @"CLRegionStateInside",
+                            @"CLRegionStateOutside"];
+    DDLogVerbose(@"%@:%@", region.identifier, stateArray[state]);
+    
+    if ( state == CLRegionStateInside ) {
+        if ( ![region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
+            [self locationManager:manager didEnterRegion:region];
         }
     }
 }
 
-#pragma mark - CLLocationManager delegate methods.
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
@@ -71,9 +120,7 @@
     
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
-            NSString *message =
-                [NSString stringWithFormat:@"%@ を出ました", currentUser[@"gameCenter"]];
-            [self sendLocalNotification:message];
+            [self sendLocalNotification:currentUser[@"gameCenter"]];
         }else {
             DDLogError(@"%@", error);
         }
@@ -97,7 +144,7 @@
                                      withData:pushData
                                         block:
      ^(BOOL succeeded, NSError *error) {
-         if ( error ) {
+         if ( !error ) {
              NSString *message =
                 [NSString stringWithFormat:@"%@ に来ました", currentUser[@"gameCenter"]];
              [self sendLocalNotification:message];

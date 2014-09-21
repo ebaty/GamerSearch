@@ -10,6 +10,6 @@
 
 @interface RegionController : NSObject
 
-- (void)startMonitoringGameCenter:(NSArray *)gameCenters;
+@property (nonatomic) NSArray *gameCenters;
 
 @end
