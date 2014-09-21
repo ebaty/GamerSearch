@@ -64,22 +64,40 @@
     PFFile *userImageFile = _userObject[@"userImage"];
     PFFile *textFile = _userObject[@"comment"];
     
+    [_userImageView showIndicator];
     [userImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        _userImageView.image = [UIImage imageWithData:data];
+        [_userImageView dismissIndicator];
+        if ( !error ) {
+            _userImageView.image = [UIImage imageWithData:data];
+        }else {
+            DDLogError(@"%@", error);
+        }
     }];
     
+    [_textView showIndicator];
     [textFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        _textView.text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [_textView dismissIndicator];
+        if ( !error ) {
+            _textView.text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        }else {
+            DDLogError(@"%@", error);
+        }
     }];
 }
 
 - (void)initFollowButton {
     PFInstallation *installation = [PFInstallation currentInstallation];
     
-    if ( ![installation.channels containsObject:_userObject[@"channelsId"]] ) {
+    NSString *channelsId = _userObject[@"channelsId"];
+    
+    if ( ![installation.channels containsObject:channelsId] ) {
+        
         self.navigationItem.rightBarButtonItem = _followBarButton;
-    }else {
+        
+    }else if ( ![channelsId isEqualToString:[PFUser currentUser][@"channelsId"]] ){
+        
         self.navigationItem.rightBarButtonItem = _rejectBarButton;
+        
     }
 }
 
