@@ -64,7 +64,8 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     PFQuery *query = [PFUser query];
     
     [query whereKey:@"gameCenter" equalTo:gameCenterName];
-    [query orderByDescending:@"updatedAt"];
+    [query whereKey:@"checkInAt" greaterThanOrEqualTo:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60]];
+    [query orderByDescending:@"checkInAt"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {

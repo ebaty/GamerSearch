@@ -26,7 +26,6 @@
 }
 
 - (void)startMonitoringGameCenter:(NSArray *)gameCenters {
-    
     if ( [CLLocationManager locationServicesEnabled] ) {
         for ( CLRegion *region in _manager.monitoredRegions ) {
             [_manager stopMonitoringForRegion:region];
@@ -42,7 +41,6 @@
             [_manager startMonitoringForRegion:region];
         }
     }
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
