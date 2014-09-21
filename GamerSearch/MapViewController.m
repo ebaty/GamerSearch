@@ -9,6 +9,7 @@
 #import "MapViewController.h"
 #import "MarkerView.h"
 #import "UserListViewController.h"
+#import "RegionController.h"
 
 #import <FontAwesomeKit.h>
 #import <GoogleMaps.h>
@@ -23,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomSpace;
 
 @property (nonatomic) MarkerView *markerWindow;
+
+@property (nonatomic) RegionController *regionControlelr;
+
 @end
 
 @implementation MapViewController
@@ -40,51 +44,33 @@
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(36.204824, 138.252924);
     _mapView.camera = [GMSCameraPosition cameraWithTarget:coordinate zoom:4.0f];
     
+    _regionControlelr = [RegionController new];
     [self setUpGameCenterMarker];
-    
-    [PFController queryGameCenter:^(NSArray *gameCenters) {
-        NSMutableArray *gameCenterArray = [NSMutableArray new];
-        
-        for ( PFObject *gameCenter in gameCenters ) {
-            NSMutableDictionary *gameCenterDictionary = [NSMutableDictionary new];
-            
-            gameCenterDictionary[@"name"] = gameCenter[@"name"];
-            
-            PFGeoPoint *geoPoint = gameCenter[@"geoPoint"];
-            gameCenterDictionary[@"latitude"]  = @(geoPoint.latitude);
-            gameCenterDictionary[@"longitude"] = @(geoPoint.longitude);
-            
-            [gameCenterArray addObject:gameCenterDictionary];
-        }
-        
-        [USER_DEFAULTS setObject:gameCenterArray forKey:kGameCenterArraykey];
-        [USER_DEFAULTS synchronize];
-        
-        [self setUpGameCenterMarker];
-    }];
 }
 
 - (void)setUpGameCenterMarker {
-    [_mapView clear];
-    
-    NSArray *gameCenterArray = [USER_DEFAULTS arrayForKey:kGameCenterArraykey];
-    for ( NSDictionary *gameCenter in gameCenterArray ) {
-        CLLocationCoordinate2D coordinate =
-            CLLocationCoordinate2DMake([gameCenter[@"latitude"] floatValue], [gameCenter[@"longitude"] floatValue]);
+    [PFController queryGameCenter:^(NSArray *gameCenters) {
+        [_mapView clear];
         
-        GMSMarker *marker = [GMSMarker markerWithPosition:coordinate];
-        
-        [[GMSGeocoder geocoder] reverseGeocodeCoordinate:coordinate
-                                       completionHandler:
-         ^(GMSReverseGeocodeResponse *response, NSError *error) {
-             GMSAddress *res = [response firstResult];
-             marker.snippet = [NSString stringWithFormat:@"%@%@%@", res.locality, res.subLocality, res.thoroughfare];
-         }];
-        
-        marker.title = gameCenter[@"name"];
-        marker.appearAnimation = YES;
-        marker.map = _mapView;
-    }
+        for ( NSDictionary *gameCenter in gameCenters ) {
+            CLLocationCoordinate2D coordinate =
+                CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
+            
+            GMSMarker *marker = [GMSMarker markerWithPosition:coordinate];
+            
+            [[GMSGeocoder geocoder] reverseGeocodeCoordinate:coordinate
+                                           completionHandler:
+             ^(GMSReverseGeocodeResponse *response, NSError *error) {
+                 GMSAddress *res = [response firstResult];
+                 marker.snippet = [NSString stringWithFormat:@"%@%@%@", res.locality, res.subLocality, res.thoroughfare];
+             }];
+            
+            marker.title = gameCenter[@"name"];
+            marker.appearAnimation = YES;
+            marker.map = _mapView;
+        }
+        [_regionControlelr startMonitoringGameCenter:gameCenters];
+    }];
 }
 
 #pragma mark - GMSMapView delegate methods.

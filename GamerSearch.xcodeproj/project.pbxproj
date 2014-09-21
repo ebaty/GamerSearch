@@ -11,6 +11,7 @@
 		F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005F9B19C9DE9E00DA7702 /* UserTableViewCell.m */; };
 		F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */; };
 		F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005FA019C9E72F00DA7702 /* UserListViewController.m */; };
+		F409FF0219CEEA7C00046A4B /* RegionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F409FF0119CEEA7C00046A4B /* RegionController.m */; };
 		F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F458614F19CC9B93000D6027 /* FollowListViewController.m */; };
 		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
 		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
@@ -55,6 +56,8 @@
 		F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		F4005F9F19C9E72F00DA7702 /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
 		F4005FA019C9E72F00DA7702 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
+		F409FF0019CEEA7C00046A4B /* RegionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionController.h; sourceTree = "<group>"; };
+		F409FF0119CEEA7C00046A4B /* RegionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionController.m; sourceTree = "<group>"; };
 		F458614E19CC9B93000D6027 /* FollowListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowListViewController.h; sourceTree = "<group>"; };
 		F458614F19CC9B93000D6027 /* FollowListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowListViewController.m; sourceTree = "<group>"; };
 		F476D1B419CD635A00ABCFB4 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 			children = (
 				F4FFEC9519C6C6CC00A48BDE /* PFController.h */,
 				F4FFEC9619C6C6CC00A48BDE /* PFController.m */,
+				F409FF0019CEEA7C00046A4B /* RegionController.h */,
+				F409FF0119CEEA7C00046A4B /* RegionController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -430,6 +435,7 @@
 				F4FFEC9419C6C4FD00A48BDE /* MarkerDetailView.m in Sources */,
 				F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */,
 				F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */,
+				F409FF0219CEEA7C00046A4B /* RegionController.m in Sources */,
 				F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */,
 				F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */,
 				F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */,

@@ -9,6 +9,7 @@
 #import "PFController.h"
 
 #define kGameCenterClassName @"GameCenter"
+#define kGameCenterArraykey  @"GameCenterArray"
 
 @implementation PFController
 
@@ -16,15 +17,37 @@
 + (void)queryGameCenter:(void (^)(NSArray *gameCenters))block {
     PFQuery *query = [PFQuery queryWithClassName:kGameCenterClassName];
     
+    block( [USER_DEFAULTS arrayForKey:kGameCenterArraykey] );
+    
     [query whereKey:@"show" equalTo:@YES];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
-            block(objects);
+            [self saveGameCenter:objects];
+            block( [USER_DEFAULTS arrayForKey:kGameCenterArraykey] );
         }else {
             DDLogError(@"%@", error);
         }
         
     }];
+}
+
++ (void)saveGameCenter:(NSArray *)gameCenters {
+    NSMutableArray *gameCenterArray = [NSMutableArray new];
+
+    for ( PFObject *gameCenter in gameCenters ) {
+        NSMutableDictionary *gameCenterDictionary = [NSMutableDictionary new];
+        
+        gameCenterDictionary[@"name"] = gameCenter[@"name"];
+        
+        PFGeoPoint *geoPoint = gameCenter[@"geoPoint"];
+        gameCenterDictionary[@"latitude"]  = @(geoPoint.latitude);
+        gameCenterDictionary[@"longitude"] = @(geoPoint.longitude);
+        
+        [gameCenterArray addObject:gameCenterDictionary];
+    }
+    
+    [USER_DEFAULTS setObject:gameCenterArray forKey:kGameCenterArraykey];
+    [USER_DEFAULTS synchronize];
 }
 
 static NSMutableDictionary *gameCenterUserCache = nil;
@@ -91,7 +114,10 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     for ( NSString *key in params.allKeys ) {
         currentUser[key] = params[key];
     }
-    currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
+    
+    if ( currentUser.objectId && !currentUser[@"channelsId"] ) {
+        currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
+    }
 
     [SVProgressHUD showWithStatus:@"ユーザー情報を設定しています" maskType:SVProgressHUDMaskTypeBlack];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
