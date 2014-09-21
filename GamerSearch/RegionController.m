@@ -43,21 +43,78 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
-{
-    // ここで任意の処理
-    DDLogVerbose(@"%s | %@, %@", __PRETTY_FUNCTION__, region, error);
-}
-
+#pragma mark - CLLocationManager delegate methods.
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    // ここで任意の処理
-    DDLogVerbose(@"%s | %@", __PRETTY_FUNCTION__, region);
+    DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
+    
+    PFUser *currentUser = [PFUser currentUser];
+    currentUser[@"gameCenter"] = region.identifier;
+    currentUser[@"checkInAt"]  = [NSDate date];
+    
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if ( !error ) {
+            [self sendPushNotification];
+        }else {
+            DDLogError(@"%@", error);
+        }
+    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    // ここで任意の処理
-    DDLogVerbose(@"%s | %@", __PRETTY_FUNCTION__, region);
+    DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
+    
+    PFUser *currentUser = [PFUser currentUser];
+    currentUser[@"gameCenter"] = [region.identifier stringByAppendingString:@"を出ました"];
+    currentUser[@"checkInAt"]  = [NSDate date];
+    
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if ( !error ) {
+            NSString *message =
+                [NSString stringWithFormat:@"%@ を出ました", currentUser[@"gameCenter"]];
+            [self sendLocalNotification:message];
+        }else {
+            DDLogError(@"%@", error);
+        }
+    }];
 }
+
+#pragma mark - Send notification methods.
+- (void)sendPushNotification {
+    PFUser *currentUser = [PFUser currentUser];
+
+    NSString *message =
+        [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
+    
+    NSDictionary *pushData =
+    @{
+      @"alert":message,
+      @"badge":@"Increment"
+    };
+    
+    [PFPush sendPushDataToChannelInBackground:currentUser[@"channelsId"]
+                                     withData:pushData
+                                        block:
+     ^(BOOL succeeded, NSError *error) {
+         if ( error ) {
+             NSString *message =
+                [NSString stringWithFormat:@"%@ に来ました", currentUser[@"gameCenter"]];
+             [self sendLocalNotification:message];
+         }else {
+             DDLogError(@"%@", error);
+         }
+    }];
+}
+
+- (void)sendLocalNotification:(NSString *)message {
+    UILocalNotification *notification = [UILocalNotification new];
+    notification.fireDate  = [NSDate date];
+    notification.alertBody = message;
+    notification.timeZone  = [NSTimeZone localTimeZone];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
+
 @end
