@@ -16,12 +16,18 @@
 
 @implementation RegionController
 
+- (id)init {
+    self = [super init];
+    if ( self ) {
+        _manager = [[CLLocationManager alloc] init];
+        _manager.delegate = self;
+    }
+    return self;
+}
+
 - (void)startMonitoringGameCenter:(NSArray *)gameCenters {
     
     if ( [CLLocationManager locationServicesEnabled] ) {
-        _manager = [[CLLocationManager alloc] init];
-        _manager.delegate = self;
-        
         for ( CLRegion *region in _manager.monitoredRegions ) {
             [_manager stopMonitoringForRegion:region];
         }
