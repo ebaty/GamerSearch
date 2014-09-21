@@ -35,7 +35,8 @@
     _mapView.delegate = self;
     _mapView.myLocationEnabled = YES;
     _mapView.settings.myLocationButton = YES;
-    
+
+    // 初期位置設定
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(36.204824, 138.252924);
     _mapView.camera = [GMSCameraPosition cameraWithTarget:coordinate zoom:4.0f];
     
@@ -152,6 +153,12 @@
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
     return [UIView new];
+}
+
+- (BOOL)didTapMyLocationButtonForMapView:(GMSMapView *)mapView {
+    _mapView.camera = [GMSCameraPosition cameraWithTarget:_mapView.myLocation.coordinate zoom:13.0];
+
+    return YES;
 }
 
 #pragma mark - MarkerView delegate method.

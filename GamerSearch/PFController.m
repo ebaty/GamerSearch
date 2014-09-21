@@ -8,7 +8,7 @@
 
 #import "PFController.h"
 
-#define kGameCenterClassName    @"GameCenter"
+#define kGameCenterClassName @"GameCenter"
 
 @implementation PFController
 
