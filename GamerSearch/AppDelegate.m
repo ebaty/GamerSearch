@@ -55,10 +55,12 @@
     [[PTEDashboard sharedDashboard] show];
 #endif
 
+    // PFUserの初期化
     if ( ![USER_DEFAULTS boolForKey:@"didFirstLaunch"] ) {
         [PFController postUserProfile:nil handler:^{
             PFUser *currentUser = [PFUser currentUser];
             currentUser[@"username"] = @"未設定";
+            currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
             [currentUser saveInBackground];
 
             [USER_DEFAULTS setBool:YES forKey:@"didFirstLaunch"];

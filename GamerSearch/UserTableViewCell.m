@@ -53,9 +53,9 @@
         ];
     
     
-    if ( [_userProfileObject[kFightGamerBoolKey]  boolValue] ) _fightGamerLabel.hidden  = NO;
-    if ( [_userProfileObject[kMusicGamerBoolKey]  boolValue] ) _musicGamerLabel.hidden  = NO;
-    if ( [_userProfileObject[kActionGamerBoolKey] boolValue] ) _actionGamerLabel.hidden = NO;    
+    _fightGamerLabel.hidden  = ![_userProfileObject[kFightGamerBoolKey]  boolValue];
+    _musicGamerLabel.hidden  = ![_userProfileObject[kMusicGamerBoolKey]  boolValue];
+    _actionGamerLabel.hidden = ![_userProfileObject[kActionGamerBoolKey] boolValue];
 }
 
 @end
