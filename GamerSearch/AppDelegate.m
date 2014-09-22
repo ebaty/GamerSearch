@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "RegionController.h"
 
 #import <GoogleMaps.h>
 #import <LumberjackConsole/PTEDashboard.h>
@@ -50,7 +51,19 @@
         }];
     }
     
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
     return YES;
+}
+
+static RegionController *regionController = nil;
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSArray *gameCenters = [USER_DEFAULTS arrayForKey:@"GameCenterArray"];
+    
+    if ( gameCenters ) {
+        regionController = [RegionController new];
+        regionController.gameCenters = [USER_DEFAULTS arrayForKey:@"GameCenterArray"];
+    }
 }
 
 - (void)application:(UIApplication *)application

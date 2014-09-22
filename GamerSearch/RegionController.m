@@ -8,6 +8,8 @@
 
 #import "RegionController.h"
 
+#define kRegionRadius 400.0f
+
 @interface RegionController () <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationManager *manager;
@@ -48,9 +50,10 @@
 
 - (void)setMonitoringGameCenters:(NSArray *)monitoringGameCenters {
     _monitoringGameCenters = monitoringGameCenters;
-    int count = monitoringGameCenters.count;
+    int count = (int)monitoringGameCenters.count;
     if ( count > 20 ) count = 20;
     
+    DDLogVerbose(@"%@", monitoringGameCenters);
     for ( int i = 0; i < count; ++i ) {
         NSDictionary *gameCenter = monitoringGameCenters[i];
         
@@ -58,12 +61,44 @@
             CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
         
         CLCircularRegion *region =
-            [[CLCircularRegion alloc] initWithCenter:coordinate radius:100.0f identifier:gameCenter[@"name"]];
+            [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
         
         [_manager startMonitoringForRegion:region];
         [_manager requestStateForRegion:region];
     }
     
+}
+
+- (void)checkBackgroundTask {
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    __block UIBackgroundTaskIdentifier bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 既に実行済みであれば終了する
+            if (bgTask != UIBackgroundTaskInvalid) {
+                [application endBackgroundTask:bgTask];
+                bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    }];
+}
+
+- (void)checkDistance:(NSDictionary *)gameCenter nowLocation:(CLLocation *)nowLocation {
+    if ( gameCenter ) {
+        CLLocationCoordinate2D coordinate =
+            CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
+        
+        CLCircularRegion *region =
+            [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
+        
+        CLLocationDistance distance = [nowLocation distanceFromLocation:(CLLocation *)region];
+
+        if ( distance <= kRegionRadius ) {
+            [self locationManager:_manager didEnterRegion:region];
+        }else {
+            [self locationManager:_manager didExitRegion:region];
+        }
+    }
 }
 
 #pragma mark - CLLocationManager delegate methods.
@@ -72,8 +107,13 @@
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
+        [self checkDistance:_monitoringGameCenters.firstObject nowLocation:nowLocation];
     }
+    
     DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+
+    [manager stopUpdatingLocation];
+    [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:1 * 60];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -84,47 +124,67 @@
     NSArray *stateArray = @[@"CLRegionStateUnknown",
                             @"CLRegionStateInside",
                             @"CLRegionStateOutside"];
-    DDLogVerbose(@"%@:%@", region.identifier, stateArray[state]);
     
-    if ( state == CLRegionStateInside ) {
-        if ( ![region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
-            [self locationManager:manager didEnterRegion:region];
-        }
-    }
+    CLCircularRegion *r = (CLCircularRegion *)region;
+    CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:r.center.latitude longitude:r.center.longitude];
+    DDLogVerbose(@"%@:%@, %lf", region.identifier, stateArray[state], [manager.location distanceFromLocation:regionLocation]);
+
+//    if ( state == CLRegionStateInside && ![region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
+//        if ( [manager.location distanceFromLocation:regionLocation] <= kRegionRadius ) {
+//            [self locationManager:manager didEnterRegion:region];
+//        }
+//    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
+    [self checkBackgroundTask];
     
-    PFUser *currentUser = [PFUser currentUser];
-    currentUser[@"gameCenter"] = region.identifier;
-    currentUser[@"checkInAt"]  = [NSDate date];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if ( !error ) {
-            [self sendPushNotification];
-        }else {
-            DDLogError(@"%@", error);
+        if ( ![region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
+
+            DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
+            
+            PFUser *currentUser = [PFUser currentUser];
+            currentUser[@"gameCenter"] = region.identifier;
+            currentUser[@"checkInAt"]  = [NSDate date];
+            
+            [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if ( !error ) {
+                    [self sendPushNotification];
+                }else {
+                    DDLogError(@"%@", error);
+                }
+            }];
         }
-    }];
+
+    });
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
-    
-    PFUser *currentUser = [PFUser currentUser];
-    currentUser[@"gameCenter"] = [region.identifier stringByAppendingString:@"を出ました"];
-    currentUser[@"checkInAt"]  = [NSDate date];
-    
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if ( !error ) {
-            [self sendLocalNotification:currentUser[@"gameCenter"]];
-        }else {
-            DDLogError(@"%@", error);
-        }
-    }];
+    [self checkBackgroundTask];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
+        
+        PFUser *currentUser = [PFUser currentUser];
+        NSString *message = [currentUser[@"gameCenter"] stringByAppendingString:@" を出ました"];
+        
+        currentUser[@"gameCenter"] = @"";
+        currentUser[@"checkInAt"]  = [NSDate date];
+        
+        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if ( !error ) {
+                [self sendLocalNotification:message];
+            }else {
+                DDLogError(@"%@", error);
+            }
+        }];
+            
+    });
 }
 
 #pragma mark - Send notification methods.
