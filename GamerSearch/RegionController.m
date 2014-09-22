@@ -8,7 +8,7 @@
 
 #import "RegionController.h"
 
-#define kRegionRadius 400.0f
+#define kRegionRadius 5.0f
 
 @interface RegionController () <CLLocationManagerDelegate>
 
@@ -53,6 +53,10 @@
     int count = (int)monitoringGameCenters.count;
     if ( count > 20 ) count = 20;
     
+    for ( CLRegion *region in _manager.monitoredRegions ) {
+        [_manager stopMonitoringForRegion:region];
+    }
+    
     DDLogVerbose(@"%@", monitoringGameCenters);
     for ( int i = 0; i < count; ++i ) {
         NSDictionary *gameCenter = monitoringGameCenters[i];
@@ -88,12 +92,16 @@
         CLLocationCoordinate2D coordinate =
             CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
         
+        CLLocation *gameCenterLocation =
+            [[CLLocation alloc] initWithLatitude:[gameCenter[@"latitude"]  doubleValue]
+                                       longitude:[gameCenter[@"longitude"] doubleValue]];
+        
         CLCircularRegion *region =
             [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
         
-        CLLocationDistance distance = [nowLocation distanceFromLocation:(CLLocation *)region];
+        CLLocationDistance distance = [nowLocation distanceFromLocation:gameCenterLocation];
 
-        if ( distance <= kRegionRadius ) {
+        if ( distance <= kRegionRadius * 20 ) {
             [self locationManager:_manager didEnterRegion:region];
         }else {
             [self locationManager:_manager didExitRegion:region];
@@ -144,7 +152,10 @@
     
         if ( ![region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
 
-            DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
+            CLCircularRegion *circular = (CLCircularRegion *)region;
+            CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:circular.center.latitude longitude:circular.center.longitude];
+            DDLogVerbose(@"%@:%@, distance == %lf",
+                         NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
             
             PFUser *currentUser = [PFUser currentUser];
             currentUser[@"gameCenter"] = region.identifier;
@@ -171,7 +182,7 @@
         DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
         
         PFUser *currentUser = [PFUser currentUser];
-        NSString *message = [currentUser[@"gameCenter"] stringByAppendingString:@" を出ました"];
+        NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
         
         currentUser[@"gameCenter"] = @"";
         currentUser[@"checkInAt"]  = [NSDate date];

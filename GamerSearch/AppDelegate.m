@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "RegionController.h"
 
 #import <GoogleMaps.h>
 #import <LumberjackConsole/PTEDashboard.h>
@@ -33,12 +32,28 @@
     
     // GoogleMapsSDKの設定
     [GMSServices provideAPIKey:@"AIzaSyDgD8tx7qi2nO-63xOCapi5gsbCI-XHHFE"];
-    
+
+#ifdef DEBUG
     // CocoaLumberjackの設定
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
+    NSString *logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Logs/"];
+    DDLogFileManagerDefault *logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
+    // ファイルにログを出力
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+    // 1日に1回ログファイルを更新
+    // fileLogger.rollingFrequency =   60 * 60 * 24;
+    // 10秒に1回ログファイルを更新
+    fileLogger.rollingFrequency =   10;
+    // ログファイルを残す数
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    // Xcodeのコンソールにログを出力
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:fileLogger];
+    
     // LumberjackConsoleの設定
     [[PTEDashboard sharedDashboard] show];
+#endif
 
     if ( ![USER_DEFAULTS boolForKey:@"didFirstLaunch"] ) {
         [PFController postUserProfile:nil handler:^{
@@ -56,14 +71,25 @@
     return YES;
 }
 
-static RegionController *regionController = nil;
+BOOL didCalledFetch = NO;
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSArray *gameCenters = [USER_DEFAULTS arrayForKey:@"GameCenterArray"];
+    __block UIBackgroundTaskIdentifier bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 既に実行済みであれば終了する
+            if (bgTask != UIBackgroundTaskInvalid) {
+                [application endBackgroundTask:bgTask];
+                bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    }];
     
-    if ( gameCenters ) {
-        regionController = [RegionController new];
-        regionController.gameCenters = [USER_DEFAULTS arrayForKey:@"GameCenterArray"];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self performSelector:@selector(callCompletionHandler:) withObject:completionHandler afterDelay:1 * 60];
+    });
+}
+
+- (void)callCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application

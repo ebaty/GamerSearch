@@ -348,6 +348,7 @@
 				ORGANIZATIONNAME = "Masaki EBATA";
 				TargetAttributes = {
 					F4FFEC1E19C5CCB000A48BDE = {
+						DevelopmentTeam = 94348D23TA;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
