@@ -157,16 +157,14 @@
             DDLogVerbose(@"%@:%@, distance == %lf",
                          NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
             
-            PFUser *currentUser = [PFUser currentUser];
-            currentUser[@"gameCenter"] = region.identifier;
-            currentUser[@"checkInAt"]  = [NSDate date];
+            NSDictionary *params =
+            @{
+              @"gameCenter" : region.identifier,
+              @"checkInAt"  : [NSDate date]
+            };
             
-            [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if ( !error ) {
-                    [self sendPushNotification];
-                }else {
-                    DDLogError(@"%@", error);
-                }
+            [PFController postUserProfile:params handler:^{
+                [self sendPushNotification];
             }];
         }
 
@@ -181,21 +179,18 @@
 
         DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
         
-        PFUser *currentUser = [PFUser currentUser];
-        
-        if ( [region.identifier isEqualToString:currentUser[@"gameCenter"]] ) {
+        if ( [region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
             
             NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
             
-            currentUser[@"gameCenter"] = @"";
-            currentUser[@"checkInAt"]  = [NSDate date];
-            
-            [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if ( !error ) {
-                    [self sendLocalNotification:message];
-                }else {
-                    DDLogError(@"%@", error);
-                }
+            NSDictionary *params =
+            @{
+              @"gameCenter" : @"",
+              @"checkInAt"  : [NSDate date]
+            };
+
+            [PFController postUserProfile:params handler:^{
+                [self sendLocalNotification:message];
             }];
         }
         
