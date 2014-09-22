@@ -182,19 +182,23 @@
         DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
         
         PFUser *currentUser = [PFUser currentUser];
-        NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
         
-        currentUser[@"gameCenter"] = @"";
-        currentUser[@"checkInAt"]  = [NSDate date];
-        
-        [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if ( !error ) {
-                [self sendLocalNotification:message];
-            }else {
-                DDLogError(@"%@", error);
-            }
-        }];
+        if ( [region.identifier isEqualToString:currentUser[@"gameCenter"]] ) {
             
+            NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
+            
+            currentUser[@"gameCenter"] = @"";
+            currentUser[@"checkInAt"]  = [NSDate date];
+            
+            [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if ( !error ) {
+                    [self sendLocalNotification:message];
+                }else {
+                    DDLogError(@"%@", error);
+                }
+            }];
+        }
+        
     });
 }
 

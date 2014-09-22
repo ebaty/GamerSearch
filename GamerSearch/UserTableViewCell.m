@@ -47,7 +47,7 @@
     dateFormatter.dateFormat = @"MM/dd HH:mm";
     
     _checkInDateLabel.text =
-        [NSString stringWithFormat:@"%@ に %@ に来ました",
+        [NSString stringWithFormat:@"%@ %@",
          [dateFormatter stringFromDate:_userProfileObject[@"checkInAt"]],
          _userProfileObject[@"gameCenter"]
         ];
