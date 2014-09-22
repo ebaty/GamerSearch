@@ -112,14 +112,13 @@
 #pragma mark - CLLocationManager delegate methods.
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *nowLocation = locations.lastObject;
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
         [self checkDistance:_monitoringGameCenters.firstObject nowLocation:nowLocation];
     }
     
-    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
-
     [manager stopUpdatingLocation];
     [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:1 * 60];
 }
