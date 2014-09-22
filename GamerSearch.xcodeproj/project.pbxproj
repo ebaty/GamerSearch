@@ -32,7 +32,6 @@
 		F4FFEC3E19C5CCB000A48BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2619C5CCB000A48BDE /* UIKit.framework */; };
 		F4FFEC4619C5CCB000A48BDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4FFEC4419C5CCB000A48BDE /* InfoPlist.strings */; };
 		F4FFEC4819C5CCB000A48BDE /* GamerSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC4719C5CCB000A48BDE /* GamerSearchTests.m */; };
-		F4FFEC8819C5D3BD00A48BDE /* FollowListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC7D19C5D3BD00A48BDE /* FollowListTableViewController.m */; };
 		F4FFEC8919C5D3BD00A48BDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */; };
 		F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8019C5D3BD00A48BDE /* MapViewController.m */; };
 		F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */; };
@@ -92,8 +91,6 @@
 		F4FFEC4319C5CCB000A48BDE /* GamerSearchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GamerSearchTests-Info.plist"; sourceTree = "<group>"; };
 		F4FFEC4519C5CCB000A48BDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F4FFEC4719C5CCB000A48BDE /* GamerSearchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamerSearchTests.m; sourceTree = "<group>"; };
-		F4FFEC7C19C5D3BD00A48BDE /* FollowListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowListTableViewController.h; sourceTree = "<group>"; };
-		F4FFEC7D19C5D3BD00A48BDE /* FollowListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowListTableViewController.m; sourceTree = "<group>"; };
 		F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F4FFEC7F19C5D3BD00A48BDE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		F4FFEC8019C5D3BD00A48BDE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
@@ -164,16 +161,57 @@
 			name = SettingTableViewController;
 			sourceTree = "<group>";
 		};
-		F4539AE319D095840054EA75 /* LoginViewController */ = {
+		F4539AE319D095840054EA75 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				F4539ADF19D06EE10054EA75 /* Login.storyboard */,
+				F4539AEB19D0AFA10054EA75 /* LoginViewController */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		F4539AEA19D0AF910054EA75 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */,
+				F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */,
+				F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */,
+				F4FFEC9819C6C6D000A48BDE /* Controller */,
+				F4005F9619C9DE7600DA7702 /* UserCell */,
+				F48EFDFF19CE0ECB0033ACFE /* UserDetailViewController */,
+				F4539AED19D0AFE90054EA75 /* TabViewControllers */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		F4539AEB19D0AFA10054EA75 /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
 				F4539AE419D0959D0054EA75 /* LoginViewController.h */,
 				F4539AE519D0959D0054EA75 /* LoginViewController.m */,
+				F4539AEC19D0AFA90054EA75 /* TextViewController */,
+			);
+			name = LoginViewController;
+			sourceTree = "<group>";
+		};
+		F4539AEC19D0AFA90054EA75 /* TextViewController */ = {
+			isa = PBXGroup;
+			children = (
 				F4539AE719D095E40054EA75 /* TextViewController.h */,
 				F4539AE819D095E40054EA75 /* TextViewController.m */,
 			);
-			name = LoginViewController;
+			name = TextViewController;
+			sourceTree = "<group>";
+		};
+		F4539AED19D0AFE90054EA75 /* TabViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F4FFEC8E19C6C31200A48BDE /* MapViewController */,
+				F458614D19CC9B16000D6027 /* FollowListViewController */,
+				F476D1B319CD634000ABCFB4 /* ProfileTableViewController */,
+				F4539AE219D06F590054EA75 /* SettingTableViewController */,
+			);
+			name = TabViewControllers;
 			sourceTree = "<group>";
 		};
 		F458614D19CC9B16000D6027 /* FollowListViewController */ = {
@@ -241,19 +279,8 @@
 				F4FFEC3119C5CCB000A48BDE /* AppDelegate.h */,
 				F4FFEC3219C5CCB000A48BDE /* AppDelegate.m */,
 				F4FFEC3419C5CCB000A48BDE /* Images.xcassets */,
-				F4FFEC7C19C5D3BD00A48BDE /* FollowListTableViewController.h */,
-				F4FFEC7D19C5D3BD00A48BDE /* FollowListTableViewController.m */,
-				F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */,
-				F4539AE319D095840054EA75 /* LoginViewController */,
-				F4FFEC9819C6C6D000A48BDE /* Controller */,
-				F4005F9619C9DE7600DA7702 /* UserCell */,
-				F48EFDFF19CE0ECB0033ACFE /* UserDetailViewController */,
-				F4FFEC8E19C6C31200A48BDE /* MapViewController */,
-				F458614D19CC9B16000D6027 /* FollowListViewController */,
-				F476D1B319CD634000ABCFB4 /* ProfileTableViewController */,
-				F4539AE219D06F590054EA75 /* SettingTableViewController */,
-				F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */,
-				F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */,
+				F4539AE319D095840054EA75 /* Login */,
+				F4539AEA19D0AF910054EA75 /* Main */,
 				F4FFEC9919C6CD7000A48BDE /* Category */,
 				F4FFEC2919C5CCB000A48BDE /* Supporting Files */,
 			);
@@ -479,7 +506,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4FFEC8819C5D3BD00A48BDE /* FollowListTableViewController.m in Sources */,
 				F4FFEC3319C5CCB000A48BDE /* AppDelegate.m in Sources */,
 				F4FFEC9419C6C4FD00A48BDE /* MarkerDetailView.m in Sources */,
 				F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */,
