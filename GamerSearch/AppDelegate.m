@@ -15,13 +15,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Parse setApplicationId:@"X10PAkGYt5ciyoQLTbETqAP7y4mryJhvV3I8gHxX" clientKey:@"oW2ovnBosQDTlpoSlFhtVTTqLFWf3DC3zoGb6top"];
-    
-    [PFUser enableAutomaticUser];
-    
+    // Parseの初期設定
+    [Parse setApplicationId:@"X10PAkGYt5ciyoQLTbETqAP7y4mryJhvV3I8gHxX"
+                  clientKey:@"oW2ovnBosQDTlpoSlFhtVTTqLFWf3DC3zoGb6top"];
+
     PFACL *defaultACL = [PFACL ACL];
     [defaultACL setPublicReadAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+    
+    [PFTwitterUtils initializeWithConsumerKey:@"NIO5ybtx2SJcs3KnMt5KXxP1R"
+                               consumerSecret:@"fZpgW164mladR8EDbnV2aoyx3P2cebnrTRDVefWfODTZxQxnF5"];
     
     // Push通知の設定
     [application registerForRemoteNotificationTypes:
@@ -37,7 +40,7 @@
     // CocoaLumberjackの設定
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
-    NSString *logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Logs/"];
+    NSString *logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Logs/"];
     DDLogFileManagerDefault *logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
     // ファイルにログを出力
     DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
@@ -56,38 +59,42 @@
 #endif
 
     // PFUserの初期化
-    if ( ![USER_DEFAULTS boolForKey:@"didFirstLaunch"] ) {
-        [PFController postUserProfile:nil handler:^{
-            PFUser *currentUser = [PFUser currentUser];
-            currentUser[@"username"] = @"未設定";
-            currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
-            [currentUser saveInBackground];
-
-            [USER_DEFAULTS setBool:YES forKey:@"didFirstLaunch"];
-            [USER_DEFAULTS synchronize];
-        }];
-    }
+//    if ( ![USER_DEFAULTS boolForKey:@"didFirstLaunch"] ) {
+//        [PFController postUserProfile:nil handler:^{
+//            PFUser *currentUser = [PFUser currentUser];
+//            currentUser[@"username"] = @"未設定";
+//            currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
+//            [currentUser saveInBackground];
+//
+//            [USER_DEFAULTS setBool:YES forKey:@"didFirstLaunch"];
+//            [USER_DEFAULTS synchronize];
+//        }];
+//    }
     
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-
+    // BackgroundFetchの設定
+//    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    [self validateAccount];
+    
     return YES;
 }
 
-BOOL didCalledFetch = NO;
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    __block UIBackgroundTaskIdentifier bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // 既に実行済みであれば終了する
-            if (bgTask != UIBackgroundTaskInvalid) {
-                [application endBackgroundTask:bgTask];
-                bgTask = UIBackgroundTaskInvalid;
-            }
-        });
-    }];
+- (void)validateAccount {
+    PFUser *currentUser = [PFUser currentUser];
+    UIStoryboard *currentStoryboard;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self performSelector:@selector(callCompletionHandler:) withObject:completionHandler afterDelay:1 * 60];
-    });
+    if ( currentUser ) {
+        currentStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    }else {
+        currentStoryboard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
+    }
+    
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    _window.rootViewController = [currentStoryboard instantiateInitialViewController];
+    [_window makeKeyAndVisible];
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [self performSelector:@selector(callCompletionHandler:) withObject:completionHandler afterDelay:10.0f];
 }
 
 - (void)callCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

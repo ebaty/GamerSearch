@@ -14,6 +14,9 @@
 		F409FF0219CEEA7C00046A4B /* RegionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F409FF0119CEEA7C00046A4B /* RegionController.m */; };
 		F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADB19D058510054EA75 /* Privacy_Policy.txt */; };
 		F4539ADE19D058510054EA75 /* Terms_Of_Service.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */; };
+		F4539AE019D06EE10054EA75 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADF19D06EE10054EA75 /* Login.storyboard */; };
+		F4539AE619D0959D0054EA75 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4539AE519D0959D0054EA75 /* LoginViewController.m */; };
+		F4539AE919D095E40054EA75 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4539AE819D095E40054EA75 /* TextViewController.m */; };
 		F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F458614F19CC9B93000D6027 /* FollowListViewController.m */; };
 		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
 		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
@@ -62,6 +65,11 @@
 		F409FF0119CEEA7C00046A4B /* RegionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionController.m; sourceTree = "<group>"; };
 		F4539ADB19D058510054EA75 /* Privacy_Policy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Privacy_Policy.txt; sourceTree = "<group>"; };
 		F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Terms_Of_Service.txt; sourceTree = "<group>"; };
+		F4539ADF19D06EE10054EA75 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		F4539AE419D0959D0054EA75 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		F4539AE519D0959D0054EA75 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		F4539AE719D095E40054EA75 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		F4539AE819D095E40054EA75 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
 		F458614E19CC9B93000D6027 /* FollowListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowListViewController.h; sourceTree = "<group>"; };
 		F458614F19CC9B93000D6027 /* FollowListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowListViewController.m; sourceTree = "<group>"; };
 		F476D1B419CD635A00ABCFB4 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
@@ -147,13 +155,34 @@
 			name = UserListViewController;
 			sourceTree = "<group>";
 		};
-		F458614D19CC9B16000D6027 /* FollowList */ = {
+		F4539AE219D06F590054EA75 /* SettingTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F4FFEC8319C5D3BD00A48BDE /* SettingTableViewController.h */,
+				F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */,
+			);
+			name = SettingTableViewController;
+			sourceTree = "<group>";
+		};
+		F4539AE319D095840054EA75 /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F4539ADF19D06EE10054EA75 /* Login.storyboard */,
+				F4539AE419D0959D0054EA75 /* LoginViewController.h */,
+				F4539AE519D0959D0054EA75 /* LoginViewController.m */,
+				F4539AE719D095E40054EA75 /* TextViewController.h */,
+				F4539AE819D095E40054EA75 /* TextViewController.m */,
+			);
+			name = LoginViewController;
+			sourceTree = "<group>";
+		};
+		F458614D19CC9B16000D6027 /* FollowListViewController */ = {
 			isa = PBXGroup;
 			children = (
 				F458614E19CC9B93000D6027 /* FollowListViewController.h */,
 				F458614F19CC9B93000D6027 /* FollowListViewController.m */,
 			);
-			name = FollowList;
+			name = FollowListViewController;
 			sourceTree = "<group>";
 		};
 		F476D1B319CD634000ABCFB4 /* ProfileTableViewController */ = {
@@ -215,14 +244,14 @@
 				F4FFEC7C19C5D3BD00A48BDE /* FollowListTableViewController.h */,
 				F4FFEC7D19C5D3BD00A48BDE /* FollowListTableViewController.m */,
 				F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */,
+				F4539AE319D095840054EA75 /* LoginViewController */,
 				F4FFEC9819C6C6D000A48BDE /* Controller */,
 				F4005F9619C9DE7600DA7702 /* UserCell */,
 				F48EFDFF19CE0ECB0033ACFE /* UserDetailViewController */,
 				F4FFEC8E19C6C31200A48BDE /* MapViewController */,
-				F458614D19CC9B16000D6027 /* FollowList */,
+				F458614D19CC9B16000D6027 /* FollowListViewController */,
 				F476D1B319CD634000ABCFB4 /* ProfileTableViewController */,
-				F4FFEC8319C5D3BD00A48BDE /* SettingTableViewController.h */,
-				F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */,
+				F4539AE219D06F590054EA75 /* SettingTableViewController */,
 				F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */,
 				F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */,
 				F4FFEC9919C6CD7000A48BDE /* Category */,
@@ -394,6 +423,7 @@
 			files = (
 				F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */,
 				F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */,
+				F4539AE019D06EE10054EA75 /* Login.storyboard in Resources */,
 				F4FFEC8919C5D3BD00A48BDE /* Main.storyboard in Resources */,
 				F4FFEC2D19C5CCB000A48BDE /* InfoPlist.strings in Resources */,
 				F4FFEC3519C5CCB000A48BDE /* Images.xcassets in Resources */,
@@ -456,7 +486,9 @@
 				F4FFEC8C19C5D3BD00A48BDE /* SettingTableViewController.m in Sources */,
 				F409FF0219CEEA7C00046A4B /* RegionController.m in Sources */,
 				F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */,
+				F4539AE619D0959D0054EA75 /* LoginViewController.m in Sources */,
 				F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */,
+				F4539AE919D095E40054EA75 /* TextViewController.m in Sources */,
 				F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */,
 				F4FFEC9119C6C33900A48BDE /* MarkerView.m in Sources */,
 				F4FFEC8D19C5D3BD00A48BDE /* TabBarViewController.m in Sources */,
