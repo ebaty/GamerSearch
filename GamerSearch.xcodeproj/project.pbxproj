@@ -12,6 +12,8 @@
 		F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */; };
 		F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005FA019C9E72F00DA7702 /* UserListViewController.m */; };
 		F409FF0219CEEA7C00046A4B /* RegionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F409FF0119CEEA7C00046A4B /* RegionController.m */; };
+		F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADB19D058510054EA75 /* Privacy_Policy.txt */; };
+		F4539ADE19D058510054EA75 /* Terms_Of_Service.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */; };
 		F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F458614F19CC9B93000D6027 /* FollowListViewController.m */; };
 		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
 		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
@@ -58,6 +60,8 @@
 		F4005FA019C9E72F00DA7702 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		F409FF0019CEEA7C00046A4B /* RegionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionController.h; sourceTree = "<group>"; };
 		F409FF0119CEEA7C00046A4B /* RegionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionController.m; sourceTree = "<group>"; };
+		F4539ADB19D058510054EA75 /* Privacy_Policy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Privacy_Policy.txt; sourceTree = "<group>"; };
+		F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Terms_Of_Service.txt; sourceTree = "<group>"; };
 		F458614E19CC9B93000D6027 /* FollowListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowListViewController.h; sourceTree = "<group>"; };
 		F458614F19CC9B93000D6027 /* FollowListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowListViewController.m; sourceTree = "<group>"; };
 		F476D1B419CD635A00ABCFB4 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 		F4FFEC2919C5CCB000A48BDE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F4539ADB19D058510054EA75 /* Privacy_Policy.txt */,
+				F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */,
 				F4FFEC2A19C5CCB000A48BDE /* GamerSearch-Info.plist */,
 				F4FFEC2B19C5CCB000A48BDE /* InfoPlist.strings */,
 				F4FFEC2E19C5CCB000A48BDE /* main.m */,
@@ -386,10 +392,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */,
 				F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */,
 				F4FFEC8919C5D3BD00A48BDE /* Main.storyboard in Resources */,
 				F4FFEC2D19C5CCB000A48BDE /* InfoPlist.strings in Resources */,
 				F4FFEC3519C5CCB000A48BDE /* Images.xcassets in Resources */,
+				F4539ADE19D058510054EA75 /* Terms_Of_Service.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
