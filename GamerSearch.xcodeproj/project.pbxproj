@@ -15,6 +15,7 @@
 		F441ACA819D1C1BB007F4E8A /* SettingTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F441ACA719D1C1BB007F4E8A /* SettingTextViewController.m */; };
 		F441ACB219D1D53A007F4E8A /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F441ACAB19D1D539007F4E8A /* libNendAd.a */; };
 		F441ACB319D1D53A007F4E8A /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F441ACB119D1D53A007F4E8A /* NADView_readme.txt */; };
+		F441ACCA19D2099D007F4E8A /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F441ACC919D2099D007F4E8A /* IntroViewController.m */; };
 		F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADB19D058510054EA75 /* Privacy_Policy.txt */; };
 		F4539ADE19D058510054EA75 /* Terms_Of_Service.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */; };
 		F4539AE019D06EE10054EA75 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADF19D06EE10054EA75 /* Login.storyboard */; };
@@ -79,6 +80,8 @@
 		F441ACAF19D1D539007F4E8A /* NADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADInterstitial.h; sourceTree = "<group>"; };
 		F441ACB019D1D53A007F4E8A /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
 		F441ACB119D1D53A007F4E8A /* NADView_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NADView_readme.txt; sourceTree = "<group>"; };
+		F441ACC819D2099D007F4E8A /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		F441ACC919D2099D007F4E8A /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		F4539ADB19D058510054EA75 /* Privacy_Policy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Privacy_Policy.txt; sourceTree = "<group>"; };
 		F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Terms_Of_Service.txt; sourceTree = "<group>"; };
 		F4539ADF19D06EE10054EA75 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -207,6 +210,15 @@
 			);
 			path = NendAd;
 			sourceTree = SOURCE_ROOT;
+		};
+		F441ACC119D206CA007F4E8A /* MyIntroView */ = {
+			isa = PBXGroup;
+			children = (
+				F441ACC819D2099D007F4E8A /* IntroViewController.h */,
+				F441ACC919D2099D007F4E8A /* IntroViewController.m */,
+			);
+			name = MyIntroView;
+			sourceTree = "<group>";
 		};
 		F4539AE219D06F590054EA75 /* SettingTableViewController */ = {
 			isa = PBXGroup;
@@ -347,6 +359,7 @@
 				F4FFEC3119C5CCB000A48BDE /* AppDelegate.h */,
 				F4FFEC3219C5CCB000A48BDE /* AppDelegate.m */,
 				F4FFEC3419C5CCB000A48BDE /* Images.xcassets */,
+				F441ACC119D206CA007F4E8A /* MyIntroView */,
 				F4539AE319D095840054EA75 /* Login */,
 				F4539AEA19D0AF910054EA75 /* Main */,
 				F4FFEC9919C6CD7000A48BDE /* Category */,
@@ -594,6 +607,7 @@
 				F4539AE919D095E40054EA75 /* TextViewController.m in Sources */,
 				F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */,
 				F4FFEC9119C6C33900A48BDE /* MarkerView.m in Sources */,
+				F441ACCA19D2099D007F4E8A /* IntroViewController.m in Sources */,
 				F4FFEC8D19C5D3BD00A48BDE /* TabBarViewController.m in Sources */,
 				F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */,
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
