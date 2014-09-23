@@ -163,6 +163,15 @@
 			name = UserListViewController;
 			sourceTree = "<group>";
 		};
+		F441ACA519D1B154007F4E8A /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				F4539ADB19D058510054EA75 /* Privacy_Policy.txt */,
+				F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */,
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
 		F4539AE219D06F590054EA75 /* SettingTableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,8 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				F4EEB61E19D1A4080077BAC9 /* Image */,
-				F4539ADB19D058510054EA75 /* Privacy_Policy.txt */,
-				F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */,
+				F441ACA519D1B154007F4E8A /* Text */,
 				F4FFEC2A19C5CCB000A48BDE /* GamerSearch-Info.plist */,
 				F4FFEC2B19C5CCB000A48BDE /* InfoPlist.strings */,
 				F4FFEC2E19C5CCB000A48BDE /* main.m */,

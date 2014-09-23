@@ -21,6 +21,8 @@
 
     #import "PFController.h"
     #import "UIView+Indicator.h"
+    #import "UIView+CloseKeyboard.h"
+
 #endif
 
 #ifdef DEBUG

@@ -10,4 +10,6 @@
 
 @interface UIView (CloseKeyboard)
 
+- (void)closeKeyboard;
+
 @end

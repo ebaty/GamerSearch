@@ -18,6 +18,10 @@
     FAKFontAwesome *checkSquareIcon;
 }
 
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *firstPasswordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *secondPasswordTextField;
+
 @property (weak, nonatomic) IBOutlet UIImageView *FirstCheckBoxImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *SecondCheckBoxImageView;
 
@@ -38,24 +42,34 @@
     self.secondCheck = NO;
 }
 
-- (void)loginFromTwitter {
-    PFUser *currentUser = [PFUser currentUser];
-    DDLogVerbose(@"%@", currentUser);
+- (void)registerAccount {
+    PFUser *newUser = [PFUser user];
+    newUser.username = _userNameTextField.text;
+    newUser.password = _firstPasswordTextField.text;
     
-    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
-    [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
+    [SVProgressHUD showWithStatus:@"ユーザーを登録しています..." maskType:SVProgressHUDMaskTypeBlack];
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
-            if ( !user ) {
-                DDLogVerbose(@"Uh oh. The user cancelled the Twitter login.");
-                return;
-            }else {
-                DDLogVerbose(@"%@", [PFUser currentUser]);
-                [(AppDelegate *)[[UIApplication sharedApplication] delegate] validateAccount];
-            }
+            [SVProgressHUD showSuccessWithStatus:@"ユーザー登録が完了しました"];
+            [(AppDelegate *)[[UIApplication sharedApplication] delegate] validateAccount];
         }else {
+            [SVProgressHUD showErrorWithStatus:@"ユーザー登録に失敗しました"];
+            if ( error.code == 202 ) {
+                UIAlertView *alert = [UIAlertView new];
+                alert.title = @"エラー";
+                alert.message = @"\n既に使用されているユーザー名です。違うユーザー名を使用してください。";
+                alert.cancelButtonIndex = 0;
+                [alert addButtonWithTitle:@"確認"];
+                
+                [alert show];
+            }
             DDLogError(@"%@", error);
         }
     }];
+}
+
+- (void)loginAccount {
+    
 }
 
 #pragma mark - Setter methods.
@@ -92,21 +106,40 @@
     self.secondCheck = !_secondCheck;
 }
 
-- (IBAction)twitterLoginButton:(id)sender {
-    if ( _firstCheck && _secondCheck ) {
-        
-        [self loginFromTwitter];
-        
-    }else {
-        
-        UIAlertView *alertView = [UIAlertView new];
-        alertView.title = @"";
-        alertView.message = @"利用規約とプライバシーポリシーに同意してください";
-        alertView.cancelButtonIndex = 0;
-        [alertView addButtonWithTitle:@"確認"];
-        [alertView show];
-        
+- (IBAction)didTapView:(id)sender {
+    [self.view closeKeyboard];
+}
+
+- (IBAction)didPushRegisterAccountButton:(id)sender {
+    UIAlertView *alertView = [UIAlertView new];
+    alertView.title = @"登録内容に不備があります";
+    alertView.cancelButtonIndex = 0;
+    [alertView addButtonWithTitle:@"確認"];
+    
+    NSString *message = @"";
+    if ( _userNameTextField.text.length == 0 ) {
+        message = [message stringByAppendingString:@"ユーザー名を入力してください\n"];
     }
+    if ( _firstPasswordTextField.text.length == 0 || _secondPasswordTextField.text.length == 0 ) {
+        message = [message stringByAppendingString:@"パスワードを入力してください\n"];
+    }
+    else if ( ![_firstPasswordTextField.text isEqualToString:_secondPasswordTextField.text] ) {
+        message = [message stringByAppendingString:@"再入力されたパスワードが正しくありません\n"];
+    }
+    if ( !_firstCheck || !_secondCheck ) {
+        message = [message stringByAppendingString:@"利用規約とプライバシーポリシーに同意してください\n"];
+    }
+
+    if ( message.length > 0 ) {
+        alertView.message = message;
+        [alertView show];
+    }else  {
+        [self registerAccount];
+    }
+}
+
+- (IBAction)didPushLoginAccountButton:(id)sender {
+    
 }
 
 #pragma mark - Setter methods.

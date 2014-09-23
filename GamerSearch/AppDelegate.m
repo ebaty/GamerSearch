@@ -73,6 +73,8 @@
     
     // BackgroundFetchの設定
 //    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     [self validateAccount];
     
     return YES;
@@ -88,7 +90,6 @@
         currentStoryboard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
     }
     
-    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _window.rootViewController = [currentStoryboard instantiateInitialViewController];
     [_window makeKeyAndVisible];
 }
