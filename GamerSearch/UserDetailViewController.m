@@ -64,25 +64,30 @@
     PFFile *userImageFile = _userObject[@"userImage"];
     PFFile *textFile = _userObject[@"comment"];
     
-    [_userImageView showIndicator];
-    [userImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        [_userImageView dismissIndicator];
-        if ( !error ) {
-            _userImageView.image = [UIImage imageWithData:data];
-        }else {
-            DDLogError(@"%@", error);
-        }
-    }];
+    if ( userImageFile ) {
+        [_userImageView showIndicator];
+        [userImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            [_userImageView dismissIndicator];
+            if ( !error ) {
+                _userImageView.image = [UIImage imageWithData:data];
+            }else {
+                DDLogError(@"%@", error);
+            }
+        }];
+    }
     
-    [_textView showIndicator];
-    [textFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        [_textView dismissIndicator];
-        if ( !error ) {
-            _textView.text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        }else {
-            DDLogError(@"%@", error);
-        }
-    }];
+    if ( textFile ) {
+        _textView.contentSize = CGSizeMake(_textView.frame.size.width, _textView.frame.size.height);
+        [_textView showIndicator];
+        [textFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            [_textView dismissIndicator];
+            if ( !error ) {
+                _textView.text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            }else {
+                DDLogError(@"%@", error);
+            }
+        }];
+    }
 }
 
 - (void)initFollowButton {
