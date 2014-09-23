@@ -13,6 +13,8 @@
 		F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005FA019C9E72F00DA7702 /* UserListViewController.m */; };
 		F409FF0219CEEA7C00046A4B /* RegionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F409FF0119CEEA7C00046A4B /* RegionController.m */; };
 		F441ACA819D1C1BB007F4E8A /* SettingTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F441ACA719D1C1BB007F4E8A /* SettingTextViewController.m */; };
+		F441ACB219D1D53A007F4E8A /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F441ACAB19D1D539007F4E8A /* libNendAd.a */; };
+		F441ACB319D1D53A007F4E8A /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F441ACB119D1D53A007F4E8A /* NADView_readme.txt */; };
 		F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADB19D058510054EA75 /* Privacy_Policy.txt */; };
 		F4539ADE19D058510054EA75 /* Terms_Of_Service.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */; };
 		F4539AE019D06EE10054EA75 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4539ADF19D06EE10054EA75 /* Login.storyboard */; };
@@ -70,6 +72,13 @@
 		F409FF0119CEEA7C00046A4B /* RegionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionController.m; sourceTree = "<group>"; };
 		F441ACA619D1C1BB007F4E8A /* SettingTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTextViewController.h; sourceTree = "<group>"; };
 		F441ACA719D1C1BB007F4E8A /* SettingTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTextViewController.m; sourceTree = "<group>"; };
+		F441ACAB19D1D539007F4E8A /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
+		F441ACAC19D1D539007F4E8A /* NADIconArrayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconArrayView.h; sourceTree = "<group>"; };
+		F441ACAD19D1D539007F4E8A /* NADIconLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconLoader.h; sourceTree = "<group>"; };
+		F441ACAE19D1D539007F4E8A /* NADIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconView.h; sourceTree = "<group>"; };
+		F441ACAF19D1D539007F4E8A /* NADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADInterstitial.h; sourceTree = "<group>"; };
+		F441ACB019D1D53A007F4E8A /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
+		F441ACB119D1D53A007F4E8A /* NADView_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NADView_readme.txt; sourceTree = "<group>"; };
 		F4539ADB19D058510054EA75 /* Privacy_Policy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Privacy_Policy.txt; sourceTree = "<group>"; };
 		F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Terms_Of_Service.txt; sourceTree = "<group>"; };
 		F4539ADF19D06EE10054EA75 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -129,6 +138,7 @@
 			files = (
 				F4FFEC2519C5CCB000A48BDE /* CoreGraphics.framework in Frameworks */,
 				F4FFEC2719C5CCB000A48BDE /* UIKit.framework in Frameworks */,
+				F441ACB219D1D53A007F4E8A /* libNendAd.a in Frameworks */,
 				F4FFEC2319C5CCB000A48BDE /* Foundation.framework in Frameworks */,
 				D4D3BE7F9ED8420BBADF46E6 /* libPods.a in Frameworks */,
 			);
@@ -183,6 +193,20 @@
 			);
 			name = SettingTextViewController;
 			sourceTree = "<group>";
+		};
+		F441ACAA19D1D539007F4E8A /* NendAd */ = {
+			isa = PBXGroup;
+			children = (
+				F441ACAB19D1D539007F4E8A /* libNendAd.a */,
+				F441ACAC19D1D539007F4E8A /* NADIconArrayView.h */,
+				F441ACAD19D1D539007F4E8A /* NADIconLoader.h */,
+				F441ACAE19D1D539007F4E8A /* NADIconView.h */,
+				F441ACAF19D1D539007F4E8A /* NADInterstitial.h */,
+				F441ACB019D1D53A007F4E8A /* NADView.h */,
+				F441ACB119D1D53A007F4E8A /* NADView_readme.txt */,
+			);
+			path = NendAd;
+			sourceTree = SOURCE_ROOT;
 		};
 		F4539AE219D06F590054EA75 /* SettingTableViewController */ = {
 			isa = PBXGroup;
@@ -336,6 +360,7 @@
 			children = (
 				F4EEB61E19D1A4080077BAC9 /* Image */,
 				F441ACA519D1B154007F4E8A /* Text */,
+				F441ACAA19D1D539007F4E8A /* NendAd */,
 				F4FFEC2A19C5CCB000A48BDE /* GamerSearch-Info.plist */,
 				F4FFEC2B19C5CCB000A48BDE /* InfoPlist.strings */,
 				F4FFEC2E19C5CCB000A48BDE /* main.m */,
@@ -497,6 +522,7 @@
 				F4EEB62319D1A4170077BAC9 /* icon-60@3x.png in Resources */,
 				F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */,
 				F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */,
+				F441ACB319D1D53A007F4E8A /* NADView_readme.txt in Resources */,
 				F4EEB62619D1A4170077BAC9 /* icon-29@2x.png in Resources */,
 				F4539AE019D06EE10054EA75 /* Login.storyboard in Resources */,
 				F4FFEC8919C5D3BD00A48BDE /* Main.storyboard in Resources */,
@@ -697,6 +723,10 @@
 				GCC_PREFIX_HEADER = "GamerSearch/GamerSearch-Prefix.pch";
 				INFOPLIST_FILE = "GamerSearch/GamerSearch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NendAd",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "AA21E556-13AA-4098-9F8B-15F84BA109A7";
@@ -715,6 +745,10 @@
 				GCC_PREFIX_HEADER = "GamerSearch/GamerSearch-Prefix.pch";
 				INFOPLIST_FILE = "GamerSearch/GamerSearch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NendAd",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "AA21E556-13AA-4098-9F8B-15F84BA109A7";
