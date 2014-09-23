@@ -23,7 +23,7 @@
 {
     [super viewDidLoad];
 
-    float iconSize = 34.0f;
+    float iconSize = 30.0f;
 
     FAKFontAwesome *icons[] = {
         [FAKFontAwesome gamepadIconWithSize:iconSize],
@@ -48,15 +48,14 @@
     // 広告の挿入枠を確保
     CGRect frame = self.tabBar.frame;
     frame.origin.y = frame.origin.y - 50;
-    frame.size.height = 50 + 50;
     self.tabBar.frame = frame;
-    self.view.bounds = self.tabBar.bounds;
     
     // 広告の初期化・表示
-    _nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 50, UIScreen.mainScreen.bounds.size.width, 50)];
+    CGRect mainScreen = UIScreen.mainScreen.bounds;
+    _nadView = [[NADView alloc] initWithFrame:CGRectMake(0, mainScreen.size.height-50, mainScreen.size.width, 50)];
     [_nadView setNendID:@"5c5797e2cd1da1a1300c72ad36dcd4030ab064a5" spotID:@"238099"];
     _nadView.delegate = self;
-    [self.tabBar addSubview:self.nadView];
+    [self.view addSubview:self.nadView];
     [_nadView load];
     [_nadView showIndicator];
 
@@ -70,10 +69,10 @@
 {
     [super viewDidLayoutSubviews];
     
-    for(UIView *view in self.view.subviews)
+    for ( UIView *view in self.view.subviews )
     {
         CGRect _rect = view.frame;
-        if(![view isKindOfClass:[UITabBar class]])
+        if ( ![view isKindOfClass:[UITabBar class]] && ![view isKindOfClass:[NADView class]] )
         {
             _rect.size.height = _rect.size.height - 50;
             view.frame = _rect;
@@ -85,6 +84,5 @@
 - (void)nadViewDidFinishLoad:(NADView *)adView {
     [_nadView dismissIndicator];
 }
-
 
 @end

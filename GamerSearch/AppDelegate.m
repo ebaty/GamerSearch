@@ -7,9 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "NADView.h"
 
 #import <GoogleMaps.h>
 #import <LumberjackConsole/PTEDashboard.h>
+
+@interface AppDelegate () <NADViewDelegate>
+
+@property (nonatomic, retain) NADView * nadView;
+
+@end
 
 @implementation AppDelegate
 
@@ -51,15 +58,12 @@
     // ログファイルを残す数
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     // Xcodeのコンソールにログを出力
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];
     
     // LumberjackConsoleの設定
     [[PTEDashboard sharedDashboard] show];
 #endif
 
-    // BackgroundFetchの設定
-//    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self validateAccount];
