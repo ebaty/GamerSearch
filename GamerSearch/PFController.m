@@ -112,6 +112,8 @@ static NSMutableDictionary *gameCenterUserCache = nil;
 
 + (void)postUserProfile:(NSDictionary *)params handler:(void (^)(void))block {
     PFUser *currentUser = [PFUser currentUser];
+    if ( !currentUser ) return;
+    
     for ( NSString *key in params.allKeys ) {
         currentUser[key] = params[key];
     }
