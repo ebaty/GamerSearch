@@ -132,7 +132,7 @@
         }
         
         UILabel *labels[] = {_gameUserLabel, _fightGameUserLabel, _musicGameUserLabel, _actionGameUserLabel};
-        int params[] = {users.count, fightUser, musicUser, actionUser};
+        int params[] = {(int)users.count, fightUser, musicUser, actionUser};
         for ( int i = 0; i < 4; ++i ) {
             labels[i].text = [NSString stringWithFormat:@"%d人", params[i]];
             labels[i].textAlignment = NSTextAlignmentRight;

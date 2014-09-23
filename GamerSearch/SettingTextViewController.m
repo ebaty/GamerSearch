@@ -24,7 +24,7 @@
     @{
       @"利用規約"          :@"Terms_Of_Service",
       @"プライバシーポリシー":@"Privacy_Policy"
-      };
+    };
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:textDictionary[self.title] ofType:@"txt"];
     NSError *error;

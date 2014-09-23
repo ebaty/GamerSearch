@@ -91,15 +91,17 @@
 }
 
 - (void)initFollowButton {
-    PFInstallation *installation = [PFInstallation currentInstallation];
+    if ( [_userObject.objectId isEqualToString:[PFUser currentUser].objectId] )
+        return;
     
+    PFInstallation *installation = [PFInstallation currentInstallation];
     NSString *channelsId = _userObject[@"channelsId"];
     
     if ( ![installation.channels containsObject:channelsId] ) {
         
         self.navigationItem.rightBarButtonItem = _followBarButton;
         
-    }else if ( ![channelsId isEqualToString:[PFUser currentUser][@"channelsId"]] ){
+    }else {
     
         self.navigationItem.rightBarButtonItem = _rejectBarButton;
         

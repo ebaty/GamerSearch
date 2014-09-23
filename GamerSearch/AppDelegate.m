@@ -58,19 +58,6 @@
     [[PTEDashboard sharedDashboard] show];
 #endif
 
-    // PFUserの初期化
-//    if ( ![USER_DEFAULTS boolForKey:@"didFirstLaunch"] ) {
-//        [PFController postUserProfile:nil handler:^{
-//            PFUser *currentUser = [PFUser currentUser];
-//            currentUser[@"username"] = @"未設定";
-//            currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
-//            [currentUser saveInBackground];
-//
-//            [USER_DEFAULTS setBool:YES forKey:@"didFirstLaunch"];
-//            [USER_DEFAULTS synchronize];
-//        }];
-//    }
-    
     // BackgroundFetchの設定
 //    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -86,8 +73,10 @@
     
     if ( currentUser ) {
         currentStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     }else {
         currentStoryboard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
+        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
     }
     
     _window.rootViewController = [currentStoryboard instantiateInitialViewController];
