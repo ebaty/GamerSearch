@@ -20,6 +20,11 @@
 		F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F458614F19CC9B93000D6027 /* FollowListViewController.m */; };
 		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
 		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
+		F4EEB61D19D1745A0077BAC9 /* UIView+CloseKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */; };
+		F4EEB62319D1A4170077BAC9 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB61F19D1A4170077BAC9 /* icon-60@3x.png */; };
+		F4EEB62419D1A4170077BAC9 /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62019D1A4170077BAC9 /* icon-60@2x.png */; };
+		F4EEB62519D1A4170077BAC9 /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62119D1A4170077BAC9 /* icon-40@2x.png */; };
+		F4EEB62619D1A4170077BAC9 /* icon-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62219D1A4170077BAC9 /* icon-29@2x.png */; };
 		F4FFEC2319C5CCB000A48BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2219C5CCB000A48BDE /* Foundation.framework */; };
 		F4FFEC2519C5CCB000A48BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */; };
 		F4FFEC2719C5CCB000A48BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2619C5CCB000A48BDE /* UIKit.framework */; };
@@ -75,6 +80,12 @@
 		F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		F48EFE0019CE0F390033ACFE /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
 		F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
+		F4EEB61B19D1745A0077BAC9 /* UIView+CloseKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CloseKeyboard.h"; sourceTree = "<group>"; };
+		F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CloseKeyboard.m"; sourceTree = "<group>"; };
+		F4EEB61F19D1A4170077BAC9 /* icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@3x.png"; path = "Image/icon-60@3x.png"; sourceTree = "<group>"; };
+		F4EEB62019D1A4170077BAC9 /* icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@2x.png"; path = "Image/icon-60@2x.png"; sourceTree = "<group>"; };
+		F4EEB62119D1A4170077BAC9 /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-40@2x.png"; path = "Image/icon-40@2x.png"; sourceTree = "<group>"; };
+		F4EEB62219D1A4170077BAC9 /* icon-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29@2x.png"; path = "Image/icon-29@2x.png"; sourceTree = "<group>"; };
 		F4FFEC1F19C5CCB000A48BDE /* GamerSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamerSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FFEC2219C5CCB000A48BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -241,6 +252,17 @@
 			name = UserDetailViewController;
 			sourceTree = "<group>";
 		};
+		F4EEB61E19D1A4080077BAC9 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				F4EEB61F19D1A4170077BAC9 /* icon-60@3x.png */,
+				F4EEB62019D1A4170077BAC9 /* icon-60@2x.png */,
+				F4EEB62119D1A4170077BAC9 /* icon-40@2x.png */,
+				F4EEB62219D1A4170077BAC9 /* icon-29@2x.png */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
 		F4FFEC1619C5CCB000A48BDE = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +312,7 @@
 		F4FFEC2919C5CCB000A48BDE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F4EEB61E19D1A4080077BAC9 /* Image */,
 				F4539ADB19D058510054EA75 /* Privacy_Policy.txt */,
 				F4539ADC19D058510054EA75 /* Terms_Of_Service.txt */,
 				F4FFEC2A19C5CCB000A48BDE /* GamerSearch-Info.plist */,
@@ -345,6 +368,8 @@
 			children = (
 				F4FFEC9A19C6CD8700A48BDE /* UIView+Indicator.h */,
 				F4FFEC9B19C6CD8700A48BDE /* UIView+Indicator.m */,
+				F4EEB61B19D1745A0077BAC9 /* UIView+CloseKeyboard.h */,
+				F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -448,13 +473,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4EEB62319D1A4170077BAC9 /* icon-60@3x.png in Resources */,
 				F4539ADD19D058510054EA75 /* Privacy_Policy.txt in Resources */,
 				F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */,
+				F4EEB62619D1A4170077BAC9 /* icon-29@2x.png in Resources */,
 				F4539AE019D06EE10054EA75 /* Login.storyboard in Resources */,
 				F4FFEC8919C5D3BD00A48BDE /* Main.storyboard in Resources */,
 				F4FFEC2D19C5CCB000A48BDE /* InfoPlist.strings in Resources */,
+				F4EEB62419D1A4170077BAC9 /* icon-60@2x.png in Resources */,
 				F4FFEC3519C5CCB000A48BDE /* Images.xcassets in Resources */,
 				F4539ADE19D058510054EA75 /* Terms_Of_Service.txt in Resources */,
+				F4EEB62519D1A4170077BAC9 /* icon-40@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +551,7 @@
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
 				F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */,
 				F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */,
+				F4EEB61D19D1745A0077BAC9 /* UIView+CloseKeyboard.m in Sources */,
 				F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
