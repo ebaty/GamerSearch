@@ -53,11 +53,17 @@
     self.view.bounds = self.tabBar.bounds;
     
     // 広告の初期化・表示
-    self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 50, UIScreen.mainScreen.bounds.size.width, 50)];
-    [self.nadView setNendID:@"5c5797e2cd1da1a1300c72ad36dcd4030ab064a5" spotID:@"238099"];
-    self.nadView.delegate = self;
-    self.nadView.backgroundColor = UIColor.lightGrayColor;
+    _nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 50, UIScreen.mainScreen.bounds.size.width, 50)];
+    [_nadView setNendID:@"5c5797e2cd1da1a1300c72ad36dcd4030ab064a5" spotID:@"238099"];
+    _nadView.delegate = self;
     [self.tabBar addSubview:self.nadView];
+    [_nadView load];
+    [_nadView showIndicator];
+
+#ifdef DEBUG
+    _nadView.isOutputLog = YES;
+#endif
+    
 }
 
 - (void)viewDidLayoutSubviews
@@ -74,5 +80,11 @@
         }
     }
 }
+
+#pragma mark- NADView delegate method.
+- (void)nadViewDidFinishLoad:(NADView *)adView {
+    [_nadView dismissIndicator];
+}
+
 
 @end
