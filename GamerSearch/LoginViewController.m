@@ -51,7 +51,7 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
             [SVProgressHUD showSuccessWithStatus:@"ユーザー登録が完了しました"];
-            [(AppDelegate *)[[UIApplication sharedApplication] delegate] validateAccount];
+            [APP validateAccount];
         }else {
             if ( error.code == 202 ) {
                 [SVProgressHUD showErrorWithStatus:@"既に使用されているユーザー名です。違うユーザー名を使用してください。"];
@@ -66,7 +66,7 @@
     [PFUser logInWithUsernameInBackground:userName password:password block:^(PFUser *user, NSError *error) {
         if ( !error ) {
             [SVProgressHUD showSuccessWithStatus:@"ログインに成功しました"];
-            [(AppDelegate *)[[UIApplication sharedApplication] delegate] validateAccount];
+            [APP validateAccount];
         }else {
             if ( error.code == 101 ) {
                 [SVProgressHUD showErrorWithStatus:@"ユーザー名またはパスワードが間違っています。"];

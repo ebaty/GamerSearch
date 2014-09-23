@@ -1,32 +1,30 @@
 //
-//  TextViewController.m
+//  SettingTextViewController.m
 //  GamerSearch
 //
 //  Created by Masaki EBATA on 2014/09/23.
 //  Copyright (c) 2014年 Masaki EBATA. All rights reserved.
 //
 
-#import "TextViewController.h"
+#import "SettingTextViewController.h"
 
-@interface TextViewController ()
+@interface SettingTextViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
-@implementation TextViewController
+@implementation SettingTextViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    
-    _titleLabel.text = self.title;
     
     NSDictionary *textDictionary =
     @{
       @"利用規約"          :@"Terms_Of_Service",
       @"プライバシーポリシー":@"Privacy_Policy"
-    };
+      };
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:textDictionary[self.title] ofType:@"txt"];
     NSError *error;
@@ -35,8 +33,5 @@
     if ( error ) DDLogError(@"%@", error);
 }
 
-- (IBAction)didPushCloseButton:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 @end

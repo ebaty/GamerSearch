@@ -751,6 +751,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="O4O-Rp-jFf" kind="push" identifier="利用規約" id="BDW-xu-47A"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6XR-R3-TvD">
                                         <rect key="frame" x="0.0" y="143" width="320" height="44"/>
@@ -760,6 +763,29 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="プライバシーポリシー" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxj-LA-V5q">
+                                                    <rect key="frame" x="20" y="11" width="267" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="O4O-Rp-jFf" kind="push" identifier="プライバシーポリシー" id="0GG-h5-b1m"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="afR-wG-8Ym">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="84p-X9-9uv">
+                                        <rect key="frame" x="0.0" y="207" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="84p-X9-9uv" id="tAj-AH-rJI">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ログアウト" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDa-gl-joL">
                                                     <rect key="frame" x="20" y="11" width="267" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -782,6 +808,43 @@
             </objects>
             <point key="canvasLocation" x="1117" y="1916"/>
         </scene>
+        <!--Setting Text View Controller-->
+        <scene sceneID="D6t-p5-BdE">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="O4O-Rp-jFf" customClass="SettingTextViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gbS-4k-TYq"/>
+                        <viewControllerLayoutGuide type="bottom" id="sxO-wa-xyv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Nhe-Ie-Kkc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qa-TB-WVV">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9Qa-TB-WVV" firstAttribute="leading" secondItem="Nhe-Ie-Kkc" secondAttribute="leading" id="Oww-gH-7gz"/>
+                            <constraint firstItem="9Qa-TB-WVV" firstAttribute="top" secondItem="gbS-4k-TYq" secondAttribute="bottom" id="TKY-Hx-jIY"/>
+                            <constraint firstAttribute="trailing" secondItem="9Qa-TB-WVV" secondAttribute="trailing" id="Vb7-D8-uHa"/>
+                            <constraint firstItem="sxO-wa-xyv" firstAttribute="top" secondItem="9Qa-TB-WVV" secondAttribute="bottom" id="YSK-hn-d4U"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="qQ5-8v-hac"/>
+                    <connections>
+                        <outlet property="textView" destination="9Qa-TB-WVV" id="5hW-UT-Xby"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L77-7q-o0H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1563" y="1916"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -789,6 +852,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="J3k-BS-5Ux"/>
+        <segue reference="JvT-Il-4xi"/>
+        <segue reference="0GG-h5-b1m"/>
     </inferredMetricsTieBreakers>
 </document>
