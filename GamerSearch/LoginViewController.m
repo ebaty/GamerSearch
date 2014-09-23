@@ -53,23 +53,27 @@
             [SVProgressHUD showSuccessWithStatus:@"ユーザー登録が完了しました"];
             [(AppDelegate *)[[UIApplication sharedApplication] delegate] validateAccount];
         }else {
-            [SVProgressHUD showErrorWithStatus:@"ユーザー登録に失敗しました"];
             if ( error.code == 202 ) {
-                UIAlertView *alert = [UIAlertView new];
-                alert.title = @"エラー";
-                alert.message = @"\n既に使用されているユーザー名です。違うユーザー名を使用してください。";
-                alert.cancelButtonIndex = 0;
-                [alert addButtonWithTitle:@"確認"];
-                
-                [alert show];
+                [SVProgressHUD showErrorWithStatus:@"既に使用されているユーザー名です。違うユーザー名を使用してください。"];
             }
             DDLogError(@"%@", error);
         }
     }];
 }
 
-- (void)loginAccount {
-    
+- (void)loginAccount:(NSString *)userName password:(NSString *)password {
+    [SVProgressHUD showWithStatus:@"サーバーと通信しています..." maskType:SVProgressHUDMaskTypeBlack];
+    [PFUser logInWithUsernameInBackground:userName password:password block:^(PFUser *user, NSError *error) {
+        if ( !error ) {
+            [SVProgressHUD showSuccessWithStatus:@"ログインに成功しました"];
+            [(AppDelegate *)[[UIApplication sharedApplication] delegate] validateAccount];
+        }else {
+            if ( error.code == 101 ) {
+                [SVProgressHUD showErrorWithStatus:@"ユーザー名またはパスワードが間違っています。"];
+            }
+            DDLogError(@"%@", error);
+        }
+    }];
 }
 
 #pragma mark - Setter methods.
@@ -139,7 +143,21 @@
 }
 
 - (IBAction)didPushLoginAccountButton:(id)sender {
+    UIAlertView *alerView = [UIAlertView new];
+    alerView.delegate = self;
+    alerView.title = @"GamerSeachにログイン";
+    alerView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     
+    [alerView textFieldAtIndex:0].placeholder = @"ユーザー名";
+    [alerView textFieldAtIndex:1].placeholder = @"パスワード";
+    
+    alerView.cancelButtonIndex = 0;
+    [alerView addButtonWithTitle:@"キャンセル"];
+    [alerView bk_addButtonWithTitle:@"ログイン" handler:^{
+        [self loginAccount:[alerView textFieldAtIndex:0].text password:[alerView textFieldAtIndex:1].text];
+    }];
+    
+    [alerView show];
 }
 
 #pragma mark - Setter methods.
