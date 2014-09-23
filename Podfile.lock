@@ -25,6 +25,7 @@ PODS:
   - CocoaLumberjack/Core (2.0.0-beta)
   - CocoaLumberjack/Extensions (2.0.0-beta):
     - CocoaLumberjack/Core
+  - EAIntroView (2.6.3)
   - Facebook-iOS-SDK (3.18.0):
     - Bolts
   - FontAwesomeKit (2.1.8):
@@ -56,6 +57,7 @@ DEPENDENCIES:
   - BlocksKit
   - Canvas
   - CocoaLumberjack
+  - EAIntroView
   - FontAwesomeKit
   - Google-Maps-iOS-SDK
   - LumberjackConsole
@@ -67,6 +69,7 @@ SPEC CHECKSUMS:
   Bolts: 2635e8698a630774689441047f3465d78c48d485
   Canvas: ae2faca05a15c4d6659fb3ae5e2a14817df4449a
   CocoaLumberjack: aadc76d7bd6c839ca84b38ed50cbf89d7cf8c693
+  EAIntroView: 45924b81c153d1206ee24f4fa654e9d9dae79e93
   Facebook-iOS-SDK: fa12c51cc57bfb6f92e47793c9d4d2c65bc92741
   FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
   Google-Maps-iOS-SDK: 4fe35d952dbd1e4dacfcfa178e9cce2f06d67ecc

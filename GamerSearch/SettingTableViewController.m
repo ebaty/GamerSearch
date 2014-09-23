@@ -34,8 +34,10 @@
 
 #pragma mark - UITableView delegate methods.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if ( indexPath.section == 1 && indexPath.row == 0 ) {
+    if ( indexPath.section == 2 && indexPath.row == 0 ) {
+        // イントロViewを表示
+    }
+    if ( indexPath.section == 2 && indexPath.row == 0 ) {
         [self logOut];
     }
 }
