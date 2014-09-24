@@ -7,14 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "NADView.h"
 
 #import <GoogleMaps.h>
 #import <LumberjackConsole/PTEDashboard.h>
 
-@interface AppDelegate () <NADViewDelegate>
-
-@property (nonatomic, retain) NADView * nadView;
+@interface AppDelegate ()
 
 @end
 
@@ -61,7 +58,7 @@
     [DDLog addLogger:fileLogger];
     
     // LumberjackConsoleの設定
-    [[PTEDashboard sharedDashboard] show];
+//    [[PTEDashboard sharedDashboard] show];
 #endif
 
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

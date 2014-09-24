@@ -83,7 +83,7 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     PFQuery *query = [PFUser query];
 
     [query whereKey:@"channelsId" containedIn:installation[@"channels"]];
-    [query orderByDescending:@"updatedAt"];
+    [query orderByDescending:@"checkInAt"];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {

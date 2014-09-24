@@ -155,17 +155,12 @@
 
 #pragma mark - UITextField delegate methods.
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSMutableString *str = [textField.text mutableCopy];
-    [str replaceCharactersInRange:range withString:string];
-    return str.length <= 30;
+    return range.location <= 30;
 }
 
 #pragma mark - UITextView delegate methods.
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    NSMutableString *str = [textView.text mutableCopy];
-    [str replaceCharactersInRange:range withString:text];
-    return str.length <= 500;
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    return range.location <= 500;
 }
 
 @end
