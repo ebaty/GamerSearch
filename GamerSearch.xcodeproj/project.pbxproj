@@ -12,6 +12,7 @@
 		F4005F9E19C9DE9E00DA7702 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */; };
 		F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4005FA019C9E72F00DA7702 /* UserListViewController.m */; };
 		F409FF0219CEEA7C00046A4B /* RegionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F409FF0119CEEA7C00046A4B /* RegionController.m */; };
+		F4180B7419D33940000E4898 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4180B7319D33940000E4898 /* FeedbackViewController.m */; };
 		F441ACA819D1C1BB007F4E8A /* SettingTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F441ACA719D1C1BB007F4E8A /* SettingTextViewController.m */; };
 		F441ACB219D1D53A007F4E8A /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F441ACAB19D1D539007F4E8A /* libNendAd.a */; };
 		F441ACB319D1D53A007F4E8A /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F441ACB119D1D53A007F4E8A /* NADView_readme.txt */; };
@@ -71,6 +72,8 @@
 		F4005FA019C9E72F00DA7702 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		F409FF0019CEEA7C00046A4B /* RegionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionController.h; sourceTree = "<group>"; };
 		F409FF0119CEEA7C00046A4B /* RegionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionController.m; sourceTree = "<group>"; };
+		F4180B7219D33940000E4898 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		F4180B7319D33940000E4898 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		F441ACA619D1C1BB007F4E8A /* SettingTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTextViewController.h; sourceTree = "<group>"; };
 		F441ACA719D1C1BB007F4E8A /* SettingTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTextViewController.m; sourceTree = "<group>"; };
 		F441ACAB19D1D539007F4E8A /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
@@ -179,6 +182,15 @@
 			name = UserListViewController;
 			sourceTree = "<group>";
 		};
+		F4180B7119D3391D000E4898 /* FeedbackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F4180B7219D33940000E4898 /* FeedbackViewController.h */,
+				F4180B7319D33940000E4898 /* FeedbackViewController.m */,
+			);
+			name = FeedbackViewController;
+			sourceTree = "<group>";
+		};
 		F441ACA519D1B154007F4E8A /* Text */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +238,7 @@
 				F4FFEC8319C5D3BD00A48BDE /* SettingTableViewController.h */,
 				F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */,
 				F441ACA919D1C1BF007F4E8A /* SettingTextViewController */,
+				F4180B7119D3391D000E4898 /* FeedbackViewController */,
 			);
 			name = SettingTableViewController;
 			sourceTree = "<group>";
@@ -612,6 +625,7 @@
 				F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */,
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
 				F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */,
+				F4180B7419D33940000E4898 /* FeedbackViewController.m in Sources */,
 				F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */,
 				F4EEB61D19D1745A0077BAC9 /* UIView+CloseKeyboard.m in Sources */,
 				F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */,

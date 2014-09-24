@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "TextViewController.h"
 #import "AppDelegate.h"
+#import "IntroViewController.h"
 
 #import <FAKFontAwesome.h>
 
@@ -40,6 +41,14 @@
     
     self.firstCheck  = NO;
     self.secondCheck = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    // IntroViewの表示
+    if ( ![USER_DEFAULTS boolForKey:@"DidShowIntroView"] ) {
+        IntroViewController *introView = [IntroViewController new];
+        [self presentViewController:introView animated:NO completion:nil];
+    }
 }
 
 - (void)registerAccount {

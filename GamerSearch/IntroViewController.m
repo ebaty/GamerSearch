@@ -60,7 +60,7 @@
     // フィードバック
     EAIntroPage *page5 = [EAIntroPage page];
     page5.title = @"フィードバックをください！";
-    page5.desc = @"このアプリはまだまだ未完成です。「こういう機能がほしい！」「この機能はいらない…」といった意見を常に募集しています。（フィードバックの送信は設定から）";
+    page5.desc = @"このアプリはまだまだ未完成です。いただいたフィードバックは速やかにアプリに反映させます。（実装致しかねるものもあります）";
     
     // オレンジの背景
     UIImage *orangeImage = [self getOrangeImage];
@@ -107,6 +107,7 @@
 
 #pragma mark - EAIntroView delegate method.
 - (void)introDidFinish:(EAIntroView *)introView {
+    [USER_DEFAULTS setBool:YES forKey:@"DidShowIntroView"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

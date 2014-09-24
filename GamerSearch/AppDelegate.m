@@ -58,7 +58,7 @@
     [DDLog addLogger:fileLogger];
     
     // LumberjackConsoleの設定
-//    [[PTEDashboard sharedDashboard] show];
+    [[PTEDashboard sharedDashboard] show];
 #endif
 
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

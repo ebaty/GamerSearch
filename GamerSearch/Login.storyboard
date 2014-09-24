@@ -124,7 +124,7 @@
                                     <constraint firstAttribute="width" constant="280" id="ek3-6u-buh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="G79-G1-Tnz" id="zHH-WK-f5D"/>
                                 </connections>
@@ -137,7 +137,7 @@
                                     <constraint firstAttribute="width" constant="280" id="xZk-O5-Vhx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="G79-G1-Tnz" id="rdH-5k-7ZV"/>
                                 </connections>
@@ -150,7 +150,7 @@
                                     <constraint firstAttribute="height" constant="30" id="yio-Tn-LZK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="G79-G1-Tnz" id="mhM-54-2dD"/>
                                 </connections>
@@ -325,6 +325,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ra6-32-Gyw"/>
+        <segue reference="I4C-ch-6vR"/>
     </inferredMetricsTieBreakers>
 </document>

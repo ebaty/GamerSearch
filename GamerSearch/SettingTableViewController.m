@@ -31,7 +31,7 @@
 
 #pragma mark - UITableView delegate methods.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ( indexPath.section == 1 && indexPath.row == 0 ) {
+    if ( indexPath.section == 0 && indexPath.row == 2 ) {
         IntroViewController *intro = [IntroViewController new];
         [self presentViewController:intro animated:YES completion:nil];
     }
