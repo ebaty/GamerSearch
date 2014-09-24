@@ -69,10 +69,8 @@
     for ( int i = 0; i < pages.count; ++i ) {
         EAIntroPage *page = pages[i];
         page.titleColor = kMyColor;
-        page.titlePositionY = 200.0f;
         
         page.descColor  = kMyColor;
-        page.descPositionY = 180.0f;
         
         page.bgImage = orangeImage;
         
