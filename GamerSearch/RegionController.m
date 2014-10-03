@@ -178,7 +178,7 @@
     [kApplication cancelAllLocalNotifications];
     
     UILocalNotification *notification = [UILocalNotification new];
-    notification.fireDate  = [NSDate dateWithTimeIntervalSinceNow:5 * 60];
+    notification.fireDate  = [NSDate dateWithTimeIntervalSinceNow:3 * 60];
     notification.alertBody = message;
     notification.timeZone  = [NSTimeZone localTimeZone];
     notification.soundName = UILocalNotificationDefaultSoundName;
