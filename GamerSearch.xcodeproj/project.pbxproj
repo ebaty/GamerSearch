@@ -25,6 +25,7 @@
 		F458615019CC9B93000D6027 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F458614F19CC9B93000D6027 /* FollowListViewController.m */; };
 		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
 		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
+		F4D4750C19DE855E008EB7E5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D4750B19DE855E008EB7E5 /* AdSupport.framework */; };
 		F4EEB61D19D1745A0077BAC9 /* UIView+CloseKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */; };
 		F4EEB62319D1A4170077BAC9 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB61F19D1A4170077BAC9 /* icon-60@3x.png */; };
 		F4EEB62419D1A4170077BAC9 /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62019D1A4170077BAC9 /* icon-60@2x.png */; };
@@ -63,8 +64,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AA5DC569D94649E2B8618BA0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		61B73DAF7113CE721C5FA31B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AD574D59C87F4285AC0005B0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBC8BFAFF4E1B9F12D700503 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F4005F9A19C9DE9E00DA7702 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
 		F4005F9B19C9DE9E00DA7702 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
 		F4005F9C19C9DE9E00DA7702 /* UserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		F48EFE0019CE0F390033ACFE /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
 		F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
+		F4D4750B19DE855E008EB7E5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		F4EEB61B19D1745A0077BAC9 /* UIView+CloseKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CloseKeyboard.h"; sourceTree = "<group>"; };
 		F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CloseKeyboard.m"; sourceTree = "<group>"; };
 		F4EEB61F19D1A4170077BAC9 /* icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@3x.png"; path = "Image/icon-60@3x.png"; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D4750C19DE855E008EB7E5 /* AdSupport.framework in Frameworks */,
 				F4FFEC2519C5CCB000A48BDE /* CoreGraphics.framework in Frameworks */,
 				F4FFEC2719C5CCB000A48BDE /* UIKit.framework in Frameworks */,
 				F441ACB219D1D53A007F4E8A /* libNendAd.a in Frameworks */,
@@ -163,6 +167,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C38F6F2AC89810539C739138 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BBC8BFAFF4E1B9F12D700503 /* Pods.debug.xcconfig */,
+				61B73DAF7113CE721C5FA31B /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F4005F9619C9DE7600DA7702 /* UserCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,7 +354,7 @@
 				F4FFEC4119C5CCB000A48BDE /* GamerSearchTests */,
 				F4FFEC2119C5CCB000A48BDE /* Frameworks */,
 				F4FFEC2019C5CCB000A48BDE /* Products */,
-				AA5DC569D94649E2B8618BA0 /* Pods.xcconfig */,
+				C38F6F2AC89810539C739138 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -357,6 +370,7 @@
 		F4FFEC2119C5CCB000A48BDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4D4750B19DE855E008EB7E5 /* AdSupport.framework */,
 				F4FFEC2219C5CCB000A48BDE /* Foundation.framework */,
 				F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */,
 				F4FFEC2619C5CCB000A48BDE /* UIKit.framework */,
@@ -583,7 +597,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5EF25B239C2D40DEA91F2155 /* Check Pods Manifest.lock */ = {
@@ -742,7 +756,7 @@
 		};
 		F4FFEC4C19C5CCB000A48BDE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA5DC569D94649E2B8618BA0 /* Pods.xcconfig */;
+			baseConfigurationReference = BBC8BFAFF4E1B9F12D700503 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -764,7 +778,7 @@
 		};
 		F4FFEC4D19C5CCB000A48BDE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA5DC569D94649E2B8618BA0 /* Pods.xcconfig */;
+			baseConfigurationReference = 61B73DAF7113CE721C5FA31B /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -779,7 +793,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AA21E556-13AA-4098-9F8B-15F84BA109A7";
+				PROVISIONING_PROFILE = "98C63602-7F6F-4C51-8F1C-4157703DAF41";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

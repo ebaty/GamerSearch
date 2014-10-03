@@ -1,5 +1,5 @@
-platform :ios, '7.0'
-pod 'Parse-iOS-SDK'
+platform :ios, '7.1'
+pod 'Parse'
 pod 'BlocksKit'
 pod 'CocoaLumberjack'
 pod 'LumberjackConsole'

@@ -16,18 +16,16 @@ PODS:
     - BlocksKit/DynamicDelegate
   - Bolts (1.1.2)
   - Canvas (0.1.2)
-  - CocoaLumberjack (2.0.0-beta):
+  - CocoaLumberjack (2.0.0-beta2):
     - CocoaLumberjack/CLI
     - CocoaLumberjack/Core
     - CocoaLumberjack/Extensions
-  - CocoaLumberjack/CLI (2.0.0-beta):
+  - CocoaLumberjack/CLI (2.0.0-beta2):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Core (2.0.0-beta)
-  - CocoaLumberjack/Extensions (2.0.0-beta):
+  - CocoaLumberjack/Core (2.0.0-beta2)
+  - CocoaLumberjack/Extensions (2.0.0-beta2):
     - CocoaLumberjack/Core
   - EAIntroView (2.6.3)
-  - Facebook-iOS-SDK (3.18.0):
-    - Bolts
   - FontAwesomeKit (2.1.8):
     - FontAwesomeKit/Core
     - FontAwesomeKit/FontAwesome
@@ -44,13 +42,12 @@ PODS:
   - FontAwesomeKit/Zocial (2.1.8):
     - FontAwesomeKit/Core
   - Google-Maps-iOS-SDK (1.8.1)
-  - LumberjackConsole (2.2.0):
+  - LumberjackConsole (2.3.0):
     - CocoaLumberjack (>= 2.0.0-beta)
     - NBUCore (>= 2.0.3)
   - NBUCore (2.0.3)
-  - Parse-iOS-SDK (1.2.21):
-    - Bolts
-    - Facebook-iOS-SDK (~> 3.7)
+  - Parse (1.4.1):
+    - Bolts (~> 1.1.2)
   - SVProgressHUD (1.0)
 
 DEPENDENCIES:
@@ -61,21 +58,20 @@ DEPENDENCIES:
   - FontAwesomeKit
   - Google-Maps-iOS-SDK
   - LumberjackConsole
-  - Parse-iOS-SDK
+  - Parse
   - SVProgressHUD
 
 SPEC CHECKSUMS:
   BlocksKit: 4439e7f30a9f90743462ca63545a15c1f4304cef
   Bolts: 2635e8698a630774689441047f3465d78c48d485
   Canvas: ae2faca05a15c4d6659fb3ae5e2a14817df4449a
-  CocoaLumberjack: aadc76d7bd6c839ca84b38ed50cbf89d7cf8c693
+  CocoaLumberjack: 956d3fb98fed498a13d56499f262c975ef431c98
   EAIntroView: 45924b81c153d1206ee24f4fa654e9d9dae79e93
-  Facebook-iOS-SDK: fa12c51cc57bfb6f92e47793c9d4d2c65bc92741
   FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
   Google-Maps-iOS-SDK: 4fe35d952dbd1e4dacfcfa178e9cce2f06d67ecc
-  LumberjackConsole: a0288d9da48481deae27351a54d9e908cf0743c5
+  LumberjackConsole: fbac384e811ca1f4e60a6a6fd3c8ed852ac058f6
   NBUCore: 397184612d5f05d7730aaad98d6bc0a75b7984ef
-  Parse-iOS-SDK: 3781eeb56fa6b30d4feee97ee0d22595c07d6c70
+  Parse: db1a09c832b7509edcc88a65dc07229f5e578c73
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.1
