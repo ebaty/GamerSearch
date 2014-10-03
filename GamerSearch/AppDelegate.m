@@ -7,11 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "RegionController.h"
 
 #import <GoogleMaps.h>
 #import <LumberjackConsole/PTEDashboard.h>
 
+#define kGameCenterArraykey  @"GameCenterArray"
+
 @interface AppDelegate ()
+
+@property (nonatomic) RegionController *regController;
 
 @end
 
@@ -85,7 +90,15 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+    [self reloadMonitoringTarget];
     [self performSelector:@selector(callCompletionHandler:) withObject:completionHandler afterDelay:10.0f];
+}
+
+- (void)reloadMonitoringTarget {
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+    _regController = [RegionController new];
+    _regController.gameCenters = [USER_DEFAULTS arrayForKey:kGameCenterArraykey];
 }
 
 - (void)callCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
