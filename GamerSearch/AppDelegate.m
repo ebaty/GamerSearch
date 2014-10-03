@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "BTController.h"
 
 #import <GoogleMaps.h>
 #import <LumberjackConsole/PTEDashboard.h>
@@ -110,9 +111,65 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     }
 }
 
+- (void)checkBackgroundTask {
+}
+
+#pragma mark - Notification methods.
+
+#pragma mark Remote
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     if (application.applicationState == UIApplicationStateInactive) {
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
 }
+
+#pragma mark Local
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    [BTController backgroundTask:^{
+        NSDictionary *userInfo = notification.userInfo;
+        
+        NSString *gameCenter;
+        if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
+            gameCenter = userInfo[@"gameCenter"];
+        }
+        if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
+            gameCenter = userInfo[@"message"];
+        }
+        
+        NSDictionary *updateInfo =
+        @{
+          @"gameCenter":gameCenter,
+          @"checkInAt":[NSDate date]
+        };
+        
+        [PFController postUserProfile:updateInfo handler:^{
+            if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
+                [self sendPushNotification:userInfo];
+            }
+        }];
+    }];
+}
+
+- (void)sendPushNotification:(NSDictionary *)userInfo {
+    PFUser *currentUser = [PFUser currentUser];
+    
+    NSString *message =
+    [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
+    
+    NSDictionary *pushData =
+    @{
+      @"alert":message,
+      @"badge":@"Increment"
+    };
+    
+    [PFPush sendPushDataToChannelInBackground:currentUser[@"channelsId"]
+                                     withData:pushData
+                                        block:
+     ^(BOOL succeeded, NSError *error) {
+         if ( error ) {
+             DDLogError(@"%@", error);
+         }
+     }];
+}
+
 @end

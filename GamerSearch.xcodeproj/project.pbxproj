@@ -26,6 +26,7 @@
 		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
 		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
 		F4D4750C19DE855E008EB7E5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D4750B19DE855E008EB7E5 /* AdSupport.framework */; };
+		F4D4751219DE92F0008EB7E5 /* BTController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D4751119DE92F0008EB7E5 /* BTController.m */; };
 		F4EEB61D19D1745A0077BAC9 /* UIView+CloseKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */; };
 		F4EEB62319D1A4170077BAC9 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB61F19D1A4170077BAC9 /* icon-60@3x.png */; };
 		F4EEB62419D1A4170077BAC9 /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62019D1A4170077BAC9 /* icon-60@2x.png */; };
@@ -101,6 +102,8 @@
 		F48EFE0019CE0F390033ACFE /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
 		F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
 		F4D4750B19DE855E008EB7E5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		F4D4751019DE92F0008EB7E5 /* BTController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTController.h; sourceTree = "<group>"; };
+		F4D4751119DE92F0008EB7E5 /* BTController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTController.m; sourceTree = "<group>"; };
 		F4EEB61B19D1745A0077BAC9 /* UIView+CloseKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CloseKeyboard.h"; sourceTree = "<group>"; };
 		F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CloseKeyboard.m"; sourceTree = "<group>"; };
 		F4EEB61F19D1A4170077BAC9 /* icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@3x.png"; path = "Image/icon-60@3x.png"; sourceTree = "<group>"; };
@@ -271,7 +274,6 @@
 				F4FFEC7E19C5D3BD00A48BDE /* Main.storyboard */,
 				F4FFEC8519C5D3BD00A48BDE /* TabBarViewController.h */,
 				F4FFEC8619C5D3BD00A48BDE /* TabBarViewController.m */,
-				F4FFEC9819C6C6D000A48BDE /* Controller */,
 				F4005F9619C9DE7600DA7702 /* UserCell */,
 				F48EFDFF19CE0ECB0033ACFE /* UserDetailViewController */,
 				F4539AED19D0AFE90054EA75 /* TabViewControllers */,
@@ -386,6 +388,7 @@
 				F4FFEC3119C5CCB000A48BDE /* AppDelegate.h */,
 				F4FFEC3219C5CCB000A48BDE /* AppDelegate.m */,
 				F4FFEC3419C5CCB000A48BDE /* Images.xcassets */,
+				F4FFEC9819C6C6D000A48BDE /* Controller */,
 				F441ACC119D206CA007F4E8A /* MyIntroView */,
 				F4539AE319D095840054EA75 /* Login */,
 				F4539AEA19D0AF910054EA75 /* Main */,
@@ -445,6 +448,8 @@
 				F4FFEC9619C6C6CC00A48BDE /* PFController.m */,
 				F409FF0019CEEA7C00046A4B /* RegionController.h */,
 				F409FF0119CEEA7C00046A4B /* RegionController.m */,
+				F4D4751019DE92F0008EB7E5 /* BTController.h */,
+				F4D4751119DE92F0008EB7E5 /* BTController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -623,6 +628,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4FFEC3319C5CCB000A48BDE /* AppDelegate.m in Sources */,
+				F4D4751219DE92F0008EB7E5 /* BTController.m in Sources */,
 				F441ACA819D1C1BB007F4E8A /* SettingTextViewController.m in Sources */,
 				F4FFEC9419C6C4FD00A48BDE /* MarkerDetailView.m in Sources */,
 				F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */,
