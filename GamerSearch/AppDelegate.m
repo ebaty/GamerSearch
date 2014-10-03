@@ -105,6 +105,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     if (currentInstallation.badge != 0) {
         currentInstallation.badge = 0;
         [currentInstallation saveEventually];
+        
+        application.applicationIconBadgeNumber = 0;
     }
 }
 
