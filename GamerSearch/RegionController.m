@@ -7,8 +7,10 @@
 //
 
 #import "RegionController.h"
+#import "BTController.h"
 
 #define kRegionRadius 5.0f
+#define kApplication [UIApplication sharedApplication]
 
 @interface RegionController () <CLLocationManagerDelegate>
 
@@ -68,23 +70,11 @@
             [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
         
         [_manager startMonitoringForRegion:region];
+#ifdef DEBUG
         [_manager requestStateForRegion:region];
+#endif
     }
     
-}
-
-- (void)checkBackgroundTask {
-    UIApplication *application = [UIApplication sharedApplication];
-    
-    __block UIBackgroundTaskIdentifier bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // 既に実行済みであれば終了する
-            if (bgTask != UIBackgroundTaskInvalid) {
-                [application endBackgroundTask:bgTask];
-                bgTask = UIBackgroundTaskInvalid;
-            }
-        });
-    }];
 }
 
 - (void)checkDistance:(NSDictionary *)gameCenter nowLocation:(CLLocation *)nowLocation {
@@ -110,6 +100,8 @@
 }
 
 #pragma mark - CLLocationManager delegate methods.
+
+#pragma mark 位置情報更新
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *nowLocation = locations.lastObject;
     DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
@@ -135,102 +127,64 @@
     CLCircularRegion *r = (CLCircularRegion *)region;
     CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:r.center.latitude longitude:r.center.longitude];
     DDLogVerbose(@"%@:%@, %lf", region.identifier, stateArray[state], [manager.location distanceFromLocation:regionLocation]);
-
-//    if ( state == CLRegionStateInside && ![region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
-//        if ( [manager.location distanceFromLocation:regionLocation] <= kRegionRadius ) {
-//            [self locationManager:manager didEnterRegion:region];
-//        }
-//    }
 }
 
+#pragma mark 領域観測
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    [self checkBackgroundTask];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    
-        if ( ![region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
-
-            CLCircularRegion *circular = (CLCircularRegion *)region;
-            CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:circular.center.latitude longitude:circular.center.longitude];
-            DDLogVerbose(@"%@:%@, distance == %lf",
-                         NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
-            
-            NSDictionary *params =
-            @{
-              @"gameCenter" : region.identifier,
-              @"checkInAt"  : [NSDate date]
-            };
-            
-            [PFController postUserProfile:params handler:^{
-                [self sendPushNotification];
-            }];
-        }
-
-    });
+    [BTController backgroundTask:^{
+        [kApplication cancelAllLocalNotifications];
+        
+        // デバッグ用
+        CLCircularRegion *circular = (CLCircularRegion *)region;
+        CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:circular.center.latitude longitude:circular.center.longitude];
+        DDLogVerbose(@"%@:%@, distance == %lf",
+                     NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
+        
+        NSString *message = [region.identifier stringByAppendingString:@" に来ました"];
+        
+        NSDictionary *userInfo =
+        @{
+          @"message":message,
+          @"state":@"EnterRegion",
+          @"gameCenter":region.identifier
+          };
+        
+        [self sendLocalNotification:message userInfo:userInfo];
+    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    [self checkBackgroundTask];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
+    [BTController backgroundTask:^{
+        [kApplication cancelAllLocalNotifications];
         DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
         
-        if ( [region.identifier isEqualToString:[PFUser currentUser][@"gameCenter"]] ) {
-            
-            NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
-            
-            NSDictionary *params =
-            @{
-              @"gameCenter" : @"",
-              @"checkInAt"  : [NSDate date]
-            };
-
-            [PFController postUserProfile:params handler:^{
-                [self sendLocalNotification:message];
-            }];
-        }
+        NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
         
-    });
-}
-
-#pragma mark - Send notification methods.
-- (void)sendPushNotification {
-    PFUser *currentUser = [PFUser currentUser];
-
-    NSString *message =
-        [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
-    
-    NSDictionary *pushData =
-    @{
-      @"alert":message,
-      @"badge":@"Increment"
-    };
-    
-    [PFPush sendPushDataToChannelInBackground:currentUser[@"channelsId"]
-                                     withData:pushData
-                                        block:
-     ^(BOOL succeeded, NSError *error) {
-         if ( !error ) {
-             NSString *message =
-                [NSString stringWithFormat:@"%@ に来ました", currentUser[@"gameCenter"]];
-             [self sendLocalNotification:message];
-         }else {
-             DDLogError(@"%@", error);
-         }
+        NSDictionary *userInfo =
+        @{
+          @"message":message,
+          @"state":@"ExitRegion",
+          @"gameCenter":region.identifier
+          };
+        
+        [self sendLocalNotification:message userInfo:userInfo];
     }];
 }
 
-- (void)sendLocalNotification:(NSString *)message {
+#pragma mark - Send notification method.
+- (void)sendLocalNotification:(NSString *)message userInfo:(NSDictionary *)userInfo{
+    [kApplication cancelAllLocalNotifications];
+    
     UILocalNotification *notification = [UILocalNotification new];
-    notification.fireDate  = [NSDate date];
+    notification.fireDate  = [NSDate dateWithTimeIntervalSinceNow:3 * 60];
     notification.alertBody = message;
     notification.timeZone  = [NSTimeZone localTimeZone];
     notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.userInfo = userInfo;
 
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    [kApplication scheduleLocalNotification:notification];
 }
 
 @end
