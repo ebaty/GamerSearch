@@ -57,7 +57,7 @@
 
 #pragma mark - UITextView delegate methods.
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    _textViewBottomSpace.constant = 218;
+    _textViewBottomSpace.constant = 168;
     [self.view setNeedsLayout];
     [UIView animateWithDuration:0.16f animations:^{
         [self.view layoutIfNeeded];
