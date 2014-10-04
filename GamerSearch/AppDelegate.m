@@ -109,9 +109,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     }
 }
 
-- (void)checkBackgroundTask {
-}
-
 #pragma mark - Notification methods.
 
 #pragma mark Remote
