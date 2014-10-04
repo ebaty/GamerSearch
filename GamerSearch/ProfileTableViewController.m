@@ -107,7 +107,7 @@
     NSData *textData = [_textView.text dataUsingEncoding:NSUTF8StringEncoding];
     
     // PFFile化
-    PFFile *userImageFile = [PFFile fileWithName:@"userImage.jpg" data:imageData];
+    PFFile *userImageFile = imageData ? [PFFile fileWithName:@"userImage.jpg" data:imageData] : nil;
     PFFile *textFile = [PFFile fileWithName:@"comment.txt" data:textData];
     
     // JSON化
@@ -117,7 +117,7 @@
       @"psn_id"     : _psnTextField.text,
       @"xbox_live"  : _xboxLiveTextField.text,
       @"twitter_id" : _twitterTextField.text,
-      @"userImage"  : userImageFile,
+      @"userImage"  : userImageFile ? userImageFile : [NSNull null],
       @"fightGamer" : @(_fightGamerSwitch.on),
       @"musicGamer" : @(_musicGamerSwitch.on),
       @"actionGamer": @(_actionGamerSwitch.on),
