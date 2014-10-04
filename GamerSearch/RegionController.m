@@ -57,7 +57,7 @@
         [_manager stopMonitoringForRegion:region];
     }
     
-    DDLogVerbose(@"%@", monitoringGameCenters);
+    DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), monitoringGameCenters);
     for ( int i = 0; i < count; ++i ) {
         NSDictionary *gameCenter = monitoringGameCenters[i];
         
@@ -120,7 +120,7 @@
     }
     
     [manager stopUpdatingLocation];
-    [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:1 * 60];
+    [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:5 * 60];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
