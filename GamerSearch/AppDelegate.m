@@ -36,11 +36,6 @@
     [PFTwitterUtils initializeWithConsumerKey:@"NIO5ybtx2SJcs3KnMt5KXxP1R"
                                consumerSecret:@"fZpgW164mladR8EDbnV2aoyx3P2cebnrTRDVefWfODTZxQxnF5"];
     
-    // Push通知の設定
-    [application registerForRemoteNotificationTypes:
-     UIRemoteNotificationTypeBadge |
-     UIRemoteNotificationTypeSound];
-    
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // GoogleMapsSDKの設定
@@ -115,11 +110,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    if (currentInstallation.badge != 0) {
-        currentInstallation.badge = 0;
-        [currentInstallation saveEventually];
-    }
+    application.applicationIconBadgeNumber = 0;
 }
 
 #pragma mark - Notification methods.
@@ -128,6 +119,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     if (application.applicationState == UIApplicationStateInactive) {
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+        application.applicationIconBadgeNumber++;
     }
 }
 
