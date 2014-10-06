@@ -28,6 +28,11 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *followBarButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *rejectBarButton;
+
+@property (weak, nonatomic) IBOutlet UIView *emptyView;
+@property (strong, nonatomic) IBOutlet UIButton *blockButton;
+@property (strong, nonatomic) IBOutlet UIButton *cancelBlockButton;
+
 @end
 
 @implementation UserDetailViewController
@@ -43,6 +48,7 @@
     
     [self initValues];
     [self initFollowButton];
+    [self initBlockButton];
 }
 
 - (void)initValues {
@@ -91,21 +97,45 @@
 }
 
 - (void)initFollowButton {
-    if ( [_userObject.objectId isEqualToString:[PFUser currentUser].objectId] )
+    if ( [_userObject.objectId isEqualToString:[PFUser currentUser].objectId] ) return;
+
+    if ( [self isBlockUser:_userObject.objectId] ) {
+        self.navigationItem.rightBarButtonItem = nil;
         return;
+    }
     
     PFInstallation *installation = [PFInstallation currentInstallation];
     NSString *channelsId = _userObject[@"channelsId"];
     
     if ( ![installation.channels containsObject:channelsId] ) {
-        
         self.navigationItem.rightBarButtonItem = _followBarButton;
-        
     }else {
-    
         self.navigationItem.rightBarButtonItem = _rejectBarButton;
-        
     }
+}
+
+- (void)initBlockButton {
+    if ( [_userObject.objectId isEqualToString:[PFUser currentUser].objectId] ) return;
+
+    UIColor *ff3300 = [UIColor colorWithRed:1.0f green:0.2f blue:0.0f alpha:1.0f];
+    _blockButton.layer.borderColor = ff3300.CGColor;
+    _cancelBlockButton.layer.borderColor = ff3300.CGColor;
+    
+    for ( UIView *view in _emptyView.subviews ) [view removeFromSuperview];
+    
+    if ( ![self isBlockUser:_userObject.objectId] ) {
+        [_emptyView addSubview:_blockButton];
+    }else  {
+        [_emptyView addSubview:_cancelBlockButton];
+    }
+    
+    [self initFollowButton];
+
+}
+
+- (BOOL)isBlockUser:(NSString *)userId {
+    PFUser *currentUser = [PFUser currentUser];
+    return [currentUser[@"blockUser"] containsObject:userId];
 }
 
 #pragma mark - UIEvent methods.
@@ -139,6 +169,32 @@
         }
     }];
     
+}
+
+- (IBAction)didPushedBlockButton:(id)sender {
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser addUniqueObject:_userObject.objectId forKey:@"blockUser"];
+
+    [_blockButton showIndicator];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [_blockButton dismissIndicator];
+        
+        if ( self.navigationItem.rightBarButtonItem == _rejectBarButton )
+            [self didPushedRejectButton:_rejectBarButton];
+
+        [self initBlockButton];
+    }];
+}
+
+- (IBAction)didPushedBlockCancelButton:(id)sender {
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser removeObject:_userObject.objectId forKey:@"blockUser"];
+
+    [_cancelBlockButton showIndicator];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [_cancelBlockButton dismissIndicator];
+        [self initBlockButton];
+    }];
 }
 
 @end

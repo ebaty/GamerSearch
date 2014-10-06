@@ -20,6 +20,6 @@
 + (void)queryFollowUser:(void (^)(NSArray *followUser))block;
 
 + (void)postGameCenter:(NSString *)gameCenterName coordinate:(CLLocationCoordinate2D)coordinate;
-+ (void)postUserProfile:(NSDictionary *)params handler:(void (^)(void))block;
++ (void)postUserProfile:(NSDictionary *)params progress:(BOOL)progress handler:(void (^)(void))block;
 
 @end

@@ -67,6 +67,11 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     [query whereKey:@"checkInAt" greaterThanOrEqualTo:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60]];
     [query orderByDescending:@"checkInAt"];
     
+    // ブロックユーザーのチェック
+    PFUser *currentUser = [PFUser currentUser];
+    [query whereKey:@"blockUser"     notEqualTo:currentUser.objectId];
+    [query whereKey:@"objectId"  notContainedIn:currentUser[@"blockUser"]];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
             [gameCenterUserCache setObject:objects forKey:gameCenterName];
@@ -110,8 +115,9 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     }];
 }
 
-+ (void)postUserProfile:(NSDictionary *)params handler:(void (^)(void))block {
++ (void)postUserProfile:(NSDictionary *)params progress:(BOOL)progress handler:(void (^)(void))block {
     PFUser *currentUser = [PFUser currentUser];
+    
     if ( !currentUser ) return;
     
     for ( NSString *key in params.allKeys ) {
@@ -122,16 +128,16 @@ static NSMutableDictionary *gameCenterUserCache = nil;
         currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
     }
 
-    [SVProgressHUD showWithStatus:@"ユーザー情報を設定しています" maskType:SVProgressHUDMaskTypeBlack];
+    if ( progress ) [SVProgressHUD showWithStatus:@"ユーザー情報を更新しています..." maskType:SVProgressHUDMaskTypeBlack];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
-            [SVProgressHUD showSuccessWithStatus:@"ユーザー情報を設定しました"];
+            if ( progress ) [SVProgressHUD showSuccessWithStatus:@"ユーザー情報を更新しました"];
             if ( block ) block();
         }else {
             if ( error.code == 202 ) {
-                [SVProgressHUD showErrorWithStatus:@"既に使用されているユーザー名です"];
+                if ( progress ) [SVProgressHUD showErrorWithStatus:@"既に使用されているユーザー名です"];
             }else {
-                [SVProgressHUD showErrorWithStatus:@"ユーザー情報の設定に失敗しました"];
+                if ( progress ) [SVProgressHUD showErrorWithStatus:@"ユーザー情報の更新に失敗しました"];
             }
         }
     }];

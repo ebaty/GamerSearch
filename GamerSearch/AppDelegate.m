@@ -76,6 +76,9 @@
     if ( currentUser ) {
         currentStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+        
+        // Push通知の設定
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
     }else {
         currentStoryboard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
@@ -106,6 +109,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation setObject:[PFUser currentUser].objectId forKey:@"userId"];
     [currentInstallation saveInBackground];
 }
 
@@ -142,7 +146,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
           @"checkInAt":[NSDate date]
         };
         
-        [PFController postUserProfile:updateInfo handler:^{
+        [PFController postUserProfile:updateInfo progress:NO handler:^{
             if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
                 [self sendPushNotification:userInfo];
             }
@@ -155,21 +159,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     
     NSString *message =
     [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
+
+    PFQuery *query = [PFInstallation query];
+    [query whereKey:@"channels"        equalTo:currentUser[@"channelsId"]];
+    [query whereKey:@"userId"   notContainedIn:currentUser[@"blockList"]];
     
-    NSDictionary *pushData =
-    @{
-      @"alert":message,
-      @"badge":@"Increment"
-    };
-    
-    [PFPush sendPushDataToChannelInBackground:currentUser[@"channelsId"]
-                                     withData:pushData
-                                        block:
-     ^(BOOL succeeded, NSError *error) {
-         if ( error ) {
-             DDLogError(@"%@", error);
-         }
-     }];
+    [PFPush sendPushMessageToQueryInBackground:query withMessage:message block:^(BOOL succeeded, NSError *error) {
+        if ( error ) {
+            DDLogError(@"%@", error);
+        }
+    }];
 }
 
 @end

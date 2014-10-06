@@ -124,7 +124,7 @@
       @"comment"    : textFile
     };
     
-    [PFController postUserProfile:params handler:nil];
+    [PFController postUserProfile:params progress:YES handler:nil];
 }
 
 - (IBAction)didPushedDoneBarButton:(id)sender {
