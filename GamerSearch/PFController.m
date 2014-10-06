@@ -14,6 +14,8 @@
 @implementation PFController
 
 #pragma mark - Query methods.
+
+#pragma mark GameCenter
 + (void)queryGameCenter:(void (^)(NSArray *gameCenters))block {
     PFQuery *query = [PFQuery queryWithClassName:kGameCenterClassName];
     
@@ -50,6 +52,7 @@
     [USER_DEFAULTS synchronize];
 }
 
+#pragma mark User
 static NSMutableDictionary *gameCenterUserCache = nil;
 + (void)queryGameCenterUser:(NSString *)gameCenterName useCache:(BOOL)useCache handler:(void (^)(NSArray *users))block {
     if ( !gameCenterUserCache ) {
@@ -90,6 +93,21 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     [query whereKey:@"channelsId" containedIn:installation[@"channels"]];
     [query orderByDescending:@"checkInAt"];
 
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( !error ) {
+            block(objects);
+        }else {
+            DDLogError(@"%@", error);
+        }
+    }];
+}
+
++ (void)queryBlockUser:(void (^)(NSArray *blockUser))block {
+    PFQuery *query = [PFUser query];
+    
+    [query whereKey:@"objectId" containedIn:[PFUser currentUser][@"blockUser"]];
+    [query orderByDescending:@"checkInAt"];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
             block(objects);

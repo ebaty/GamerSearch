@@ -32,6 +32,7 @@
 		F4EEB62419D1A4170077BAC9 /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62019D1A4170077BAC9 /* icon-60@2x.png */; };
 		F4EEB62519D1A4170077BAC9 /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62119D1A4170077BAC9 /* icon-40@2x.png */; };
 		F4EEB62619D1A4170077BAC9 /* icon-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4EEB62219D1A4170077BAC9 /* icon-29@2x.png */; };
+		F4F9312219E2789E007FCC68 /* BlockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F9312119E2789E007FCC68 /* BlockListViewController.m */; };
 		F4FFEC2319C5CCB000A48BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2219C5CCB000A48BDE /* Foundation.framework */; };
 		F4FFEC2519C5CCB000A48BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */; };
 		F4FFEC2719C5CCB000A48BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FFEC2619C5CCB000A48BDE /* UIKit.framework */; };
@@ -110,6 +111,8 @@
 		F4EEB62019D1A4170077BAC9 /* icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60@2x.png"; path = "Image/icon-60@2x.png"; sourceTree = "<group>"; };
 		F4EEB62119D1A4170077BAC9 /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-40@2x.png"; path = "Image/icon-40@2x.png"; sourceTree = "<group>"; };
 		F4EEB62219D1A4170077BAC9 /* icon-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29@2x.png"; path = "Image/icon-29@2x.png"; sourceTree = "<group>"; };
+		F4F9312019E2789E007FCC68 /* BlockListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockListViewController.h; sourceTree = "<group>"; };
+		F4F9312119E2789E007FCC68 /* BlockListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockListViewController.m; sourceTree = "<group>"; };
 		F4FFEC1F19C5CCB000A48BDE /* GamerSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamerSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FFEC2219C5CCB000A48BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4FFEC2419C5CCB000A48BDE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -255,6 +258,7 @@
 				F4FFEC8419C5D3BD00A48BDE /* SettingTableViewController.m */,
 				F441ACA919D1C1BF007F4E8A /* SettingTextViewController */,
 				F4180B7119D3391D000E4898 /* FeedbackViewController */,
+				F4F9311F19E27867007FCC68 /* BlockListViewController */,
 			);
 			name = SettingTableViewController;
 			sourceTree = "<group>";
@@ -347,6 +351,15 @@
 				F4EEB62219D1A4170077BAC9 /* icon-29@2x.png */,
 			);
 			name = Image;
+			sourceTree = "<group>";
+		};
+		F4F9311F19E27867007FCC68 /* BlockListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F4F9312019E2789E007FCC68 /* BlockListViewController.h */,
+				F4F9312119E2789E007FCC68 /* BlockListViewController.m */,
+			);
+			name = BlockListViewController;
 			sourceTree = "<group>";
 		};
 		F4FFEC1619C5CCB000A48BDE = {
@@ -645,6 +658,7 @@
 				F4005F9D19C9DE9E00DA7702 /* UserTableViewCell.m in Sources */,
 				F4FFEC2F19C5CCB000A48BDE /* main.m in Sources */,
 				F4FFEC9C19C6CD8700A48BDE /* UIView+Indicator.m in Sources */,
+				F4F9312219E2789E007FCC68 /* BlockListViewController.m in Sources */,
 				F4180B7419D33940000E4898 /* FeedbackViewController.m in Sources */,
 				F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */,
 				F4EEB61D19D1745A0077BAC9 /* UIView+CloseKeyboard.m in Sources */,

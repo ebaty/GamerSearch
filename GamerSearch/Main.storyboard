@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ims-ZR-Eq7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ims-ZR-Eq7">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Tab Bar View Controller-->
@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-41" y="490"/>
         </scene>
-        <!--マップ-->
+        <!--Navigation Controller - マップ-->
         <scene sceneID="NuV-B9-Ffr">
             <objects>
                 <navigationController definesPresentationContext="YES" id="1Lu-af-0ER" sceneMemberID="viewController">
@@ -41,7 +41,7 @@
             </objects>
             <point key="canvasLocation" x="685" y="-460"/>
         </scene>
-        <!--マップ-->
+        <!--Map View Controller - マップ-->
         <scene sceneID="JHy-OI-Tvx">
             <objects>
                 <viewController id="zx6-C1-q0Q" customClass="MapViewController" sceneMemberID="viewController">
@@ -57,7 +57,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYl-3i-FOo">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aYl-3i-FOo">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -85,7 +85,7 @@
             </objects>
             <point key="canvasLocation" x="1117" y="-460"/>
         </scene>
-        <!--ゲームセンター名-->
+        <!--User List View Controller - ゲームセンター名-->
         <scene sceneID="JpH-DD-PDg">
             <objects>
                 <viewController id="WL6-PX-U6g" customClass="UserListViewController" sceneMemberID="viewController">
@@ -141,7 +141,7 @@
             </objects>
             <point key="canvasLocation" x="1534" y="-460"/>
         </scene>
-        <!--ユーザー詳細-->
+        <!--User Detail View Controller - ユーザー詳細-->
         <scene sceneID="1bM-nC-gKU">
             <objects>
                 <viewController id="fVb-2y-yjk" customClass="UserDetailViewController" sceneMemberID="viewController">
@@ -365,9 +365,9 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="2077" y="-101"/>
+            <point key="canvasLocation" x="2087" y="202"/>
         </scene>
-        <!--プロフィール-->
+        <!--Navigation Controller - プロフィール-->
         <scene sceneID="FZy-0Y-uQx">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Dsq-0t-mUk" sceneMemberID="viewController">
@@ -383,7 +383,7 @@
             </objects>
             <point key="canvasLocation" x="685" y="866"/>
         </scene>
-        <!--プロフィール-->
+        <!--Profile Table View Controller - プロフィール-->
         <scene sceneID="C9f-r0-RVX">
             <objects>
                 <tableViewController id="SYP-8i-lZy" customClass="ProfileTableViewController" sceneMemberID="viewController">
@@ -651,7 +651,7 @@
             </objects>
             <point key="canvasLocation" x="1117" y="866"/>
         </scene>
-        <!--フォローリスト-->
+        <!--Navigation Controller - フォローリスト-->
         <scene sceneID="SD4-74-SAV">
             <objects>
                 <navigationController definesPresentationContext="YES" id="fOm-pe-ESz" sceneMemberID="viewController">
@@ -667,7 +667,7 @@
             </objects>
             <point key="canvasLocation" x="685" y="202"/>
         </scene>
-        <!--フォローリスト-->
+        <!--Follow List View Controller - フォローリスト-->
         <scene sceneID="dDS-fB-YVm">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="BWE-HZ-Rx5" customClass="FollowListViewController" sceneMemberID="viewController">
@@ -706,7 +706,7 @@
             </objects>
             <point key="canvasLocation" x="1117" y="202"/>
         </scene>
-        <!--設定-->
+        <!--Navigation Controller - 設定-->
         <scene sceneID="eoy-Et-Sox">
             <objects>
                 <navigationController definesPresentationContext="YES" id="uJN-8W-KdA" sceneMemberID="viewController">
@@ -722,7 +722,7 @@
             </objects>
             <point key="canvasLocation" x="685" y="1916"/>
         </scene>
-        <!--設定-->
+        <!--Setting Table View Controller - 設定-->
         <scene sceneID="zQA-0u-QCl">
             <objects>
                 <tableViewController id="1sV-0i-aFG" customClass="SettingTableViewController" sceneMemberID="viewController">
@@ -810,14 +810,36 @@
                             </tableViewSection>
                             <tableViewSection id="Z23-3Q-l1W">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="49S-T0-ExP">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="49S-T0-ExP">
                                         <rect key="frame" x="0.0" y="335" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="49S-T0-ExP" id="YCT-ZG-V25">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ブロックしているユーザー" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bG6-2s-I2I">
+                                                    <rect key="frame" x="20" y="11" width="267" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="6bB-Pl-lXT" kind="push" id="dD5-Iz-55f"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="BXQ-MT-o2N">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="MzR-Ef-Q8h">
+                                        <rect key="frame" x="0.0" y="399" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MzR-Ef-Q8h" id="cGs-4n-wl6">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ログアウト" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bG6-2s-I2I">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ログアウト" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHR-Zq-PKh">
                                                     <rect key="frame" x="20" y="11" width="267" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
@@ -875,7 +897,7 @@
             </objects>
             <point key="canvasLocation" x="1563" y="1916"/>
         </scene>
-        <!--フィードバック-->
+        <!--Feedback View Controller - フィードバック-->
         <scene sceneID="EIX-Vs-RdY">
             <objects>
                 <viewController id="Mh1-RF-Lhv" customClass="FeedbackViewController" sceneMemberID="viewController">
@@ -948,6 +970,46 @@
             </objects>
             <point key="canvasLocation" x="1563" y="2573"/>
         </scene>
+        <!--Block List View Controller-->
+        <scene sceneID="h0x-OA-aFD">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="6bB-Pl-lXT" customClass="BlockListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UC0-2y-qWM"/>
+                        <viewControllerLayoutGuide type="bottom" id="TrR-e8-2mi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xGn-pS-gOp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aex-dM-EQw">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="6bB-Pl-lXT" id="A1D-gD-Aec"/>
+                                    <outlet property="delegate" destination="6bB-Pl-lXT" id="PE2-6U-9NU"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aex-dM-EQw" secondAttribute="trailing" id="3De-Np-PKe"/>
+                            <constraint firstItem="TrR-e8-2mi" firstAttribute="top" secondItem="aex-dM-EQw" secondAttribute="bottom" id="CBp-rw-z2q"/>
+                            <constraint firstItem="aex-dM-EQw" firstAttribute="leading" secondItem="xGn-pS-gOp" secondAttribute="leading" id="Wy6-sm-gTE"/>
+                            <constraint firstItem="aex-dM-EQw" firstAttribute="top" secondItem="UC0-2y-qWM" secondAttribute="bottom" id="ruk-s7-2Q4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="r63-G5-q8l"/>
+                    <connections>
+                        <outlet property="tableView" destination="aex-dM-EQw" id="YfA-8f-ua6"/>
+                        <segue destination="fVb-2y-yjk" kind="push" identifier="UserDetailSegue" id="01f-gf-g3i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eJJ-6m-Abx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1564" y="3254"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -956,6 +1018,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="0GG-h5-b1m"/>
-        <segue reference="JvT-Il-4xi"/>
+        <segue reference="01f-gf-g3i"/>
     </inferredMetricsTieBreakers>
 </document>
