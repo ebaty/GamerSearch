@@ -77,28 +77,6 @@
     
 }
 
-- (void)checkDistance:(NSDictionary *)gameCenter nowLocation:(CLLocation *)nowLocation {
-    if ( gameCenter ) {
-        CLLocationCoordinate2D coordinate =
-            CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
-        
-        CLLocation *gameCenterLocation =
-            [[CLLocation alloc] initWithLatitude:[gameCenter[@"latitude"]  doubleValue]
-                                       longitude:[gameCenter[@"longitude"] doubleValue]];
-        
-        CLCircularRegion *region =
-            [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
-        
-        CLLocationDistance distance = [nowLocation distanceFromLocation:gameCenterLocation];
-
-        if ( distance <= kRegionRadius * 20 ) {
-            [self locationManager:_manager didEnterRegion:region];
-        }else {
-            [self locationManager:_manager didExitRegion:region];
-        }
-    }
-}
-
 #pragma mark - CLLocationManager delegate methods.
 
 #pragma mark 位置情報更新
@@ -108,7 +86,6 @@
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
-        [self checkDistance:_monitoringGameCenters.firstObject nowLocation:nowLocation];
     }
     
     [manager stopUpdatingLocation];

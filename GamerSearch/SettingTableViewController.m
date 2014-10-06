@@ -35,15 +35,19 @@
         IntroViewController *intro = [IntroViewController new];
         [self presentViewController:intro animated:YES completion:nil];
     }
-    if ( indexPath.section == 2 && indexPath.row == 0 ) {
+    if ( indexPath.section == 3 && indexPath.row == 0 ) {
         [self logOut];
     }
 }
 
 #pragma mark - Segue methods.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    SettingTextViewController *textVC = segue.destinationViewController;
-    textVC.title = segue.identifier;
+    if ( [segue.identifier isEqualToString:@"利用規約"] ||
+         [segue.identifier isEqualToString:@"プライバシーポリシー"] )
+    {
+        SettingTextViewController *textVC = segue.destinationViewController;
+        textVC.title = segue.identifier;
+    }
 }
 
 @end

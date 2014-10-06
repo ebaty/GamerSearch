@@ -14,6 +14,8 @@
 @implementation PFController
 
 #pragma mark - Query methods.
+
+#pragma mark GameCenter
 + (void)queryGameCenter:(void (^)(NSArray *gameCenters))block {
     PFQuery *query = [PFQuery queryWithClassName:kGameCenterClassName];
     
@@ -50,6 +52,7 @@
     [USER_DEFAULTS synchronize];
 }
 
+#pragma mark User
 static NSMutableDictionary *gameCenterUserCache = nil;
 + (void)queryGameCenterUser:(NSString *)gameCenterName useCache:(BOOL)useCache handler:(void (^)(NSArray *users))block {
     if ( !gameCenterUserCache ) {
@@ -66,6 +69,11 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     [query whereKey:@"gameCenter" equalTo:gameCenterName];
     [query whereKey:@"checkInAt" greaterThanOrEqualTo:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60]];
     [query orderByDescending:@"checkInAt"];
+    
+    // ブロックユーザーのチェック
+    PFUser *currentUser = [PFUser currentUser];
+    [query whereKey:@"blockUser"     notEqualTo:currentUser.objectId];
+    [query whereKey:@"objectId"  notContainedIn:currentUser[@"blockUser"]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( !error ) {
@@ -94,12 +102,32 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     }];
 }
 
++ (void)queryBlockUser:(void (^)(NSArray *blockUser))block {
+    PFQuery *query = [PFUser query];
+    
+    [query whereKey:@"objectId" containedIn:[PFUser currentUser][@"blockUser"]];
+    [query orderByDescending:@"checkInAt"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( !error ) {
+            block(objects);
+        }else {
+            DDLogError(@"%@", error);
+        }
+    }];
+}
+
 #pragma mark - Post methods.
 + (void)postGameCenter:(NSString *)gameCenterName coordinate:(CLLocationCoordinate2D)coordinate{
     PFObject *gameCenterObject = [PFObject objectWithClassName:kGameCenterClassName];
     gameCenterObject[@"name"] = gameCenterName;
     gameCenterObject[@"geoPoint"] = [PFGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     gameCenterObject[@"show"] = @NO;
+    
+    PFACL *gameCenterACL = [PFACL ACL];
+    [gameCenterACL setPublicReadAccess:YES];
+    [gameCenterACL setPublicWriteAccess:YES];
+    gameCenterObject.ACL = gameCenterACL;
     
     [SVProgressHUD showWithStatus:@"リクエストを送信中です..." maskType:SVProgressHUDMaskTypeBlack];
     [gameCenterObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -110,8 +138,9 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     }];
 }
 
-+ (void)postUserProfile:(NSDictionary *)params handler:(void (^)(void))block {
++ (void)postUserProfile:(NSDictionary *)params progress:(BOOL)progress handler:(void (^)(void))block {
     PFUser *currentUser = [PFUser currentUser];
+    
     if ( !currentUser ) return;
     
     for ( NSString *key in params.allKeys ) {
@@ -122,16 +151,16 @@ static NSMutableDictionary *gameCenterUserCache = nil;
         currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
     }
 
-    [SVProgressHUD showWithStatus:@"ユーザー情報を設定しています" maskType:SVProgressHUDMaskTypeBlack];
+    if ( progress ) [SVProgressHUD showWithStatus:@"ユーザー情報を更新しています..." maskType:SVProgressHUDMaskTypeBlack];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
-            [SVProgressHUD showSuccessWithStatus:@"ユーザー情報を設定しました"];
+            if ( progress ) [SVProgressHUD showSuccessWithStatus:@"ユーザー情報を更新しました"];
             if ( block ) block();
         }else {
             if ( error.code == 202 ) {
-                [SVProgressHUD showErrorWithStatus:@"既に使用されているユーザー名です"];
+                if ( progress ) [SVProgressHUD showErrorWithStatus:@"既に使用されているユーザー名です"];
             }else {
-                [SVProgressHUD showErrorWithStatus:@"ユーザー情報の設定に失敗しました"];
+                if ( progress ) [SVProgressHUD showErrorWithStatus:@"ユーザー情報の更新に失敗しました"];
             }
         }
     }];

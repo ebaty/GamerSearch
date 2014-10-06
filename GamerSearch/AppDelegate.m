@@ -36,11 +36,6 @@
     [PFTwitterUtils initializeWithConsumerKey:@"NIO5ybtx2SJcs3KnMt5KXxP1R"
                                consumerSecret:@"fZpgW164mladR8EDbnV2aoyx3P2cebnrTRDVefWfODTZxQxnF5"];
     
-    // Push通知の設定
-    [application registerForRemoteNotificationTypes:
-     UIRemoteNotificationTypeBadge |
-     UIRemoteNotificationTypeSound];
-    
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // GoogleMapsSDKの設定
@@ -81,6 +76,9 @@
     if ( currentUser ) {
         currentStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+        
+        // Push通知の設定
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
     }else {
         currentStoryboard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
@@ -111,15 +109,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation setObject:[PFUser currentUser].objectId forKey:@"userId"];
     [currentInstallation saveInBackground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    if (currentInstallation.badge != 0) {
-        currentInstallation.badge = 0;
-        [currentInstallation saveEventually];
-    }
+    application.applicationIconBadgeNumber = 0;
 }
 
 #pragma mark - Notification methods.
@@ -128,6 +123,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     if (application.applicationState == UIApplicationStateInactive) {
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+        application.applicationIconBadgeNumber++;
     }
 }
 
@@ -142,6 +138,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
         }
         if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
             gameCenter = userInfo[@"message"];
+            
+            PFUser *currentUser = [PFUser currentUser];
+            if ( ![currentUser[@"gameCenter"] isEqualToString:userInfo[@"gameCenter"]] ) {
+                return;
+            }
         }
         
         NSDictionary *updateInfo =
@@ -150,7 +151,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
           @"checkInAt":[NSDate date]
         };
         
-        [PFController postUserProfile:updateInfo handler:^{
+        [PFController postUserProfile:updateInfo progress:NO handler:^{
             if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
                 [self sendPushNotification:userInfo];
             }
@@ -163,21 +164,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     
     NSString *message =
     [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
+
+    PFQuery *query = [PFInstallation query];
+    [query whereKey:@"channels"        equalTo:currentUser[@"channelsId"]];
+    [query whereKey:@"userId"   notContainedIn:currentUser[@"blockList"]];
     
-    NSDictionary *pushData =
-    @{
-      @"alert":message,
-      @"badge":@"Increment"
-    };
-    
-    [PFPush sendPushDataToChannelInBackground:currentUser[@"channelsId"]
-                                     withData:pushData
-                                        block:
-     ^(BOOL succeeded, NSError *error) {
-         if ( error ) {
-             DDLogError(@"%@", error);
-         }
-     }];
+    [PFPush sendPushMessageToQueryInBackground:query withMessage:message block:^(BOOL succeeded, NSError *error) {
+        if ( error ) {
+            DDLogError(@"%@", error);
+        }
+    }];
 }
 
 @end
