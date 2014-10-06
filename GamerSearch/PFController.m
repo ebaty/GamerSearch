@@ -124,6 +124,11 @@ static NSMutableDictionary *gameCenterUserCache = nil;
     gameCenterObject[@"geoPoint"] = [PFGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     gameCenterObject[@"show"] = @NO;
     
+    PFACL *gameCenterACL = [PFACL ACL];
+    [gameCenterACL setPublicReadAccess:YES];
+    [gameCenterACL setPublicWriteAccess:YES];
+    gameCenterObject.ACL = gameCenterACL;
+    
     [SVProgressHUD showWithStatus:@"リクエストを送信中です..." maskType:SVProgressHUDMaskTypeBlack];
     [gameCenterObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( succeeded )
