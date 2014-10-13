@@ -31,7 +31,7 @@
     _userProfileObject = userProfileObject;
     
     PFFile *userImageFile = _userProfileObject[@"userImage"];
-    if ( userImageFile ) {
+    if ( userImageFile && ![userImageFile isEqual:[NSNull null]] ) {
         [_userImageView showIndicator];
         [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
             [_userImageView dismissIndicator];

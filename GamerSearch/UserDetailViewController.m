@@ -70,7 +70,7 @@
     PFFile *userImageFile = _userObject[@"userImage"];
     PFFile *textFile = _userObject[@"comment"];
     
-    if ( userImageFile ) {
+    if ( userImageFile && ![userImageFile isEqual:[NSNull null]] ) {
         [_userImageView showIndicator];
         [userImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             [_userImageView dismissIndicator];
