@@ -138,11 +138,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
         }
         if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
             gameCenter = userInfo[@"message"];
-            
-            PFUser *currentUser = [PFUser currentUser];
-            if ( ![currentUser[@"gameCenter"] isEqualToString:userInfo[@"gameCenter"]] ) {
-                return;
-            }
         }
         
         NSDictionary *updateInfo =

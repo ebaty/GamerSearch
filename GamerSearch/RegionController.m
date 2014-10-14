@@ -77,6 +77,28 @@
     
 }
 
+- (void)checkDistance:(NSDictionary *)gameCenter nowLocation:(CLLocation *)nowLocation {
+    if ( gameCenter ) {
+        CLLocationCoordinate2D coordinate =
+        CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
+        
+        CLLocation *gameCenterLocation =
+        [[CLLocation alloc] initWithLatitude:[gameCenter[@"latitude"]  doubleValue]
+                                   longitude:[gameCenter[@"longitude"] doubleValue]];
+        
+        CLCircularRegion *region =
+        [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
+        
+        CLLocationDistance distance = [nowLocation distanceFromLocation:gameCenterLocation];
+        
+        if ( distance <= kRegionRadius * 20 ) {
+            [self locationManager:_manager didEnterRegion:region];
+        }else {
+            [self locationManager:_manager didExitRegion:region];
+        }
+    }
+}
+
 #pragma mark - CLLocationManager delegate methods.
 
 #pragma mark 位置情報更新
@@ -86,6 +108,7 @@
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
+        [self checkDistance:_monitoringGameCenters.firstObject nowLocation:manager.location];
     }
     
     [manager stopUpdatingLocation];
@@ -110,43 +133,44 @@
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     [BTController backgroundTask:^{
-        [kApplication cancelAllLocalNotifications];
-        
-        // デバッグ用
-        CLCircularRegion *circular = (CLCircularRegion *)region;
-        CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:circular.center.latitude longitude:circular.center.longitude];
-        DDLogVerbose(@"%@:%@, distance == %lf",
-                     NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
-        
-        NSString *message = [region.identifier stringByAppendingString:@" に来ました"];
-        
-        NSDictionary *userInfo =
-        @{
-          @"message":message,
-          @"state":@"EnterRegion",
-          @"gameCenter":region.identifier
-          };
-        
-        [self sendLocalNotification:message userInfo:userInfo];
+        if ( ![[PFUser currentUser][@"gameCenter"] isEqualToString:region.identifier] ) {
+            // デバッグ用
+            CLCircularRegion *circular = (CLCircularRegion *)region;
+            CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:circular.center.latitude longitude:circular.center.longitude];
+            DDLogVerbose(@"%@:%@, distance == %lf",
+                         NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
+            
+            NSString *message = [region.identifier stringByAppendingString:@" に来ました"];
+            
+            NSDictionary *userInfo =
+            @{
+              @"message":message,
+              @"state":@"EnterRegion",
+              @"gameCenter":region.identifier
+            };
+            
+            [self sendLocalNotification:message userInfo:userInfo];
+        }
     }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     [BTController backgroundTask:^{
-        [kApplication cancelAllLocalNotifications];
-        DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
-        
-        NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
-        
-        NSDictionary *userInfo =
-        @{
-          @"message":message,
-          @"state":@"ExitRegion",
-          @"gameCenter":region.identifier
-          };
-        
-        [self sendLocalNotification:message userInfo:userInfo];
+        if ( [[PFUser currentUser][@"gameCenter"] isEqualToString:region.identifier] ) {
+            DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
+            
+            NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
+            
+            NSDictionary *userInfo =
+            @{
+              @"message":message,
+              @"state":@"ExitRegion",
+              @"gameCenter":region.identifier
+            };
+            
+            [self sendLocalNotification:message userInfo:userInfo];
+        }
     }];
 }
 
@@ -154,8 +178,12 @@
 - (void)sendLocalNotification:(NSString *)message userInfo:(NSDictionary *)userInfo{
     [kApplication cancelAllLocalNotifications];
     
+    NSTimeInterval interval = 0;
+    if ( kApplication.applicationState != UIApplicationStateActive )
+        interval = 1 * 60;
+
     UILocalNotification *notification = [UILocalNotification new];
-    notification.fireDate  = [NSDate dateWithTimeIntervalSinceNow:3 * 60];
+    notification.fireDate  = [NSDate dateWithTimeIntervalSinceNow:interval];
     notification.alertBody = message;
     notification.timeZone  = [NSTimeZone localTimeZone];
     notification.soundName = UILocalNotificationDefaultSoundName;
