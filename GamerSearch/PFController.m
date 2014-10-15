@@ -64,57 +64,29 @@ static NSMutableDictionary *gameCenterUserCache = nil;
         }
     }
 
-    PFQuery *query = [PFUser query];
-    
-    [query whereKey:@"gameCenter" equalTo:gameCenterName];
-    [query whereKey:@"checkInAt" greaterThanOrEqualTo:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60]];
-    [query orderByDescending:@"checkInAt"];
-    
-    // ブロックユーザーのチェック
-    PFUser *currentUser = [PFUser currentUser];
-    [query whereKey:@"blockUser"     notEqualTo:currentUser.objectId];
-    [query whereKey:@"objectId"  notContainedIn:currentUser[@"blockUser"]];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ( !error ) {
-            [gameCenterUserCache setObject:objects forKey:gameCenterName];
-            block(objects);
-        }else {
-            DDLogError(@"%@", error);
-        }
+    // ブロックユーザーの取得
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"blockUsers"];
+    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *blockUsers, NSError *error) {
+
+        PFQuery *query = [PFUser query];
+        
+        [query whereKey:@"gameCenter" equalTo:gameCenterName];
+        [query whereKey:@"checkInAt" greaterThanOrEqualTo:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60]];
+        [query orderByDescending:@"checkInAt"];
+        
+        [query whereKey:@"blockUsers" notEqualTo:[PFUser currentUser]];
+        [query whereKey:@"objectId" notContainedIn:[self getObjectIdArray:blockUsers]];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if ( !error ) {
+                [gameCenterUserCache setObject:objects forKey:gameCenterName];
+                block(objects);
+            }else {
+                DDLogError(@"%@", error);
+            }
+        }];
     }];
-}
 
-+ (void)queryFollowUser:(void (^)(NSArray *followUser))block {
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    
-    PFQuery *query = [PFUser query];
-
-    [query whereKey:@"channelsId" containedIn:installation[@"channels"]];
-    [query orderByDescending:@"checkInAt"];
-
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ( !error ) {
-            block(objects);
-        }else {
-            DDLogError(@"%@", error);
-        }
-    }];
-}
-
-+ (void)queryBlockUser:(void (^)(NSArray *blockUser))block {
-    PFQuery *query = [PFUser query];
-    
-    [query whereKey:@"objectId" containedIn:[PFUser currentUser][@"blockUser"]];
-    [query orderByDescending:@"checkInAt"];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ( !error ) {
-            block(objects);
-        }else {
-            DDLogError(@"%@", error);
-        }
-    }];
 }
 
 #pragma mark - Post methods.
@@ -147,10 +119,6 @@ static NSMutableDictionary *gameCenterUserCache = nil;
         currentUser[key] = params[key];
     }
     
-    if ( currentUser.objectId && !currentUser[@"channelsId"] ) {
-        currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
-    }
-
     if ( progress ) [SVProgressHUD showWithStatus:@"ユーザー情報を更新しています..." maskType:SVProgressHUDMaskTypeBlack];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
@@ -162,8 +130,17 @@ static NSMutableDictionary *gameCenterUserCache = nil;
             }else {
                 if ( progress ) [SVProgressHUD showErrorWithStatus:@"ユーザー情報の更新に失敗しました"];
             }
+            DDLogError(@"%@", error);
         }
     }];
 }
 
+#pragma mark - Other method.
++ (NSArray *)getObjectIdArray:(NSArray *)objects {
+    NSMutableArray *objectIdArray = [NSMutableArray new];
+    for ( PFUser *object in objects ) {
+        [objectIdArray addObject:object.objectId];
+    }
+    return objectIdArray;
+}
 @end

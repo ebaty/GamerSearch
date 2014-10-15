@@ -31,6 +31,7 @@
 
     PFACL *defaultACL = [PFACL ACL];
     [defaultACL setPublicReadAccess:YES];
+    [defaultACL setPublicWriteAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
     [PFTwitterUtils initializeWithConsumerKey:@"NIO5ybtx2SJcs3KnMt5KXxP1R"
@@ -107,6 +108,7 @@
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation setObject:[PFUser currentUser].objectId forKey:@"userId"];
@@ -121,6 +123,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 
 #pragma mark Remote
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), userInfo);
+    
     if (application.applicationState == UIApplicationStateInactive) {
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
         application.applicationIconBadgeNumber++;
@@ -158,16 +162,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     PFUser *currentUser = [PFUser currentUser];
     
     NSString *message =
-    [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
-
-    PFQuery *query = [PFInstallation query];
-    [query whereKey:@"channels"        equalTo:currentUser[@"channelsId"]];
-    [query whereKey:@"userId"   notContainedIn:currentUser[@"blockList"]];
+        [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
     
-    [PFPush sendPushMessageToQueryInBackground:query withMessage:message block:^(BOOL succeeded, NSError *error) {
-        if ( error ) {
-            DDLogError(@"%@", error);
-        }
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"blockUsers"];
+    
+    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *blockUsers, NSError *error) {
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"followUsers" equalTo:[PFUser currentUser]];
+        [query whereKey:@"objectId" notContainedIn:[PFController getObjectIdArray:blockUsers]];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *followedUsers, NSError *error) {
+            DDLogVerbose(@"followedUsers:%@", followedUsers);
+            PFQuery *pushQuery = [PFInstallation query];
+            [pushQuery whereKey:@"userId" containedIn:[PFController getObjectIdArray:followedUsers]];
+             
+            [PFPush sendPushMessageToQueryInBackground:pushQuery withMessage:message];
+        }];
     }];
 }
 

@@ -40,8 +40,9 @@
 }
 
 - (void)setUpBlockUserArray:(void (^)(void))block {
-    [PFController queryBlockUser:^(NSArray *blockUser) {
-        _blockUserArray = blockUser;
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"blockUsers"];
+    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        _blockUserArray = objects;
         [self.tableView reloadData];
         if ( block ) block();
     }];

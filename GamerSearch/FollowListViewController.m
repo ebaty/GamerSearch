@@ -41,10 +41,13 @@
 }
 
 - (void)setUpFollowUserArray:(void (^)(void))block {
-    [PFController queryFollowUser:^(NSArray *followUser) {
-        _followUserArray = followUser;
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"followUsers"];
+    PFQuery *query = [relation query];
+    [query whereKey:@"blockUsers" notEqualTo:[PFUser currentUser]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        _followUserArray = objects;
         [self.tableView reloadData];
-
+        
         if ( block ) block();
     }];
 }
