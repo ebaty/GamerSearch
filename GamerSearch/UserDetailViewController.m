@@ -43,6 +43,7 @@
 {
     [super viewDidLoad];
 
+    // 配色
     _userImageView.layer.borderColor = UIColor.lightGrayColor.CGColor;
     _textView.layer.borderColor = UIColor.lightGrayColor.CGColor;
     
@@ -50,10 +51,12 @@
     _blockButton.layer.borderColor = ff3300.CGColor;
     _cancelBlockButton.layer.borderColor = ff3300.CGColor;
 
+    // 自分以外の時にはindicatorを設定
     UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [indicatorView showIndicator];
     UIBarButtonItem *indicatorItem = [[UIBarButtonItem alloc] initWithCustomView:indicatorView];
-    self.navigationItem.rightBarButtonItem = indicatorItem;
+    if ( ![_userObject.objectId isEqualToString:[PFUser currentUser].objectId] )
+        self.navigationItem.rightBarButtonItem = indicatorItem;
     
     [self initValues];
     [self initBlockButton];
