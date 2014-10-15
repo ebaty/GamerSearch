@@ -147,10 +147,6 @@ static NSMutableDictionary *gameCenterUserCache = nil;
         currentUser[key] = params[key];
     }
     
-    if ( currentUser.objectId && !currentUser[@"channelsId"] ) {
-        currentUser[@"channelsId"] = [@"channelsId_" stringByAppendingString:currentUser.objectId];
-    }
-
     if ( progress ) [SVProgressHUD showWithStatus:@"ユーザー情報を更新しています..." maskType:SVProgressHUDMaskTypeBlack];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
@@ -162,6 +158,7 @@ static NSMutableDictionary *gameCenterUserCache = nil;
             }else {
                 if ( progress ) [SVProgressHUD showErrorWithStatus:@"ユーザー情報の更新に失敗しました"];
             }
+            DDLogError(@"%@", error);
         }
     }];
 }

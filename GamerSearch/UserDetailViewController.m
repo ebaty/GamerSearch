@@ -46,8 +46,16 @@
     _userImageView.layer.borderColor = UIColor.lightGrayColor.CGColor;
     _textView.layer.borderColor = UIColor.lightGrayColor.CGColor;
     
+    UIColor *ff3300 = [UIColor colorWithRed:1.0f green:0.2f blue:0.0f alpha:1.0f];
+    _blockButton.layer.borderColor = ff3300.CGColor;
+    _cancelBlockButton.layer.borderColor = ff3300.CGColor;
+
+    UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [indicatorView showIndicator];
+    UIBarButtonItem *indicatorItem = [[UIBarButtonItem alloc] initWithCustomView:indicatorView];
+    self.navigationItem.rightBarButtonItem = indicatorItem;
+    
     [self initValues];
-    [self initFollowButton];
     [self initBlockButton];
 }
 
@@ -97,56 +105,68 @@
 }
 
 - (void)initFollowButton {
-    if ( [_userObject.objectId isEqualToString:[PFUser currentUser].objectId] ) return;
-
-    if ( [self isBlockUser:_userObject.objectId] ) {
+    if ( [_userObject.objectId isEqualToString:[PFUser currentUser].objectId] ) {
         self.navigationItem.rightBarButtonItem = nil;
         return;
     }
-    
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    NSString *channelsId = _userObject[@"channelsId"];
-    
-    if ( ![installation.channels containsObject:channelsId] ) {
-        self.navigationItem.rightBarButtonItem = _followBarButton;
-    }else {
-        self.navigationItem.rightBarButtonItem = _rejectBarButton;
-    }
+
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"followUsers"];
+    PFQuery *query = [relation query];
+    [query whereKey:@"objectId" equalTo:_userObject.objectId];
+
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if ( !error ) {
+            if ( number == 0 ) {
+                _followBarButton.enabled = YES;
+                self.navigationItem.rightBarButtonItem = _followBarButton;
+            }else {
+                _rejectBarButton.enabled = YES;
+                self.navigationItem.rightBarButtonItem = _rejectBarButton;
+            }
+        }else {
+            DDLogError(@"%@", error);
+        }
+    }];
+
 }
 
 - (void)initBlockButton {
     if ( [_userObject.objectId isEqualToString:[PFUser currentUser].objectId] ) return;
-
-    UIColor *ff3300 = [UIColor colorWithRed:1.0f green:0.2f blue:0.0f alpha:1.0f];
-    _blockButton.layer.borderColor = ff3300.CGColor;
-    _cancelBlockButton.layer.borderColor = ff3300.CGColor;
     
-    for ( UIView *view in _emptyView.subviews ) [view removeFromSuperview];
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"blockUsers"];
+    PFQuery *query = [relation query];
+    [query whereKey:@"objectId" equalTo:_userObject.objectId];
     
-    if ( ![self isBlockUser:_userObject.objectId] ) {
-        [_emptyView addSubview:_blockButton];
-    }else  {
-        [_emptyView addSubview:_cancelBlockButton];
-    }
-    
-    [self initFollowButton];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if ( !error ) {
+            for ( UIView *view in _emptyView.subviews ) [view removeFromSuperview];
+            
+            if ( number == 0 ) {
+                [_blockButton dismissIndicator];
+                [_emptyView addSubview:_blockButton];
+                [self initFollowButton];
+            }else {
+                [_cancelBlockButton dismissIndicator];
+                [_emptyView addSubview:_cancelBlockButton];
+                self.navigationItem.rightBarButtonItem = nil;
+            }
+        }else {
+            DDLogError(@"%@", error);
+        }
+    }];
 
-}
-
-- (BOOL)isBlockUser:(NSString *)userId {
-    PFUser *currentUser = [PFUser currentUser];
-    return [currentUser[@"blockUser"] containsObject:userId];
 }
 
 #pragma mark - UIEvent methods.
+
 - (IBAction)didPushedFollowButton:(UIBarButtonItem *)sender {
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    [installation addUniqueObject:_userObject[@"channelsId"] forKey:@"channels"];
-    
+    PFUser *currentUser = [PFUser currentUser];
+    PFRelation *followUsers = [currentUser relationForKey:@"followUsers"];
+    [followUsers addObject:_userObject];
+
     sender.enabled = NO;
-    [installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
-            sender.enabled = YES;
             [self initFollowButton];
         }else {
             DDLogError(@"%@", error);
@@ -156,13 +176,13 @@
 }
 
 - (IBAction)didPushedRejectButton:(UIBarButtonItem *)sender {
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    [installation removeObject:_userObject[@"channelsId"] forKey:@"channels"];
+    PFUser *currentUser = [PFUser currentUser];
+    PFRelation *followUsers = [currentUser relationForKey:@"followUsers"];
+    [followUsers removeObject:_userObject];
     
     sender.enabled = NO;
-    [installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if ( !error ) {
-            sender.enabled = YES;
             [self initFollowButton];
         }else {
             DDLogError(@"%@", error);
@@ -173,12 +193,11 @@
 
 - (IBAction)didPushedBlockButton:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
-    [currentUser addUniqueObject:_userObject.objectId forKey:@"blockUser"];
-
+    PFRelation *blockUsers = [currentUser relationForKey:@"blockUsers"];
+    [blockUsers addObject:_userObject];
+    
     [_blockButton showIndicator];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [_blockButton dismissIndicator];
-        
         if ( self.navigationItem.rightBarButtonItem == _rejectBarButton )
             [self didPushedRejectButton:_rejectBarButton];
 
@@ -188,11 +207,11 @@
 
 - (IBAction)didPushedBlockCancelButton:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
-    [currentUser removeObject:_userObject.objectId forKey:@"blockUser"];
-
+    PFRelation *blockUsers = [currentUser relationForKey:@"blockUsers"];
+    [blockUsers removeObject:_userObject];
+    
     [_cancelBlockButton showIndicator];
     [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [_cancelBlockButton dismissIndicator];
         [self initBlockButton];
     }];
 }
