@@ -59,7 +59,6 @@
         [_manager stopMonitoringForRegion:region];
     }
     
-    DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), monitoringGameCenters);
     for ( int i = 0; i < count; ++i ) {
         NSDictionary *gameCenter = monitoringGameCenters[i];
         
@@ -78,13 +77,17 @@
 }
 
 - (void)checkAllGameCenterDistance:(CLLocation *)nowLocation {
-    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
-    
     double minimumDistance = kRegionRadius * 20;
     
-    for ( CLCircularRegion *region in _manager.monitoredRegions ) {
+    for ( NSDictionary *gameCenter in _monitoringGameCenters ) {
+        CLLocationCoordinate2D coordinate =
+            CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
+        
+        CLCircularRegion *region =
+            [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
+
         CLLocation *regionLocation =
-            [[CLLocation alloc] initWithLatitude:region.center.latitude longitude:region.center.longitude];
+        [[CLLocation alloc] initWithLatitude:region.center.latitude longitude:region.center.longitude];
         CLLocationDistance distance = [nowLocation distanceFromLocation:regionLocation];
         
         DDLogVerbose(@"%@:%lf", region.identifier, distance);
@@ -97,6 +100,7 @@
             [self locationManager:_manager didExitRegion:region];
         }
     }
+    
 }
 
 #pragma mark - CLLocationManager delegate methods.
@@ -178,7 +182,7 @@
 - (void)sendLocalNotification:(NSString *)message userInfo:(NSDictionary *)userInfo{
     [kApplication cancelAllLocalNotifications];
     
-    NSTimeInterval interval = 0;
+    NSTimeInterval interval = 20;
     if ( kApplication.applicationState != UIApplicationStateActive )
         interval = 1 * 60;
 
