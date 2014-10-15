@@ -77,22 +77,22 @@
     
 }
 
-- (void)checkDistance:(NSDictionary *)gameCenter nowLocation:(CLLocation *)nowLocation {
-    if ( gameCenter ) {
-        CLLocationCoordinate2D coordinate =
-        CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
+- (void)checkAllGameCenterDistance:(CLLocation *)nowLocation {
+    DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
+    
+    double minimumDistance = kRegionRadius * 20;
+    
+    for ( CLCircularRegion *region in _manager.monitoredRegions ) {
+        CLLocation *regionLocation =
+            [[CLLocation alloc] initWithLatitude:region.center.latitude longitude:region.center.longitude];
+        CLLocationDistance distance = [nowLocation distanceFromLocation:regionLocation];
         
-        CLLocation *gameCenterLocation =
-        [[CLLocation alloc] initWithLatitude:[gameCenter[@"latitude"]  doubleValue]
-                                   longitude:[gameCenter[@"longitude"] doubleValue]];
-        
-        CLCircularRegion *region =
-        [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
-        
-        CLLocationDistance distance = [nowLocation distanceFromLocation:gameCenterLocation];
-        
-        if ( distance <= kRegionRadius * 20 ) {
-            [self locationManager:_manager didEnterRegion:region];
+        DDLogVerbose(@"%@:%lf", region.identifier, distance);
+        if ( distance < kRegionRadius * 20 ) {
+            if ( distance < minimumDistance ) {
+                [self locationManager:_manager didEnterRegion:region];
+                minimumDistance = distance;
+            }
         }else {
             [self locationManager:_manager didExitRegion:region];
         }
@@ -108,7 +108,7 @@
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
-        [self checkDistance:_monitoringGameCenters.firstObject nowLocation:manager.location];
+        [self checkAllGameCenterDistance:nowLocation];
     }
     
     [manager stopUpdatingLocation];
