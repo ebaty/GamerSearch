@@ -60,7 +60,7 @@
     // フィードバック
     EAIntroPage *page5 = [EAIntroPage page];
     page5.title = @"フィードバックをください！";
-    page5.desc = @"このアプリはまだまだ未完成です。いただいたフィードバックは速やかにアプリに反映させます。（実装致しかねるものもあります）";
+    page5.desc = @"皆さんのフィードバックを受けてGamerSearchは進化します。";
     
     // オレンジの背景
     UIImage *orangeImage = [self getOrangeImage];

@@ -35,6 +35,8 @@
 	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationUsageDescription</key>
+	<string>ゲームセンターの領域内外判定に利用します。</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
