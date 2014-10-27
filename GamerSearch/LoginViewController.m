@@ -111,26 +111,6 @@
     }
 }
 
-- (void)displayAllowAlertView:(void (^)(void))block {
-    if ( [USER_DEFAULTS boolForKey:kAllowUseUserData] ) {
-        block();
-    }else {
-        UIAlertView *allowView = [UIAlertView new];
-        allowView.delegate = self;
-        allowView.title = @"確認";
-        allowView.message = @"GamerSearchはユーザーの情報をサーバーに送信します。よろしいですか？";
-        
-        allowView.cancelButtonIndex = 0;
-        [allowView addButtonWithTitle:@"拒否"];
-        [allowView bk_addButtonWithTitle:@"許可" handler:^{
-            [USER_DEFAULTS setBool:YES forKey:kAllowUseUserData];
-            block();
-        }];
-
-        [allowView show];
-    }
-}
-
 #pragma mark - UIEvent methods.
 - (IBAction)didTapFirstImageView:(id)sender {
     self.firstCheck = !_firstCheck;
@@ -164,14 +144,12 @@
         message = [message stringByAppendingString:@"利用規約とプライバシーポリシーに同意してください\n"];
     }
 
-    [self displayAllowAlertView:^{
-        if ( message.length > 0 ) {
-            alertView.message = message;
-            [alertView show];
-        }else  {
-            [self registerAccount];
-        }
-    }];
+    if ( message.length > 0 ) {
+        alertView.message = message;
+        [alertView show];
+    }else  {
+        [self registerAccount];
+    }
 }
 
 - (IBAction)didPushLoginAccountButton:(id)sender {
@@ -186,9 +164,7 @@
     alerView.cancelButtonIndex = 0;
     [alerView addButtonWithTitle:@"キャンセル"];
     [alerView bk_addButtonWithTitle:@"ログイン" handler:^{
-        [self displayAllowAlertView:^{
-            [self loginAccount:[alerView textFieldAtIndex:0].text password:[alerView textFieldAtIndex:1].text];
-        }];
+        [self loginAccount:[alerView textFieldAtIndex:0].text password:[alerView textFieldAtIndex:1].text];
     }];
     
     [alerView show];

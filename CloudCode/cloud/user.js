@@ -19,6 +19,7 @@ Parse.Cloud.define("gamecenter_user", function(request, response) {
 			date = new Date( date.getTime() - halfDay );
 
 			query.greaterThanOrEqualTo("checkInAt", date);
+			query.descending("checkInAt");
 
 			query.find({
 				success: function(result) {

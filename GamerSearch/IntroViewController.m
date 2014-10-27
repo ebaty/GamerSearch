@@ -45,7 +45,7 @@
     // マップ
     EAIntroPage *page2 = [EAIntroPage page];
     page2.title = @"今ゲームセンターにいる人がわかる！";
-    page2.desc = @"アプリをインストールしているユーザーは、登録されているゲームセンターに近づくと自動でチェックインします。";
+    page2.desc = @"ユーザーは、ゲームセンターに近づくとチェックインが可能になります。";
     
     // マップの追加
     EAIntroPage *page3 = [EAIntroPage page];

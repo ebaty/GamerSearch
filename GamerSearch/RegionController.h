@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#define kPrevGameCenter @"PrevGameCenter"
 
 @interface RegionController : NSObject
 

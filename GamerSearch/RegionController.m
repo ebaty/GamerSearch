@@ -112,7 +112,6 @@
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
-        [self checkAllGameCenterDistance:nowLocation];
     }
     
     [manager stopUpdatingLocation];
@@ -134,10 +133,14 @@
 }
 
 #pragma mark 領域観測
+
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     [BTController backgroundTask:^{
         if ( ![[PFUser currentUser][@"gameCenter"] isEqualToString:region.identifier] ) {
+            [USER_DEFAULTS setObject:region.identifier forKey:kPrevGameCenter];
+            [USER_DEFAULTS synchronize];
+            
             // デバッグ用
             CLCircularRegion *circular = (CLCircularRegion *)region;
             CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:circular.center.latitude longitude:circular.center.longitude];
@@ -162,6 +165,12 @@
 {
     [BTController backgroundTask:^{
         if ( [[PFUser currentUser][@"gameCenter"] isEqualToString:region.identifier] ) {
+            NSString *prev = [USER_DEFAULTS stringForKey:kPrevGameCenter];
+            if ( prev == region.identifier ) {
+                [kApplication cancelAllLocalNotifications];
+                return;
+            }
+            
             DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
             
             NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
@@ -182,7 +191,7 @@
 - (void)sendLocalNotification:(NSString *)message userInfo:(NSDictionary *)userInfo{
     [kApplication cancelAllLocalNotifications];
     
-    NSTimeInterval interval = 20;
+    NSTimeInterval interval = 10;
     if ( kApplication.applicationState != UIApplicationStateActive )
         interval = 1 * 60;
 

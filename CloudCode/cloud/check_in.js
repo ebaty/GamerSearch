@@ -1,10 +1,8 @@
-var functions = require("cloud/functions.js");
-
 Parse.Cloud.define("check_in", function(request, response) {
   var gameCenter = request.params.gameCenter;
 	var user = request.user;
 
-	if ( user.gameCenter == gameCenter ) {
+	if ( user.get("gameCenter") == gameCenter ) {
 		response.error();
 		return;
 	}
@@ -18,17 +16,16 @@ Parse.Cloud.define("check_in", function(request, response) {
 
 			relation.query().find({
 				success: function(followed) {
-					var ids = functions.getObjectIdArray(followed);
-
 					var query = new Parse.Query(Parse.Installation);
-					query.containedIn(ids);
+					query.containedIn("user", followed);
 
-					var mes = user.username + "さんが" + gameCenter + "に来ました。";
+					var mes = user.get("username") + "さんが" + gameCenter + "に来ました。";
 
 					Parse.Push.send({
 						where: query,
 						data: {
-							alert: mes
+							alert: mes,
+							badge: "Increment"
 						}
 					}, {
 						success: function() {
@@ -54,21 +51,19 @@ Parse.Cloud.define("check_out", function(request, response) {
 	var user = request.user;
 	var gameCenter = request.params.gameCenter;
 
-	if ( user.gameCenter != gameCenter ) {
-		response.error();
-		return;
+	if ( user.get("gameCenter") != gameCenter ) {
+		response.error( user.gameCenter + "!= " + gameCenter);
+	}else {
+		user.set("gameCenter", gameCenter + "を出ました");
+		user.set("checkInAt", new Date());
+
+		user.save(null, {
+			success: function(userAgain) {
+				response.success();
+			},
+			error: function(error) {
+				response.error(error);
+			}
+		});
 	}
-
-	user.set("gameCenter", user.gameCenter + "を出ました");
-	user.set("checkInAt", new Date());
-
-	user.save(null, {
-		success: function(userAgain) {
-			response.sucess();
-		},
-		error: function(error) {
-			response.error(error);
-		}
-	});
-
 });

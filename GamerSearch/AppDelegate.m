@@ -15,7 +15,7 @@
 
 #define kGameCenterArraykey  @"GameCenterArray"
 
-@interface AppDelegate ()
+@interface AppDelegate () <UIAlertViewDelegate>
 
 @property (nonatomic) RegionController *regController;
 
@@ -111,12 +111,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation setObject:[PFUser currentUser].objectId forKey:@"userId"];
+    [currentInstallation setObject:[PFUser currentUser] forKey:@"user"];
     [currentInstallation saveInBackground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    application.applicationIconBadgeNumber = 0;
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveInBackground];
+    }
 }
 
 #pragma mark - Notification methods.
@@ -127,17 +131,26 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     
     if (application.applicationState == UIApplicationStateInactive) {
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-        application.applicationIconBadgeNumber++;
     }
 }
 
 #pragma mark Local
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    [BTController backgroundTask:^{
-        NSDictionary *userInfo = notification.userInfo;
-        NSString *gameCenter = userInfo[@"gameCenter"];
+    [USER_DEFAULTS setObject:@"" forKey:kPrevGameCenter];
+    [USER_DEFAULTS synchronize];
+    
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *gameCenter = userInfo[@"gameCenter"];
+    
+    if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
+        UIAlertView *alertView = [UIAlertView new];
+        alertView.delegate = self;
+        alertView.title = [gameCenter stringByAppendingString:@"にチェックインしますか？"];
+        alertView.message = @"チェックインすると他ユーザーに公開されます。";
+        alertView.cancelButtonIndex = 0;
         
-        if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
+        [alertView addButtonWithTitle:@"キャンセル"];
+        [alertView bk_addButtonWithTitle:@"チェックイン" handler:^{
             [PFCloud callFunctionInBackground:@"check_in" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
                 if ( !error ) {
                     [[PFUser currentUser] refresh];
@@ -145,17 +158,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
                     DDLogError(@"%@", error);
                 }
             }];
-        }
-        if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
-            [PFCloud callFunctionInBackground:@"check_out" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
-                if ( !error ) {
-                    [[PFUser currentUser] refresh];
-                }else {
-                    DDLogError(@"%@", error);
-                }
-            }];
-        }
-    }];
+        }];
+        
+        [alertView show];
+    }
+    if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
+        [PFCloud callFunctionInBackground:@"check_out" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
+            if ( !error ) {
+                [[PFUser currentUser] refresh];
+            }else {
+                DDLogError(@"%@", error);
+            }
+        }];
+    }
 }
 
 @end
