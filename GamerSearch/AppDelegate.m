@@ -135,49 +135,26 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [BTController backgroundTask:^{
         NSDictionary *userInfo = notification.userInfo;
+        NSString *gameCenter = userInfo[@"gameCenter"];
         
-        NSString *gameCenter;
         if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
-            gameCenter = userInfo[@"gameCenter"];
+            [PFCloud callFunctionInBackground:@"check_in" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
+                if ( !error ) {
+                    [[PFUser currentUser] refresh];
+                }else {
+                    DDLogError(@"%@", error);
+                }
+            }];
         }
         if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
-            gameCenter = userInfo[@"message"];
+            [PFCloud callFunctionInBackground:@"check_out" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
+                if ( !error ) {
+                    [[PFUser currentUser] refresh];
+                }else {
+                    DDLogError(@"%@", error);
+                }
+            }];
         }
-        
-        NSDictionary *updateInfo =
-        @{
-          @"gameCenter":gameCenter,
-          @"checkInAt":[NSDate date]
-        };
-        
-        [PFController postUserProfile:updateInfo progress:NO handler:^{
-            if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
-                [self sendPushNotification:userInfo];
-            }
-        }];
-    }];
-}
-
-- (void)sendPushNotification:(NSDictionary *)userInfo {
-    PFUser *currentUser = [PFUser currentUser];
-    
-    NSString *message =
-        [NSString stringWithFormat:@"%@ が %@ に来ました", currentUser[@"username"], currentUser[@"gameCenter"]];
-    
-    PFRelation *relation = [[PFUser currentUser] relationForKey:@"blockUsers"];
-    
-    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *blockUsers, NSError *error) {
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"followUsers" equalTo:[PFUser currentUser]];
-        [query whereKey:@"objectId" notContainedIn:[PFController getObjectIdArray:blockUsers]];
-        
-        [query findObjectsInBackgroundWithBlock:^(NSArray *followedUsers, NSError *error) {
-            DDLogVerbose(@"followedUsers:%@", followedUsers);
-            PFQuery *pushQuery = [PFInstallation query];
-            [pushQuery whereKey:@"userId" containedIn:[PFController getObjectIdArray:followedUsers]];
-             
-            [PFPush sendPushMessageToQueryInBackground:pushQuery withMessage:message];
-        }];
     }];
 }
 

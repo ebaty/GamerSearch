@@ -13,6 +13,10 @@ Parse.Cloud.define("follow", function(request, response) {
 			user.save(null, {
 				success: function(userAgain){
 					var followedRelation = target.relation("followedUsers");
+					if ( !followedRelation ) {
+						followedRelation = new Parse.Relation();
+					}
+
 					followedRelation.add(userAgain);
 					
 					target.save(null, {
@@ -51,6 +55,9 @@ Parse.Cloud.define("unfollow", function(request, response) {
 			user.save(null, {
 				success: function(userAgain){
 					var followedRelation = target.relation("followedUsers");
+					if ( !followedRelation ) {
+						followedRelation = new Parse.Relation();
+					}
 					followedRelation.remove(userAgain);
 					
 					target.save(null, {

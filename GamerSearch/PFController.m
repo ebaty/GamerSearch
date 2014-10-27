@@ -64,29 +64,14 @@ static NSMutableDictionary *gameCenterUserCache = nil;
         }
     }
 
-    // ブロックユーザーの取得
-    PFRelation *relation = [[PFUser currentUser] relationForKey:@"blockUsers"];
-    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *blockUsers, NSError *error) {
-
-        PFQuery *query = [PFUser query];
-        
-        [query whereKey:@"gameCenter" equalTo:gameCenterName];
-        [query whereKey:@"checkInAt" greaterThanOrEqualTo:[NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60]];
-        [query orderByDescending:@"checkInAt"];
-        
-        [query whereKey:@"blockUsers" notEqualTo:[PFUser currentUser]];
-        [query whereKey:@"objectId" notContainedIn:[self getObjectIdArray:blockUsers]];
-        
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if ( !error ) {
-                [gameCenterUserCache setObject:objects forKey:gameCenterName];
-                block(objects);
-            }else {
-                DDLogError(@"%@", error);
-            }
-        }];
+    [PFCloud callFunctionInBackground:@"gamecenter_user" withParameters:@{@"gameCenter":gameCenterName} block:^(id object, NSError *error) {
+        if ( !error ) {
+            [gameCenterUserCache setObject:object forKey:gameCenterName];
+            block(object);
+        }else {
+            DDLogError(@"%@", error);
+        }
     }];
-
 }
 
 #pragma mark - Post methods.

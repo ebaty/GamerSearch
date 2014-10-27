@@ -186,14 +186,20 @@
 
 - (IBAction)didPushedBlockButton:(id)sender {
     [_blockButton showIndicator];
-    [PFCloud callFunctionInBackground:@"block" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
+    [PFCloud callFunctionInBackground:@"unfollow" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
         if ( !error ) {
-            DDLogVerbose(@"%@", object);
-            
-            if ( self.navigationItem.rightBarButtonItem == _rejectBarButton )
-                [self didPushedUnfollowButton:_rejectBarButton];
-            
-            [self initBlockButton];
+            [PFCloud callFunctionInBackground:@"block" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
+                if ( !error ) {
+                    DDLogVerbose(@"%@", object);
+                    
+                    if ( self.navigationItem.rightBarButtonItem == _rejectBarButton )
+                        [self didPushedUnfollowButton:_rejectBarButton];
+                    
+                    [self initBlockButton];
+                }else {
+                    DDLogError(@"%@", error);
+                }
+            }];    
         }else {
             DDLogError(@"%@", error);
         }

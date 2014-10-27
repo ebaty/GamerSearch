@@ -23,7 +23,9 @@ Parse.Cloud.define("block", function(request, response) {
 				success: function(userAgain) {
 					block.query().find({ 
 						success: function(result) {
-							response.success(result)
+							var functions = require('cloud/functions.js');
+						
+							response.success( functions.getObjectIdArray(result));
 						},
 						error: function(result, error) {
 							response.error(error);
@@ -66,13 +68,25 @@ Parse.Cloud.define("unblock", function(request, response) {
 
 			user.save(null, {
 				success: function(userAgain) {
-					response.success();	
+					block.query().find({ 
+						success: function(result) {
+							var idArray = new Array();
+
+							for ( i = 0; i < result.length; ++i ) {
+								idArray.push( result[i].id );
+							}
+								
+							response.success( idArray )
+						},
+						error: function(result, error) {
+							response.error(error);
+						}
+					});
 				},
 				error: function(result, error) {
 					response.error(error);
 				}
 			});
-
 		},
 		error: function(result, error) {
 			response.error(error);
