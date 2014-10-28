@@ -9,22 +9,30 @@
 #import "RegionController.h"
 #import "BTController.h"
 
-#define kRegionRadius 5.0f
 #define kApplication [UIApplication sharedApplication]
+#define kRegionRadius 5.0f
 
 @interface RegionController () <CLLocationManagerDelegate>
 
-@property (nonatomic) CLLocationManager *manager;
 @property (nonatomic) NSArray *monitoringGameCenters;
 
 @end
 
 @implementation RegionController
 
+static RegionController *instance = nil;
+
++ (instancetype)sharedInstance {
+    if ( !instance ) {
+        instance = [RegionController new];
+    }
+    return instance;
+}
+
 - (id)init {
     self = [super init];
     if ( self ) {
-        _manager = [[CLLocationManager alloc] init];
+        _manager = [CLLocationManager new];
         _manager.delegate = self;
         [_manager startUpdatingLocation];
     }
@@ -48,32 +56,6 @@
     
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"distance"  ascending:YES];
     self.monitoringGameCenters = [sortedGameCenters sortedArrayUsingDescriptors:@[descriptor]];
-}
-
-- (void)setMonitoringGameCenters:(NSArray *)monitoringGameCenters {
-    _monitoringGameCenters = monitoringGameCenters;
-    int count = (int)monitoringGameCenters.count;
-    if ( count > 20 ) count = 20;
-    
-    for ( CLRegion *region in _manager.monitoredRegions ) {
-        [_manager stopMonitoringForRegion:region];
-    }
-    
-    for ( int i = 0; i < count; ++i ) {
-        NSDictionary *gameCenter = monitoringGameCenters[i];
-        
-        CLLocationCoordinate2D coordinate =
-            CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
-        
-        CLCircularRegion *region =
-            [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
-        
-        [_manager startMonitoringForRegion:region];
-#ifdef DEBUG
-        [_manager requestStateForRegion:region];
-#endif
-    }
-    
 }
 
 - (void)checkAllGameCenterDistance:(CLLocation *)nowLocation {

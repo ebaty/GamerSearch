@@ -17,8 +17,6 @@
 
 @interface AppDelegate () <UIAlertViewDelegate>
 
-@property (nonatomic) RegionController *regController;
-
 @end
 
 @implementation AppDelegate
@@ -97,8 +95,7 @@
 
 - (void)reloadMonitoringTarget {
     DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
-    _regController = [RegionController new];
-    _regController.gameCenters = [USER_DEFAULTS arrayForKey:kGameCenterArraykey];
+    [RegionController sharedInstance].gameCenters = [USER_DEFAULTS arrayForKey:kGameCenterArraykey];
 }
 
 - (void)callCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

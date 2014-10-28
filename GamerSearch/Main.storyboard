@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ims-ZR-Eq7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ims-ZR-Eq7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -16,6 +16,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="1Lu-af-0ER" kind="relationship" relationship="viewControllers" id="nIo-hU-EQI"/>
+                        <segue destination="53g-01-7Tu" kind="relationship" relationship="viewControllers" id="R4S-Rt-tCh"/>
                         <segue destination="fOm-pe-ESz" kind="relationship" relationship="viewControllers" id="fzZ-2m-3hg"/>
                         <segue destination="Dsq-0t-mUk" kind="relationship" relationship="viewControllers" id="3W9-Ep-wCv"/>
                         <segue destination="uJN-8W-KdA" kind="relationship" relationship="viewControllers" id="EfK-R4-zKC"/>
@@ -39,7 +40,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIs-YT-L6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="-460"/>
+            <point key="canvasLocation" x="709" y="-456"/>
         </scene>
         <!--Map View Controller - マップ-->
         <scene sceneID="JHy-OI-Tvx">
@@ -83,7 +84,119 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uir-8r-4dW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1117" y="-460"/>
+            <point key="canvasLocation" x="1141" y="-456"/>
+        </scene>
+        <!--Check In View Controller - チェックイン-->
+        <scene sceneID="T7r-Pp-vYh">
+            <objects>
+                <tableViewController id="E7S-gh-oTo" customClass="CheckInViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Qqo-5T-H3N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="現在のチェックイン場所" id="pu4-b1-US8">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WB5-Qs-P6S">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WB5-Qs-P6S" id="INT-7c-pNL">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="コンシューマ" id="eWV-nd-hX9">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="cna-EO-5B2">
+                                        <rect key="frame" x="0.0" y="211" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cna-EO-5B2" id="91a-2f-4af">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PSN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnq-p7-Blk">
+                                                    <rect key="frame" x="20" y="7" width="267" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.40000000000000002" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="UYr-ak-qxJ">
+                                        <rect key="frame" x="0.0" y="255" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UYr-ak-qxJ" id="d2A-qk-GXd">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Xbox Live" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7B8-GM-N53">
+                                                    <rect key="frame" x="20" y="7" width="267" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.75294117647058822" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="近くのゲームセンター" id="A0m-XY-yVm">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rnH-l0-CNl">
+                                        <rect key="frame" x="0.0" y="347" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rnH-l0-CNl" id="dBf-76-Zfh">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="m24-8O-6nR" customClass="GameCenterTableView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </tableView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="m24-8O-6nR" firstAttribute="leading" secondItem="dBf-76-Zfh" secondAttribute="leading" id="dkr-JX-VAh"/>
+                                                <constraint firstAttribute="bottom" secondItem="m24-8O-6nR" secondAttribute="bottom" id="eEq-TP-xc6"/>
+                                                <constraint firstItem="m24-8O-6nR" firstAttribute="top" secondItem="dBf-76-Zfh" secondAttribute="top" id="oz6-BR-9IB"/>
+                                                <constraint firstAttribute="trailing" secondItem="m24-8O-6nR" secondAttribute="trailing" id="rCv-5Y-mY4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="E7S-gh-oTo" id="34K-JN-hLX"/>
+                            <outlet property="delegate" destination="E7S-gh-oTo" id="p3i-tI-MVA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="チェックイン" id="i64-Ld-daw"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kZn-R4-9Ga" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1141" y="208"/>
+        </scene>
+        <!--Navigation Controller - チェックイン-->
+        <scene sceneID="EYI-Gl-uSm">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="53g-01-7Tu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="チェックイン" id="qGz-dt-Lo1"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="18Y-f9-ArZ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="E7S-gh-oTo" kind="relationship" relationship="rootViewController" id="Dtn-RN-9CW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Etv-vN-nWi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709" y="208"/>
         </scene>
         <!--User List View Controller - ゲームセンター名-->
         <scene sceneID="JpH-DD-PDg">
@@ -139,7 +252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTw-9h-xin" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1534" y="-460"/>
+            <point key="canvasLocation" x="1558" y="-456"/>
         </scene>
         <!--User Detail View Controller - ユーザー詳細-->
         <scene sceneID="1bM-nC-gKU">
@@ -365,7 +478,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="2087" y="202"/>
+            <point key="canvasLocation" x="2111" y="898"/>
         </scene>
         <!--Navigation Controller - プロフィール-->
         <scene sceneID="FZy-0Y-uQx">
@@ -381,7 +494,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cl3-1i-y5l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="866"/>
+            <point key="canvasLocation" x="709" y="1562"/>
         </scene>
         <!--Profile Table View Controller - プロフィール-->
         <scene sceneID="C9f-r0-RVX">
@@ -649,7 +762,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="1117" y="866"/>
+            <point key="canvasLocation" x="1141" y="1562"/>
         </scene>
         <!--Navigation Controller - フォローリスト-->
         <scene sceneID="SD4-74-SAV">
@@ -665,7 +778,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="963-EA-7WZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="202"/>
+            <point key="canvasLocation" x="709" y="898"/>
         </scene>
         <!--Follow List View Controller - フォローリスト-->
         <scene sceneID="dDS-fB-YVm">
@@ -704,7 +817,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WqM-1h-HF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1117" y="202"/>
+            <point key="canvasLocation" x="1141" y="898"/>
         </scene>
         <!--Navigation Controller - 設定-->
         <scene sceneID="eoy-Et-Sox">
@@ -720,7 +833,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oeu-IE-BJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="1916"/>
+            <point key="canvasLocation" x="709" y="2612"/>
         </scene>
         <!--Setting Table View Controller - 設定-->
         <scene sceneID="zQA-0u-QCl">
@@ -859,7 +972,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ev9-jV-Ezt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1117" y="1916"/>
+            <point key="canvasLocation" x="1141" y="2612"/>
         </scene>
         <!--Setting Text View Controller-->
         <scene sceneID="D6t-p5-BdE">
@@ -895,7 +1008,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L77-7q-o0H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1563" y="1916"/>
+            <point key="canvasLocation" x="1587" y="2612"/>
         </scene>
         <!--Feedback View Controller - フィードバック-->
         <scene sceneID="EIX-Vs-RdY">
@@ -968,7 +1081,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="1563" y="2573"/>
+            <point key="canvasLocation" x="1587" y="3269"/>
         </scene>
         <!--Block List View Controller-->
         <scene sceneID="h0x-OA-aFD">
@@ -1008,7 +1121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eJJ-6m-Abx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1564" y="3254"/>
+            <point key="canvasLocation" x="1588" y="3950"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -1017,7 +1130,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="0GG-h5-b1m"/>
-        <segue reference="01f-gf-g3i"/>
+        <segue reference="BDW-xu-47A"/>
+        <segue reference="JvT-Il-4xi"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -25,10 +25,11 @@
 {
     [super viewDidLoad];
 
-    float iconSize = 30.0f;
+    float iconSize = 25.0f;
 
     FAKFontAwesome *icons[] = {
         [FAKFontAwesome gamepadIconWithSize:iconSize],
+        [FAKFontAwesome globeIconWithSize:iconSize],
         [FAKFontAwesome   usersIconWithSize:iconSize],
         [FAKFontAwesome    userIconWithSize:iconSize],
         [FAKFontAwesome     cogIconWithSize:iconSize]
@@ -36,7 +37,8 @@
     
     NSString *tabTitle[] = {
         @"マップ",
-        @"フォローリスト",
+        @"チェックイン",
+        @"フォロー",
         @"プロフィール",
         @"設定"
     };

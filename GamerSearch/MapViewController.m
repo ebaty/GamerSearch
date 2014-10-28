@@ -25,8 +25,6 @@
 
 @property (nonatomic) MarkerView *markerWindow;
 
-@property (nonatomic) RegionController *regionControlelr;
-
 @end
 
 @implementation MapViewController
@@ -44,7 +42,6 @@
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(36.204824, 138.252924);
     _mapView.camera = [GMSCameraPosition cameraWithTarget:coordinate zoom:4.0f];
     
-    _regionControlelr = [RegionController new];
     [self setUpGameCenterMarker];
 }
 
@@ -69,7 +66,7 @@
             marker.appearAnimation = YES;
             marker.map = _mapView;
         }
-        _regionControlelr.gameCenters = gameCenters;
+        [RegionController sharedInstance].gameCenters = gameCenters;
     }];
 }
 
