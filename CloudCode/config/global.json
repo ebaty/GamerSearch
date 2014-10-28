@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "GamerSearch": {
+            "applicationId": "X10PAkGYt5ciyoQLTbETqAP7y4mryJhvV3I8gHxX", 
+            "masterKey": "tvVl5TfdHFjrrIe8dvIO2rYRolkifUOnOv5KL4Lx"
+        }, 
+        "_default": {
+            "link": "GamerSearch"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.19"
+    }
+}

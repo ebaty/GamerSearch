@@ -163,60 +163,57 @@
 #pragma mark - UIEvent methods.
 
 - (IBAction)didPushedFollowButton:(UIBarButtonItem *)sender {
-    PFUser *currentUser = [PFUser currentUser];
-    PFRelation *followUsers = [currentUser relationForKey:@"followUsers"];
-    [followUsers addObject:_userObject];
-
     sender.enabled = NO;
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [PFCloud callFunctionInBackground:@"follow" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
         if ( !error ) {
             [self initFollowButton];
         }else {
             DDLogError(@"%@", error);
         }
     }];
-    
 }
 
-- (IBAction)didPushedRejectButton:(UIBarButtonItem *)sender {
-    PFUser *currentUser = [PFUser currentUser];
-    PFRelation *followUsers = [currentUser relationForKey:@"followUsers"];
-    [followUsers removeObject:_userObject];
-    
+- (IBAction)didPushedUnfollowButton:(UIBarButtonItem *)sender {
     sender.enabled = NO;
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [PFCloud callFunctionInBackground:@"unfollow" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
         if ( !error ) {
             [self initFollowButton];
         }else {
             DDLogError(@"%@", error);
         }
     }];
-    
 }
 
 - (IBAction)didPushedBlockButton:(id)sender {
-    PFUser *currentUser = [PFUser currentUser];
-    PFRelation *blockUsers = [currentUser relationForKey:@"blockUsers"];
-    [blockUsers addObject:_userObject];
-    
     [_blockButton showIndicator];
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if ( self.navigationItem.rightBarButtonItem == _rejectBarButton )
-            [self didPushedRejectButton:_rejectBarButton];
-
-        [self initBlockButton];
+    [PFCloud callFunctionInBackground:@"unfollow" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
+        if ( !error ) {
+            [PFCloud callFunctionInBackground:@"block" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
+                if ( !error ) {
+                    DDLogVerbose(@"%@", object);
+                    
+                    if ( self.navigationItem.rightBarButtonItem == _rejectBarButton )
+                        [self didPushedUnfollowButton:_rejectBarButton];
+                    
+                    [self initBlockButton];
+                }else {
+                    DDLogError(@"%@", error);
+                }
+            }];    
+        }else {
+            DDLogError(@"%@", error);
+        }
     }];
 }
 
 - (IBAction)didPushedBlockCancelButton:(id)sender {
-    PFUser *currentUser = [PFUser currentUser];
-    PFRelation *blockUsers = [currentUser relationForKey:@"blockUsers"];
-    [blockUsers removeObject:_userObject];
-    
     [_cancelBlockButton showIndicator];
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self initBlockButton];
+    [PFCloud callFunctionInBackground:@"unblock" withParameters:@{@"targetId":_userObject.objectId} block:^(id object, NSError *error) {
+        if ( !error ) {
+            [self initBlockButton];
+        }else {
+            DDLogError(@"%@", error);
+        }
     }];
 }
-
 @end
