@@ -9,8 +9,10 @@
 #import "CheckInViewController.h"
 #import "RegionController.h"
 
-#define kGameCenterCount [RegionController sharedInstance].manager.rangedRegions.count
+#define kGameCenterCount [RegionController sharedInstance].nearRegions.count
 @interface CheckInViewController ()
+
+@property (nonatomic) NSString *currentLocation;
 
 @end
 
@@ -23,17 +25,44 @@
 }
 
 #pragma mark - TableView delegate.
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DDLogVerbose(@"%d %d", indexPath.section, indexPath.row);
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  if ( indexPath.section != 2 ) {
-        return 40.0f;
-    }else {
-        int gccount = kGameCenterCount ? kGameCenterCount : 1;
-        return gccount * 40.0f;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    int gccount = kGameCenterCount ? kGameCenterCount : 1;
+    int rows[] = {1, 2, gccount};
+    return rows[section];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [UITableViewCell new];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    NSString *section2[] = {@"PSN", @"Xbox Live"};
+    cell.textLabel.font = [UIFont systemFontOfSize:13.0f];
+    
+    switch (indexPath.section) {
+        case 0:
+            cell.textLabel.text = _currentLocation;
+            break;
+        case 1:
+            cell.textLabel.text = section2[indexPath.row];
+            break;
+        case 2:
+            if ( kGameCenterCount ) {
+                CLRegion *region = [RegionController sharedInstance].nearRegions.allObjects[indexPath.row];
+                cell.textLabel.text = region.identifier;
+            }else {
+                cell.textLabel.text = @"近くにゲームセンターがありません";
+            }
     }
+    
+    return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @[@"現在チェックインしている場所", @"オンライン", @"近くのゲームセンター"][section];
 }
 
 @end

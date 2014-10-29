@@ -26,7 +26,6 @@
 		F476D1B619CD635A00ABCFB4 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F476D1B519CD635A00ABCFB4 /* ProfileTableViewController.m */; };
 		F48EFE0219CE0F390033ACFE /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */; };
 		F4A3645719FFC88D00EF4D96 /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A3645619FFC88D00EF4D96 /* CheckInViewController.m */; };
-		F4A3645B19FFE7BD00EF4D96 /* GameCenterTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A3645A19FFE7BD00EF4D96 /* GameCenterTableView.m */; };
 		F4D4750C19DE855E008EB7E5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D4750B19DE855E008EB7E5 /* AdSupport.framework */; };
 		F4D4751219DE92F0008EB7E5 /* BTController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D4751119DE92F0008EB7E5 /* BTController.m */; };
 		F4EEB61D19D1745A0077BAC9 /* UIView+CloseKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EEB61C19D1745A0077BAC9 /* UIView+CloseKeyboard.m */; };
@@ -106,8 +105,6 @@
 		F48EFE0119CE0F390033ACFE /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
 		F4A3645519FFC88D00EF4D96 /* CheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInViewController.h; sourceTree = "<group>"; };
 		F4A3645619FFC88D00EF4D96 /* CheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInViewController.m; sourceTree = "<group>"; };
-		F4A3645919FFE7BD00EF4D96 /* GameCenterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterTableView.h; sourceTree = "<group>"; };
-		F4A3645A19FFE7BD00EF4D96 /* GameCenterTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterTableView.m; sourceTree = "<group>"; };
 		F4D4750B19DE855E008EB7E5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		F4D4751019DE92F0008EB7E5 /* BTController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTController.h; sourceTree = "<group>"; };
 		F4D4751119DE92F0008EB7E5 /* BTController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTController.m; sourceTree = "<group>"; };
@@ -354,18 +351,8 @@
 			children = (
 				F4A3645519FFC88D00EF4D96 /* CheckInViewController.h */,
 				F4A3645619FFC88D00EF4D96 /* CheckInViewController.m */,
-				F4A3645819FFE79500EF4D96 /* GameCenterTableView */,
 			);
 			name = CheckInViewController;
-			sourceTree = "<group>";
-		};
-		F4A3645819FFE79500EF4D96 /* GameCenterTableView */ = {
-			isa = PBXGroup;
-			children = (
-				F4A3645919FFE7BD00EF4D96 /* GameCenterTableView.h */,
-				F4A3645A19FFE7BD00EF4D96 /* GameCenterTableView.m */,
-			);
-			name = GameCenterTableView;
 			sourceTree = "<group>";
 		};
 		F4EEB61E19D1A4080077BAC9 /* Image */ = {
@@ -676,7 +663,6 @@
 				F4FFEC8A19C5D3BD00A48BDE /* MapViewController.m in Sources */,
 				F4539AE619D0959D0054EA75 /* LoginViewController.m in Sources */,
 				F4005FA119C9E72F00DA7702 /* UserListViewController.m in Sources */,
-				F4A3645B19FFE7BD00EF4D96 /* GameCenterTableView.m in Sources */,
 				F4539AE919D095E40054EA75 /* TextViewController.m in Sources */,
 				F4FFEC9719C6C6CC00A48BDE /* PFController.m in Sources */,
 				F4FFEC9119C6C33900A48BDE /* MarkerView.m in Sources */,

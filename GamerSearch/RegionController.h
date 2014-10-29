@@ -12,6 +12,7 @@
 @interface RegionController : NSObject
 
 @property (nonatomic) NSArray *gameCenters;
+@property (nonatomic) NSMutableSet *nearRegions;
 @property (nonatomic) CLLocationManager *manager;
 
 + (instancetype)sharedInstance;

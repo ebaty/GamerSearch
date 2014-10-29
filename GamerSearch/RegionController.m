@@ -35,6 +35,8 @@ static RegionController *instance = nil;
         _manager = [CLLocationManager new];
         _manager.delegate = self;
         [_manager startUpdatingLocation];
+        
+        _nearRegions = [NSMutableSet new];
     }
     return self;
 }
@@ -56,6 +58,29 @@ static RegionController *instance = nil;
     
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"distance"  ascending:YES];
     self.monitoringGameCenters = [sortedGameCenters sortedArrayUsingDescriptors:@[descriptor]];
+}
+
+- (void)setMonitoringGameCenters:(NSArray *)monitoringGameCenters {
+    _monitoringGameCenters = monitoringGameCenters;
+    int count = (int)monitoringGameCenters.count;
+    if ( count > 20 ) count = 20;
+    
+    for ( CLRegion *region in _manager.monitoredRegions ) {
+        [_manager stopMonitoringForRegion:region];
+    }
+    
+    for ( int i = 0; i < count; ++i ) {
+        NSDictionary *gameCenter = monitoringGameCenters[i];
+        
+        CLLocationCoordinate2D coordinate =
+            CLLocationCoordinate2DMake([gameCenter[@"latitude"] doubleValue], [gameCenter[@"longitude"] doubleValue]);
+        
+        CLCircularRegion *region =
+            [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
+        
+        [_manager startMonitoringForRegion:region];
+        [_manager requestStateForRegion:region];
+    }
 }
 
 - (void)checkAllGameCenterDistance:(CLLocation *)nowLocation {
@@ -105,13 +130,11 @@ static RegionController *instance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-    NSArray *stateArray = @[@"CLRegionStateUnknown",
-                            @"CLRegionStateInside",
-                            @"CLRegionStateOutside"];
-    
-    CLCircularRegion *r = (CLCircularRegion *)region;
-    CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:r.center.latitude longitude:r.center.longitude];
-    DDLogVerbose(@"%@:%@, %lf", region.identifier, stateArray[state], [manager.location distanceFromLocation:regionLocation]);
+   if ( state == CLRegionStateInside ) {
+        [_nearRegions addObject:region];
+    }else {
+        [_nearRegions removeObject:region];
+    }
 }
 
 #pragma mark 領域観測
