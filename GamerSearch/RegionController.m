@@ -119,10 +119,9 @@ static RegionController *instance = nil;
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
+        [manager stopUpdatingLocation];
+        [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:5 * 60];
     }
-    
-    [manager stopUpdatingLocation];
-    [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:5 * 60];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -130,11 +129,13 @@ static RegionController *instance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-   if ( state == CLRegionStateInside ) {
+    if ( state == CLRegionStateInside ) {
         [_nearRegions addObject:region];
     }else {
         [_nearRegions removeObject:region];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReloadCheckInViewController object:self];
 }
 
 #pragma mark 領域観測
@@ -152,7 +153,7 @@ static RegionController *instance = nil;
             DDLogVerbose(@"%@:%@, distance == %lf",
                          NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
             
-            NSString *message = [region.identifier stringByAppendingString:@" に来ました"];
+            NSString *message = [region.identifier stringByAppendingString:@"の近くに来ました"];
             
             NSDictionary *userInfo =
             @{
@@ -178,7 +179,7 @@ static RegionController *instance = nil;
             
             DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
             
-            NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
+            NSString *message = [region.identifier stringByAppendingString:@"から離れました"];
             
             NSDictionary *userInfo =
             @{
@@ -196,7 +197,7 @@ static RegionController *instance = nil;
 - (void)sendLocalNotification:(NSString *)message userInfo:(NSDictionary *)userInfo{
     [kApplication cancelAllLocalNotifications];
     
-    NSTimeInterval interval = 10;
+    NSTimeInterval interval = 5;
     if ( kApplication.applicationState != UIApplicationStateActive )
         interval = 1 * 60;
 

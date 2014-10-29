@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #define kPrevGameCenter @"PrevGameCenter"
+#define kReloadCheckInViewController @"ReloadCheckInViewController"
 
 @interface RegionController : NSObject
 
@@ -16,5 +17,8 @@
 @property (nonatomic) CLLocationManager *manager;
 
 + (instancetype)sharedInstance;
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region;
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region;
 
 @end
