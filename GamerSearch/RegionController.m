@@ -9,24 +9,34 @@
 #import "RegionController.h"
 #import "BTController.h"
 
-#define kRegionRadius 5.0f
 #define kApplication [UIApplication sharedApplication]
+#define kRegionRadius 5.0f
 
 @interface RegionController () <CLLocationManagerDelegate>
 
-@property (nonatomic) CLLocationManager *manager;
 @property (nonatomic) NSArray *monitoringGameCenters;
 
 @end
 
 @implementation RegionController
 
+static RegionController *instance = nil;
+
++ (instancetype)sharedInstance {
+    if ( !instance ) {
+        instance = [RegionController new];
+    }
+    return instance;
+}
+
 - (id)init {
     self = [super init];
     if ( self ) {
-        _manager = [[CLLocationManager alloc] init];
+        _manager = [CLLocationManager new];
         _manager.delegate = self;
         [_manager startUpdatingLocation];
+        
+        _nearRegions = [NSMutableSet new];
     }
     return self;
 }
@@ -69,11 +79,8 @@
             [[CLCircularRegion alloc] initWithCenter:coordinate radius:kRegionRadius identifier:gameCenter[@"name"]];
         
         [_manager startMonitoringForRegion:region];
-#ifdef DEBUG
         [_manager requestStateForRegion:region];
-#endif
     }
-    
 }
 
 - (void)checkAllGameCenterDistance:(CLLocation *)nowLocation {
@@ -112,10 +119,9 @@
     
     if ( _gameCenters ) {
         [self setGameCenters:_gameCenters location:nowLocation];
+        [manager stopUpdatingLocation];
+        [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:5 * 60];
     }
-    
-    [manager stopUpdatingLocation];
-    [manager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:5 * 60];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -123,13 +129,13 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-    NSArray *stateArray = @[@"CLRegionStateUnknown",
-                            @"CLRegionStateInside",
-                            @"CLRegionStateOutside"];
+    if ( state == CLRegionStateInside ) {
+        [_nearRegions addObject:region];
+    }else {
+        [_nearRegions removeObject:region];
+    }
     
-    CLCircularRegion *r = (CLCircularRegion *)region;
-    CLLocation *regionLocation = [[CLLocation alloc] initWithLatitude:r.center.latitude longitude:r.center.longitude];
-    DDLogVerbose(@"%@:%@, %lf", region.identifier, stateArray[state], [manager.location distanceFromLocation:regionLocation]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReloadCheckInViewController object:self];
 }
 
 #pragma mark 領域観測
@@ -147,7 +153,7 @@
             DDLogVerbose(@"%@:%@, distance == %lf",
                          NSStringFromSelector(_cmd), region, [manager.location distanceFromLocation:regionLocation]);
             
-            NSString *message = [region.identifier stringByAppendingString:@" に来ました"];
+            NSString *message = [region.identifier stringByAppendingString:@"の近くに来ました"];
             
             NSDictionary *userInfo =
             @{
@@ -173,7 +179,7 @@
             
             DDLogVerbose(@"%@:%@", NSStringFromSelector(_cmd), region);
             
-            NSString *message = [region.identifier stringByAppendingString:@" を出ました"];
+            NSString *message = [region.identifier stringByAppendingString:@"から離れました"];
             
             NSDictionary *userInfo =
             @{
@@ -191,7 +197,7 @@
 - (void)sendLocalNotification:(NSString *)message userInfo:(NSDictionary *)userInfo{
     [kApplication cancelAllLocalNotifications];
     
-    NSTimeInterval interval = 10;
+    NSTimeInterval interval = 5;
     if ( kApplication.applicationState != UIApplicationStateActive )
         interval = 1 * 60;
 

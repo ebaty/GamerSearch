@@ -17,8 +17,6 @@
 
 @interface AppDelegate () <UIAlertViewDelegate>
 
-@property (nonatomic) RegionController *regController;
-
 @end
 
 @implementation AppDelegate
@@ -97,8 +95,7 @@
 
 - (void)reloadMonitoringTarget {
     DDLogVerbose(@"%@", NSStringFromSelector(_cmd));
-    _regController = [RegionController new];
-    _regController.gameCenters = [USER_DEFAULTS arrayForKey:kGameCenterArraykey];
+    [RegionController sharedInstance].gameCenters = [USER_DEFAULTS arrayForKey:kGameCenterArraykey];
 }
 
 - (void)callCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -142,6 +139,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     NSDictionary *userInfo = notification.userInfo;
     NSString *gameCenter = userInfo[@"gameCenter"];
     
+    void (^refresh)(void) = ^{
+        [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if ( !error ) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kReloadCheckInViewController object:self];
+            }else {
+                DDLogError(@"%@", error);
+            }
+        }];
+    };
+    
     if ( [userInfo[@"state"] isEqualToString:@"EnterRegion"] ) {
         UIAlertView *alertView = [UIAlertView new];
         alertView.delegate = self;
@@ -153,7 +160,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
         [alertView bk_addButtonWithTitle:@"チェックイン" handler:^{
             [PFCloud callFunctionInBackground:@"check_in" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
                 if ( !error ) {
-                    [[PFUser currentUser] refresh];
+                    refresh();
                 }else {
                     DDLogError(@"%@", error);
                 }
@@ -163,13 +170,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
         [alertView show];
     }
     if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
-        [PFCloud callFunctionInBackground:@"check_out" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
-            if ( !error ) {
-                [[PFUser currentUser] refresh];
-            }else {
-                DDLogError(@"%@", error);
-            }
-        }];
+        refresh();
     }
 }
 

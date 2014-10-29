@@ -9,6 +9,7 @@ Parse.Cloud.define("check_in", function(request, response) {
 
 	user.set("gameCenter", gameCenter);
   user.set("checkInAt", new Date());
+	user.set("checked_in", true);
 
 	user.save(null, {
 		success: function() {
@@ -55,6 +56,7 @@ Parse.Cloud.define("check_out", function(request, response) {
 		response.error( user.gameCenter + "!= " + gameCenter);
 	}else {
 		user.set("gameCenter", gameCenter + "を出ました");
+		user.set("checked_in", false);
 		user.set("checkInAt", new Date());
 
 		user.save(null, {
