@@ -37,6 +37,8 @@ static RegionController *instance = nil;
         [_manager startUpdatingLocation];
         
         _nearRegions = [NSMutableSet new];
+        
+        instance = self;
     }
     return self;
 }
@@ -80,7 +82,14 @@ static RegionController *instance = nil;
         
         [_manager startMonitoringForRegion:region];
         [_manager requestStateForRegion:region];
+        
+        double distance = [gameCenter[@"distance"] doubleValue];
+        if ( distance < 100.0f ) {
+            [_nearRegions addObject:region];
+        }
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReloadCheckInViewController object:self];
 }
 
 - (void)checkAllGameCenterDistance:(CLLocation *)nowLocation {
@@ -135,6 +144,7 @@ static RegionController *instance = nil;
         [_nearRegions removeObject:region];
     }
     
+    DDLogVerbose(@"%@, %d", region, (int)state);
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadCheckInViewController object:self];
 }
 
@@ -174,6 +184,7 @@ static RegionController *instance = nil;
             NSString *prev = [USER_DEFAULTS stringForKey:kPrevGameCenter];
             if ( prev == region.identifier ) {
                 [kApplication cancelAllLocalNotifications];
+                DDLogVerbose(@"equal prev identifier");
                 return;
             }
             

@@ -139,7 +139,8 @@
 }
 
 - (BOOL)didTapMyLocationButtonForMapView:(GMSMapView *)mapView {
-    _mapView.camera = [GMSCameraPosition cameraWithTarget:_mapView.myLocation.coordinate zoom:13.0];
+    _mapView.camera = [GMSCameraPosition cameraWithTarget:_mapView.myLocation.coordinate zoom:_mapView.camera.zoom];
+    [_mapView animateToZoom:13.0];
 
     return YES;
 }

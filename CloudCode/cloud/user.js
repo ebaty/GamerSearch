@@ -2,6 +2,10 @@ Parse.Cloud.define("gamecenter_user", function(request, response) {
 	var user = request.user;
 	var block = user.relation("blockUsers");
 
+	if ( !block ) {
+		block = new Parse.Relation();
+	}
+
 	block.query().find({
 		success: function(blockUsers) {
 			var idArray = new Array();

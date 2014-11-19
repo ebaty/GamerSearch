@@ -136,6 +136,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     [USER_DEFAULTS setObject:@"" forKey:kPrevGameCenter];
     [USER_DEFAULTS synchronize];
     
+    DDLogVerbose(@"%@, %@", NSStringFromSelector(_cmd), notification.userInfo);
+    
     NSDictionary *userInfo = notification.userInfo;
     NSString *gameCenter = userInfo[@"gameCenter"];
     
@@ -170,7 +172,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
         [alertView show];
     }
     if ( [userInfo[@"state"] isEqualToString:@"ExitRegion"] ) {
-        refresh();
+        [PFCloud callFunctionInBackground:@"check_out" withParameters:@{@"gameCenter":gameCenter} block:^(id object, NSError *error) {
+            if ( !error ) {
+                refresh();
+            }else {
+                DDLogError(@"%@", error);
+            }
+        }];
     }
 }
 
