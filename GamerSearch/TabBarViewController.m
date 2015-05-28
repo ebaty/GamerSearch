@@ -49,11 +49,7 @@
         vc.tabBarItem = [[UITabBarItem alloc] initWithTitle:tabTitle[i] image:iconImage tag:i];
     }
     
-#ifdef DEBUG
     _showAdBanner = NO;
-#else
-    _showAdBanner = YES;
-#endif
 
     if ( _showAdBanner ) {
         // 広告の挿入枠を確保

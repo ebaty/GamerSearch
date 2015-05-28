@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ims-ZR-Eq7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ims-ZR-Eq7">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--Tab Bar View Controller-->
@@ -26,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="-41" y="490"/>
         </scene>
-        <!--Navigation Controller - マップ-->
+        <!--マップ-->
         <scene sceneID="NuV-B9-Ffr">
             <objects>
                 <navigationController definesPresentationContext="YES" id="1Lu-af-0ER" sceneMemberID="viewController">
@@ -42,7 +43,7 @@
             </objects>
             <point key="canvasLocation" x="709" y="-456"/>
         </scene>
-        <!--Map View Controller - マップ-->
+        <!--マップ-->
         <scene sceneID="JHy-OI-Tvx">
             <objects>
                 <viewController id="zx6-C1-q0Q" customClass="MapViewController" sceneMemberID="viewController">
@@ -86,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="1141" y="-456"/>
         </scene>
-        <!--Check In View Controller - チェックイン-->
+        <!--チェックイン-->
         <scene sceneID="T7r-Pp-vYh">
             <objects>
                 <tableViewController id="E7S-gh-oTo" customClass="CheckInViewController" sceneMemberID="viewController">
@@ -106,7 +107,7 @@
             </objects>
             <point key="canvasLocation" x="1141" y="208"/>
         </scene>
-        <!--Navigation Controller - チェックイン-->
+        <!--チェックイン-->
         <scene sceneID="EYI-Gl-uSm">
             <objects>
                 <navigationController definesPresentationContext="YES" id="53g-01-7Tu" sceneMemberID="viewController">
@@ -122,7 +123,7 @@
             </objects>
             <point key="canvasLocation" x="709" y="208"/>
         </scene>
-        <!--User List View Controller - ゲームセンター名-->
+        <!--ゲームセンター名-->
         <scene sceneID="JpH-DD-PDg">
             <objects>
                 <viewController id="WL6-PX-U6g" customClass="UserListViewController" sceneMemberID="viewController">
@@ -178,7 +179,7 @@
             </objects>
             <point key="canvasLocation" x="1558" y="-456"/>
         </scene>
-        <!--User Detail View Controller - ユーザー詳細-->
+        <!--ユーザー詳細-->
         <scene sceneID="1bM-nC-gKU">
             <objects>
                 <viewController id="fVb-2y-yjk" customClass="UserDetailViewController" sceneMemberID="viewController">
@@ -404,7 +405,7 @@
             </objects>
             <point key="canvasLocation" x="2111" y="898"/>
         </scene>
-        <!--Navigation Controller - プロフィール-->
+        <!--プロフィール-->
         <scene sceneID="FZy-0Y-uQx">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Dsq-0t-mUk" sceneMemberID="viewController">
@@ -420,7 +421,7 @@
             </objects>
             <point key="canvasLocation" x="709" y="1562"/>
         </scene>
-        <!--Profile Table View Controller - プロフィール-->
+        <!--プロフィール-->
         <scene sceneID="C9f-r0-RVX">
             <objects>
                 <tableViewController id="SYP-8i-lZy" customClass="ProfileTableViewController" sceneMemberID="viewController">
@@ -688,7 +689,7 @@
             </objects>
             <point key="canvasLocation" x="1141" y="1562"/>
         </scene>
-        <!--Navigation Controller - フォローリスト-->
+        <!--フォローリスト-->
         <scene sceneID="SD4-74-SAV">
             <objects>
                 <navigationController definesPresentationContext="YES" id="fOm-pe-ESz" sceneMemberID="viewController">
@@ -704,7 +705,7 @@
             </objects>
             <point key="canvasLocation" x="709" y="898"/>
         </scene>
-        <!--Follow List View Controller - フォローリスト-->
+        <!--フォローリスト-->
         <scene sceneID="dDS-fB-YVm">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="BWE-HZ-Rx5" customClass="FollowListViewController" sceneMemberID="viewController">
@@ -743,7 +744,7 @@
             </objects>
             <point key="canvasLocation" x="1141" y="898"/>
         </scene>
-        <!--Navigation Controller - 設定-->
+        <!--設定-->
         <scene sceneID="eoy-Et-Sox">
             <objects>
                 <navigationController definesPresentationContext="YES" id="uJN-8W-KdA" sceneMemberID="viewController">
@@ -759,7 +760,7 @@
             </objects>
             <point key="canvasLocation" x="709" y="2612"/>
         </scene>
-        <!--Setting Table View Controller - 設定-->
+        <!--設定-->
         <scene sceneID="zQA-0u-QCl">
             <objects>
                 <tableViewController id="1sV-0i-aFG" customClass="SettingTableViewController" sceneMemberID="viewController">
@@ -934,7 +935,7 @@
             </objects>
             <point key="canvasLocation" x="1587" y="2612"/>
         </scene>
-        <!--Feedback View Controller - フィードバック-->
+        <!--フィードバック-->
         <scene sceneID="EIX-Vs-RdY">
             <objects>
                 <viewController id="Mh1-RF-Lhv" customClass="FeedbackViewController" sceneMemberID="viewController">
@@ -1021,7 +1022,6 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aex-dM-EQw">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="6bB-Pl-lXT" id="A1D-gD-Aec"/>

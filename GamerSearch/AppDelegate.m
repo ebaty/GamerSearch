@@ -43,20 +43,7 @@
 #ifdef DEBUG
     // CocoaLumberjackの設定
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
-    
-    NSString *logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Logs/"];
-    DDLogFileManagerDefault *logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
-    // ファイルにログを出力
-    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-    // 1日に1回ログファイルを更新
-    // fileLogger.rollingFrequency =   60 * 60 * 24;
-    // 10秒に1回ログファイルを更新
-    fileLogger.rollingFrequency =   10;
-    // ログファイルを残す数
-    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
-    // Xcodeのコンソールにログを出力
-    [DDLog addLogger:fileLogger];
-    
+
     // LumberjackConsoleの設定
     [[PTEDashboard sharedDashboard] show];
 #endif
@@ -64,7 +51,7 @@
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self validateAccount];
-    
+
     return YES;
 }
 

@@ -17,7 +17,9 @@
 
     #import <BlocksKit+UIKit.h>
     #import <SVProgressHUD.h>
-    #import <CocoaLumberjack.h>
+
+    #import <DDLog.h>
+    #import <DDTTYLogger.h>
 
     #import "PFController.h"
     #import "UIView+Indicator.h"
