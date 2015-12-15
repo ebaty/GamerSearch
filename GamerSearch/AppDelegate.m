@@ -24,21 +24,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Parseの初期設定
-    [Parse setApplicationId:@"X10PAkGYt5ciyoQLTbETqAP7y4mryJhvV3I8gHxX"
-                  clientKey:@"oW2ovnBosQDTlpoSlFhtVTTqLFWf3DC3zoGb6top"];
+    /* [Parse setApplicationId:@"X10PAkGYt5ciyoQLTbETqAP7y4mryJhvV3I8gHxX" */
+    /*               clientKey:@"oW2ovnBosQDTlpoSlFhtVTTqLFWf3DC3zoGb6top"]; */
 
     PFACL *defaultACL = [PFACL ACL];
     [defaultACL setPublicReadAccess:YES];
     [defaultACL setPublicWriteAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
-    [PFTwitterUtils initializeWithConsumerKey:@"NIO5ybtx2SJcs3KnMt5KXxP1R"
-                               consumerSecret:@"fZpgW164mladR8EDbnV2aoyx3P2cebnrTRDVefWfODTZxQxnF5"];
+    /* [PFTwitterUtils initializeWithConsumerKey:@"NIO5ybtx2SJcs3KnMt5KXxP1R" */
+    /*                            consumerSecret:@"fZpgW164mladR8EDbnV2aoyx3P2cebnrTRDVefWfODTZxQxnF5"]; */
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // GoogleMapsSDKの設定
-    [GMSServices provideAPIKey:@"AIzaSyDgD8tx7qi2nO-63xOCapi5gsbCI-XHHFE"];
+    /* [GMSServices provideAPIKey:@"AIzaSyDgD8tx7qi2nO-63xOCapi5gsbCI-XHHFE"]; */
 
 #ifdef DEBUG
     // CocoaLumberjackの設定
